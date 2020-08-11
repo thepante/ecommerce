@@ -18,7 +18,7 @@ const checkInputs = () => {
 const removeWarning = () => {
   loginInputs.forEach( input => {
     if (input.value != '') {
-      input.style.background = 'none';
+      input.style.background = 'white';
     }
   });
 }
