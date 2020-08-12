@@ -44,5 +44,11 @@ var getJSONData = function(url){
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function(e){
-  document.getElementById('goTop').addEventListener('click', () => window.scroll({top:0}));
+
+  // Si hay botón 'Volver arriba' agregarle funcionamiento
+  const goTopButton = document.getElementById('goTop');
+  if (goTopButton){
+    goTopButton.addEventListener('click', () => window.scroll({top:0}));
+  }
+
 });
