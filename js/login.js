@@ -11,7 +11,7 @@ const checkInputs = () => {
   });
 
   if (filledForm) {
-    window.location = 'index.html';
+    window.location = 'home.html';
   }
 }
 
