@@ -1,5 +1,7 @@
 let loginInputs = [];
 
+const accessHome = () => window.location = 'home.html';
+
 const checkInputs = () => {
   let filledForm = true;
 
@@ -11,7 +13,7 @@ const checkInputs = () => {
   });
 
   if (filledForm) {
-    window.location = 'home.html';
+    accessHome();
   }
 }
 
@@ -21,6 +23,11 @@ const removeWarning = () => {
       input.style.background = 'white';
     }
   });
+}
+
+// Si inicia con cuenta de Google
+function onSignIn(googleUser) {
+  accessHome();
 }
 
 document.addEventListener("DOMContentLoaded", function(e){

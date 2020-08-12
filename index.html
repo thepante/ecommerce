@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
+    <meta name="google-signin-client_id" content="237223642859-0aae43oe3cv08pc70e8ceq817mkihjpt.apps.googleusercontent.com">
     <title>eMercado - Todo lo que busques está aquí</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
@@ -24,11 +25,16 @@
         <button type="submit" id="submitButton" class="btn btn-lg btn-primary btn-block">Entrar</button>
         <p class="mt-5 mb-3 text-muted"></p>
       </div>
+      <div id="login-oauth" class="container">
+        <p>O mediante Google</p>
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+      </div>
     </div>
   </main>
   <script src="js/jquery-3.4.1.min.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/init.js"></script>
   <script src="js/login.js"></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
 </body>
 </html>
