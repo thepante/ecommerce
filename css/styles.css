@@ -1,3 +1,11 @@
+html {
+  scroll-behavior: smooth;
+}
+
+#goTop:hover {
+  cursor: pointer;
+}
+
 .jumbotron, .card-body, .container, .site-header{
     font-family: 'Raleway', serif !important;
 }
