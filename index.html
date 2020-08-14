@@ -20,8 +20,14 @@
       <div id="loginForm" class="form-signin">
         <img class="mb-4" src="img/login.png" alt="" width="auto" height="auto" style="margin-left: -15px;">
         <h2 class="text-center p-4">Iniciar sesión</h2>
-        <input type="text" id="inputUser" class="form-control" placeholder="Usuario" required>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required>
+        <div class="form-label-group">
+          <input type="text" id="inputUser" class="form-control" placeholder="Usuario" required>
+          <label for="inputUser">Usuario</label>
+        </div>
+        <div class="form-label-group">
+          <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required>
+          <label for="inputPassword">Contraseña</label>
+        </div>
         <button type="submit" id="submitButton" class="btn btn-lg btn-primary btn-block">Entrar</button>
         <p class="mt-5 mb-3 text-muted"></p>
       </div>
