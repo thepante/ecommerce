@@ -7,6 +7,8 @@ const PRODUCT_INFO_COMMENTS_URL = "https://japdevdep.github.io/ecommerce-api/pro
 const CART_INFO_URL = "https://japdevdep.github.io/ecommerce-api/cart/987.json";
 const CART_BUY_URL = "https://japdevdep.github.io/ecommerce-api/cart/buy.json";
 
+const userData = (localStorage.getItem("Logged-User")) ? JSON.parse(localStorage.getItem("Logged-User")) : undefined;
+
 var showSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "block";
 }
@@ -40,6 +42,17 @@ var getJSONData = function(url){
     });
 }
 
+// Muestra el nombre del usuario y la imagen de perfil
+const showUserMenu = () => {
+  const navBar = document.querySelector("body > nav > div");
+  navBar.innerHTML += `
+    <a class="py-2 d-none d-md-inline-block" href="${(userData) ? "#" : "index.html"}" id="userMenu">
+      <img src="${userData.picture}" />
+      ${(userData) ? userData.username : "Login"}
+    </a>
+  `;
+}
+
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
@@ -50,5 +63,7 @@ document.addEventListener("DOMContentLoaded", function(e){
   if (goTopButton){
     goTopButton.addEventListener('click', () => window.scroll({top:0}));
   }
+
+  showUserMenu();
 
 });

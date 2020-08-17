@@ -23,6 +23,14 @@ html {
   margin: 0 auto;
 }
 
+#userMenu img {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  margin-right: 5px;
+  margin-top: -1px;
+}
+
 .jumbotron, .card-body, .container, .site-header{
     font-family: 'Raleway', serif !important;
 }

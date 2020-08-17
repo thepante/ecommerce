@@ -13,6 +13,11 @@ const checkInputs = () => {
   });
 
   if (filledForm) {
+    const data = {
+      username: loginInputs[0].value,
+      picture: './img/user.png'
+    };
+    localStorage.setItem('Logged-User', JSON.stringify(data));
     accessHome();
   }
 }
@@ -27,6 +32,12 @@ const removeWarning = () => {
 
 // Si inicia con cuenta de Google
 function onSignIn(googleUser) {
+  const profile = googleUser.getBasicProfile();
+  const data = {
+    username: profile.getName(), 
+    picture: profile.getImageUrl()
+  };
+  localStorage.setItem('Logged-User', JSON.stringify(data));
   accessHome();
 }
 
