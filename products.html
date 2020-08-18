@@ -27,14 +27,17 @@
         <div class="row">
           <div class="col text-right">
               <div class="btn-group btn-group-toggle mb-4" data-toggle="buttons">
-                  <label class="btn btn-light active" id="sortAsc" >
-                      <input type="radio" name="options" autocomplete="off" checked>A-Z
+                  <label class="btn btn-light" id="clearSort" title="Quitar orden" style="display: none;">
+                    <input type="radio" name="options" autocomplete="off"><i class="fas fa-times-circle"></i>
                   </label>
-                  <label class="btn btn-light" id="sortDesc" >
-                      <input type="radio" name="options" autocomplete="off">Z-A
+                  <label class="btn btn-light" id="sortAsc" title="Ordenar de menor a mayor precio">
+                      <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-numeric-down"></i>
+                  </label>
+                  <label class="btn btn-light" id="sortDesc" title="Ordenar de mayor a menor precio">
+                      <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-numeric-down-alt"></i>
                   </label>
                   <label class="btn btn-light" id="sortByCount" >
-                      <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-amount-down mr-1"></i>Cant.
+                      <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-amount-down mr-1"></i>Relevancia
                   </label>
               </div>
             </div>

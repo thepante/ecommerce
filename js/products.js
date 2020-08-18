@@ -1,4 +1,5 @@
 var productsArray = [];
+let sortedArray;
 
 let minPrice = 0;
 let maxPrice = Infinity;
@@ -31,6 +32,26 @@ function showProductsList(array){
 
     // Lo agrego al finalizar el loop para no tener que hacerlo repetitivamente en cada iteración
     document.getElementById("products-list-container").innerHTML = htmlContentToAppend;
+}
+
+const sortList = (criteria) => {
+  document.getElementById("clearSort").style.display = "inline-block";
+
+  // clono el array original para trabajar con uno aparte y no alterar el orden inicial
+  // así el usuario puede quitar la preferencia de orden y que se muestre como lo hacía originalmente
+  sortedArray = productsArray.slice(0);
+
+  if (criteria === "ASC") {
+    sortedArray = sortedArray.sort((a, b) => a.cost - b.cost);
+  } else if (criteria === "DESC") {
+    sortedArray = sortedArray.sort((a, b) => b.cost - a.cost);
+  } else if (criteria === "SOLD") {
+    sortedArray = sortedArray.sort((a, b) => b.soldCount - a.soldCount);
+  }
+
+  // console.log("SORT", criteria);
+  // sortedArray.forEach(e => console.log(e.cost, e.soldCount));
+  showProductsList(sortedArray);
 }
 
 //Función que se ejecuta una vez que se haya lanzado el evento de
@@ -71,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function(e){
       // Tomar max
       maxPrice = (parseInt(rangeMax)) ? parseInt(rangeMax) : Infinity;
 
-      showProductsList(productsArray);
+      showProductsList((sortedArray) ? sortedArray : productsArray);
     });
 
     // Limpiar el filtrado
@@ -82,6 +103,19 @@ document.addEventListener("DOMContentLoaded", function(e){
       document.getElementById("rangePriceMin").value = null;
       document.getElementById("rangePriceMax").value = null;
 
+      showProductsList((sortedArray) ? sortedArray : productsArray);
+    });
+
+    // Orden del listado
+    document.getElementById("sortAsc").addEventListener("click", () => sortList("ASC"));
+    document.getElementById("sortDesc").addEventListener("click", () => sortList("DESC"));
+    document.getElementById("sortByCount").addEventListener("click", () => sortList("SOLD"));
+
+    // Quita el orden del listado
+    document.getElementById("clearSort").addEventListener("click", () => {
+      document.getElementById("clearSort").style.display = "none";
+
       showProductsList(productsArray);
+      sortedArray = undefined;
     });
 });
