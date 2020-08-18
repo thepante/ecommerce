@@ -45,6 +45,8 @@ var getJSONData = function(url){
 // Muestra el nombre del usuario y la imagen de perfil
 const showUserMenu = () => {
   const navBar = document.querySelector("body > nav > div");
+  if (!navBar) return;
+
   navBar.innerHTML += `
     <a class="py-2 d-none d-md-inline-block" href="${(userData) ? "#" : "index.html"}" id="userMenu">
       <img src="${(userData) ? userData.picture : './img/user.png'}" />
