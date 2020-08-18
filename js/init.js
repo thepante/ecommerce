@@ -47,7 +47,7 @@ const showUserMenu = () => {
   const navBar = document.querySelector("body > nav > div");
   navBar.innerHTML += `
     <a class="py-2 d-none d-md-inline-block" href="${(userData) ? "#" : "index.html"}" id="userMenu">
-      <img src="${userData.picture}" />
+      <img src="${(userData) ? userData.picture : './img/user.png'}" />
       ${(userData) ? userData.username : "Login"}
     </a>
   `;
