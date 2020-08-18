@@ -42,18 +42,80 @@ var getJSONData = function(url){
     });
 }
 
-// Muestra el nombre del usuario y la imagen de perfil
-const showUserMenu = () => {
-  const navBar = document.querySelector("body > nav > div");
-  if (!navBar) return;
 
-  navBar.innerHTML += `
-    <a class="py-2 d-none d-md-inline-block" href="${(userData) ? "#" : "index.html"}" id="userMenu">
-      <img src="${(userData) ? userData.picture : './img/user.png'}" />
-      ${(userData) ? userData.username : "Login"}
-    </a>
+// Muestra la barra de navegación
+// Aplica en todas las páginas excepto en el index (que es el login)
+const showNavBar = async () => {
+
+  if (document.title.includes('Login')) return;
+
+  const navLinks = {
+    Inicio: "home.html",
+    Categorías: "categories.html",
+    Productos: "products.html",
+    Vender: "sell.html",
+    Carrito: "cart.html" 
+  };
+
+  // La sección del usuario varía en si está logueado o no
+  const userMenuHtml = () => {
+    if (userData) {
+      return `
+        <a class="nav-link dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown" aria-expanded="false">
+          <img src="${userData.picture}" />
+          ${userData.username}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="userMenu">
+          <a class="dropdown-item" href="#">Mi cuenta</a>
+          <a class="dropdown-item" href="#">Historial</a>
+          <a class="dropdown-item" href="#">Cerrar sesión</a>
+        </div>
+      `;
+    } else {
+      return `
+        <a class="nav-link" href="index.html" id="userMenu" aria-expanded="false">
+          Ingresar
+        </a>
+      `;
+    }
+  }
+
+  // Estructura de la barra de navegación
+  document.querySelector('body > nav').innerHTML += `
+    <div class="container">
+      <a class="navbar-brand" href="home.html">eMERCADO</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navBar" aria-controls="navBar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navBar">
+        <ul class="navbar-nav mr-auto w-100 justify-content-center">
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            ${userMenuHtml()}
+          </li>
+        </ul>
+      </div>
+    </div>
   `;
+
+  // Agrego los links
+  const navList = document.querySelector('#navBar > ul');
+
+  for (const [page, link] of Object.entries(navLinks)) {
+    const isThisPage = document.baseURI.includes('/' + link);
+    const newLink = `
+      <li class="nav-item ${(isThisPage) ? 'active' : ''}">
+        <a class="nav-link" href="${link}">${page}</a>
+      </li>
+    `;
+    navList.innerHTML += newLink;
+  };
 }
+
+// La agrego sin importar si ya cargó todo o no
+showNavBar();
 
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
@@ -65,7 +127,5 @@ document.addEventListener("DOMContentLoaded", function(e){
   if (goTopButton){
     goTopButton.addEventListener('click', () => window.scroll({top:0}));
   }
-
-  showUserMenu();
 
 });
