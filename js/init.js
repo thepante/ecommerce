@@ -66,7 +66,7 @@ const showNavBar = async () => {
           ${userData.username}
         </a>
         <div class="dropdown-menu" aria-labelledby="userMenu">
-          <a class="dropdown-item" href="#">Mi cuenta</a>
+          <a class="dropdown-item" href="my-profile.html">Mi cuenta</a>
           <a class="dropdown-item" href="#">Historial</a>
           <a class="dropdown-item" href="#">Cerrar sesión</a>
         </div>
