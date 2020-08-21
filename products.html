@@ -43,26 +43,30 @@
             </div>
           </div>
           <div class="row justify-content-end">
-            <div class="col-md-6"></div>
-              <div class="col-md-6 col-sm-12 mb-1 container">
-                <div class="row container p-0 m-0">
-                  <div class="col">
-                    <p class="font-weight-normal text-right my-2">Precio</p>
-                  </div>
-                  <div class="col">
-                    <input class="form-control" type="number" min="0" placeholder="min." id="rangePriceMin" oninput="validity.valid||(value='');">
-                  </div>
-                  <div class="col">
-                    <input class="form-control" type="number" min="0" placeholder="máx." id="rangePriceMax" oninput="validity.valid||(value='');">
-                  </div>
-                  <div class="col-3 p-0">
-                    <div class="btn-group" role="group">
-                      <button class="btn btn-light btn-block" id="rangeFilter">Filtrar</button>
-                      <button class="btn btn-link btn-sm" id="clearFilter">Limpiar</button>
-                    </div>
+            <div class="col-md-6 mb-1 form-inline d-flex md-form form-sm mt-0">
+              <i class="fas fa-search" aria-hidden="true"></i>
+              <input id="searchInput" class="form-control form-control-sm ml-3" type="text" placeholder="Buscar..." aria-label="Buscar...">
+              <i id="clearSearch" class="fas fa-times-circle" aria-hidden="true" style="display: none; margin-left: -20px;"></i>
+            </div>
+            <div class="col-md-6 col-sm-12 mb-1 container">
+              <div class="row container p-0 m-0">
+                <div class="col">
+                  <p class="font-weight-normal text-right my-2">Precio</p>
+                </div>
+                <div class="col">
+                  <input class="form-control" type="number" min="0" placeholder="min." id="rangePriceMin" oninput="validity.valid||(value='');">
+                </div>
+                <div class="col">
+                  <input class="form-control" type="number" min="0" placeholder="máx." id="rangePriceMax" oninput="validity.valid||(value='');">
+                </div>
+                <div class="col-3 p-0">
+                  <div class="btn-group" role="group">
+                    <button class="btn btn-light btn-block" id="rangeFilter">Filtrar</button>
+                    <button class="btn btn-link btn-sm" id="clearFilter">Limpiar</button>
                   </div>
                 </div>
-             </div>
+              </div>
+            </div>
           </div>
           <div class="row" id="products-list-container">
           </div>

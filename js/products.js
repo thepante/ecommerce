@@ -1,37 +1,59 @@
 var productsArray = [];
 let sortedArray;
 
+let searchQuery;
 let minPrice = 0;
 let maxPrice = Infinity;
 
 function showProductsList(array){
-    let htmlContentToAppend = "";
-    
-    for (let i = 0, l = array.length; i < l; i++) {
-      let product = array[i];
+  let htmlContentToAppend = "";
+  
+  for (let i = 0, l = array.length; i < l; i++) {
+    let product = array[i];
 
-      if ((product.cost >= minPrice) && (product.cost <= maxPrice)) {
-        htmlContentToAppend += `
-        <div class="list-group-item list-group-item-action">
-            <div class="row">
-                <div class="col-3">
-                    <img src="${product.imgSrc}" alt="${product.name}" class="img-thumbnail">
-                </div>
-                <div class="col">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h4 class="mb-1"><span class="badge badge-secondary">${product.currency} ${product.cost}</span> <strong>${product.name}</strong></h4>
-                        <small class="text-muted">${product.soldCount} vendidos</small>
-                    </div>
-                    <p>${product.description}</p>
-                </div>
-            </div>
-        </div>
-        `;
+    if ((product.cost >= minPrice) && (product.cost <= maxPrice)) {
+
+      // Si el usuario está filtrando con texto, reviso que el producto coincida con la búsqueda
+      if (searchQuery) {
+        let nameAndDesc = product.name + ' ' + product.description;
+        let indexOfTerm = nameAndDesc.toLowerCase().indexOf(searchQuery);
+        if (indexOfTerm == -1) continue;
       }
-    };
 
-    // Lo agrego al finalizar el loop para no tener que hacerlo repetitivamente en cada iteración
-    document.getElementById("products-list-container").innerHTML = htmlContentToAppend;
+      htmlContentToAppend += `
+      <div class="list-group-item list-group-item-action">
+          <div class="row">
+              <div class="col-3">
+                  <img src="${product.imgSrc}" alt="${product.name}" class="img-thumbnail">
+              </div>
+              <div class="col">
+                  <div class="d-flex w-100 justify-content-between">
+                      <h4 class="mb-1"><span class="badge badge-secondary">${product.currency} ${product.cost}</span> <strong>${product.name}</strong></h4>
+                      <small class="text-muted">${product.soldCount} vendidos</small>
+                  </div>
+                  <p>${product.description}</p>
+              </div>
+          </div>
+      </div>
+      `;
+    }
+  };
+
+  // Si no hay resultados, muestro un aviso de que no se encontraron productos
+  if (htmlContentToAppend.length < 1) {
+    htmlContentToAppend += `
+      <div class="alert alert-warning alert-dismissible fade show" role="alert" style="position: relative; top: 30px;">
+        <strong>Sin resultados</strong>
+        <br>
+        No se econtraron productos que cumplan con esa búsqueda.
+        <button type="button" class="close" onclick="clearInputs()" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    `;
+  }
+
+  document.getElementById("products-list-container").innerHTML = htmlContentToAppend;
 }
 
 const sortList = (criteria) => {
@@ -52,6 +74,21 @@ const sortList = (criteria) => {
   // console.log("SORT", criteria);
   // sortedArray.forEach(e => console.log(e.cost, e.soldCount));
   showProductsList(sortedArray);
+}
+
+const clearInputs = () => {
+  if (searchQuery) {
+    searchQuery = undefined;
+    document.getElementById("searchInput").value = null;
+    document.getElementById("clearSearch").style.display = "none";
+  }
+  if (minPrice != 0 || maxPrice != Infinity) {
+    minPrice = 0;
+    maxPrice = Infinity;
+    document.getElementById("rangePriceMin").value = null;
+    document.getElementById("rangePriceMax").value = null;
+  }
+  showProductsList((sortedArray) ? sortedArray : productsArray);
 }
 
 //Función que se ejecuta una vez que se haya lanzado el evento de
@@ -117,5 +154,28 @@ document.addEventListener("DOMContentLoaded", function(e){
 
       showProductsList(productsArray);
       sortedArray = undefined;
+    });
+
+    // Barra de filtrado por texto (búsqueda)
+    document.getElementById("searchInput").addEventListener("keyup", (e) => {
+      const clearSearch = document.getElementById("clearSearch");
+      const query = e.target.value.toLowerCase().replace(/\s+/g,' ').trim();
+      
+      if (query.length > 0)  {
+        searchQuery = query;
+        clearSearch.style.display = "inline-block";
+      } else {
+        searchQuery = undefined;
+        clearSearch.style.display = "none";
+      }
+      
+      showProductsList((sortedArray) ? sortedArray : productsArray);
+      
+      clearSearch.addEventListener("click", () => {
+        searchQuery = undefined;
+        clearSearch.style.display = "none";
+        document.getElementById("searchInput").value = null;
+        showProductsList((sortedArray) ? sortedArray : productsArray);
+      });
     });
 });
