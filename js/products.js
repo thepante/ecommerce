@@ -5,7 +5,8 @@ let searchQuery;
 let minPrice = 0;
 let maxPrice = Infinity;
 
-function showProductsList(array){
+function showProductsList(){
+  let array = (sortedArray) ? sortedArray : productsArray;
   let htmlContentToAppend = "";
   
   for (let i = 0, l = array.length; i < l; i++) {
@@ -71,9 +72,8 @@ const sortList = (criteria) => {
     sortedArray = sortedArray.sort((a, b) => b.soldCount - a.soldCount);
   }
 
-  // console.log("SORT", criteria);
   // sortedArray.forEach(e => console.log(e.cost, e.soldCount));
-  showProductsList(sortedArray);
+  showProductsList();
 }
 
 const clearInputs = () => {
@@ -88,7 +88,7 @@ const clearInputs = () => {
     document.getElementById("rangePriceMin").value = null;
     document.getElementById("rangePriceMax").value = null;
   }
-  showProductsList((sortedArray) ? sortedArray : productsArray);
+  showProductsList();
 }
 
 //Función que se ejecuta una vez que se haya lanzado el evento de
@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function(e){
     getJSONData(PRODUCTS_URL).then(function(resultObj){
         if (resultObj.status === "ok") {
             productsArray = resultObj.data;
-            showProductsList(productsArray);
+            showProductsList();
         }
     });
 
@@ -123,13 +123,11 @@ document.addEventListener("DOMContentLoaded", function(e){
         return;
       }
 
-      // Tomar min
+      // Tomar min y max correspondientes
       minPrice = (parseInt(rangeMin)) ? parseInt(rangeMin) : 0;
-
-      // Tomar max
       maxPrice = (parseInt(rangeMax)) ? parseInt(rangeMax) : Infinity;
 
-      showProductsList((sortedArray) ? sortedArray : productsArray);
+      showProductsList();
     });
 
     // Limpiar el filtrado
@@ -140,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function(e){
       document.getElementById("rangePriceMin").value = null;
       document.getElementById("rangePriceMax").value = null;
 
-      showProductsList((sortedArray) ? sortedArray : productsArray);
+      showProductsList();
     });
 
     // Orden del listado
@@ -152,8 +150,8 @@ document.addEventListener("DOMContentLoaded", function(e){
     document.getElementById("clearSort").addEventListener("click", () => {
       document.getElementById("clearSort").style.display = "none";
 
-      showProductsList(productsArray);
       sortedArray = undefined;
+      showProductsList();
     });
 
     // Barra de filtrado por texto (búsqueda)
@@ -169,13 +167,13 @@ document.addEventListener("DOMContentLoaded", function(e){
         clearSearch.style.display = "none";
       }
       
-      showProductsList((sortedArray) ? sortedArray : productsArray);
+      showProductsList();
       
       clearSearch.addEventListener("click", () => {
         searchQuery = undefined;
         clearSearch.style.display = "none";
         document.getElementById("searchInput").value = null;
-        showProductsList((sortedArray) ? sortedArray : productsArray);
+        showProductsList();
       });
     });
 });
