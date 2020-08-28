@@ -6,7 +6,7 @@ const checkInputs = () => {
   let filledForm = true;
 
   loginInputs.forEach( input => {
-    if (input.value === '') {
+    if (input.value.replace(/\s+/g,' ').trim() === '') {
       filledForm = false;
       input.style.background = '#e6c2c2';
     }
