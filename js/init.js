@@ -49,36 +49,25 @@ const showNavBar = async () => {
 
   if (document.title.includes('Login')) return;
 
-  const navLinks = {
-    Inicio: "home.html",
-    Categorías: "categories.html",
-    Productos: "products.html",
-    Vender: "sell.html",
-    Carrito: "cart.html" 
-  };
-
-  // La sección del usuario varía en si está logueado o no
-  const userMenuHtml = () => {
-    if (userData) {
-      return `
-        <a class="nav-link dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown" aria-expanded="false">
-          <img src="${userData.picture}" />
-          ${userData.username}
-        </a>
-        <div class="dropdown-menu" aria-labelledby="userMenu">
-          <a class="dropdown-item" href="my-profile.html">Mi cuenta</a>
-          <a class="dropdown-item" href="#">Historial</a>
-          <a class="dropdown-item" href="#">Cerrar sesión</a>
-        </div>
-      `;
-    } else {
-      return `
-        <a class="nav-link" href="index.html" id="userMenu" aria-expanded="false">
-          Ingresar
-        </a>
-      `;
-    }
-  }
+  // Declaro la sección del usuario, varía en si está logueado o no
+  const userMenuHtml = (userData) ?
+    `
+      <a class="nav-link dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown" aria-expanded="false">
+        <img src="${userData.picture}" />
+        ${userData.username}
+      </a>
+      <div class="dropdown-menu" aria-labelledby="userMenu">
+        <a class="dropdown-item" href="my-profile.html">Mi cuenta</a>
+        <a class="dropdown-item" href="#">Historial</a>
+        <a class="dropdown-item" href="#">Cerrar sesión</a>
+      </div>
+    `
+    :
+      `
+      <a class="nav-link" href="index.html" id="userMenu" aria-expanded="false">
+        Ingresar
+      </a>
+    `;
 
   // Estructura de la barra de navegación
   document.querySelector('body > nav').innerHTML += `
@@ -93,12 +82,20 @@ const showNavBar = async () => {
         </ul>
         <ul class="navbar-nav">
           <li class="nav-item dropdown">
-            ${userMenuHtml()}
+            ${userMenuHtml}
           </li>
         </ul>
       </div>
     </div>
   `;
+
+  const navLinks = {
+    Inicio: "home.html",
+    Categorías: "categories.html",
+    Productos: "products.html",
+    Vender: "sell.html",
+    Carrito: "cart.html" 
+  };
 
   // Agrego los links
   const navList = document.querySelector('#navBar > ul');
@@ -114,7 +111,8 @@ const showNavBar = async () => {
   };
 }
 
-// La agrego sin importar si ya cargó todo o no
+// La agrego sin importar si ya cargó todo lo demás o no
+// Al llamar el init quiere decir que ya tengo el nav presente
 showNavBar();
 
 //Función que se ejecuta una vez que se haya lanzado el evento de
