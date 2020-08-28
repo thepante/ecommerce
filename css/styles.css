@@ -31,6 +31,10 @@ html {
   margin-top: -1px;
 }
 
+nav .dropdown-menu {
+  box-shadow: 0 0 16px #0000001a;
+}
+
 .jumbotron, .card-body, .container, .site-header{
     font-family: 'Raleway', serif !important;
 }
