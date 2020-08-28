@@ -46,7 +46,7 @@ function showProductsList(){
       <div class="alert alert-warning alert-dismissible fade show" role="alert" style="position: relative; top: 30px;">
         <strong>Sin resultados</strong>
         <br>
-        No se econtraron productos que cumplan con esa búsqueda.
+        No se econtraron productos que cumplan con ese criterio.
         <button type="button" class="close" onclick="clearInputs()" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
