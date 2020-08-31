@@ -61,6 +61,15 @@ nav .dropdown-menu {
     padding-top: 6rem;
     padding-bottom: 6rem;
   }
+
+  .row {
+    position: relative;
+  }
+
+  .bottom-align-text {
+    position: absolute;
+    bottom: 0;
+  }
 }
 
 .jumbotron p:last-child {
@@ -299,4 +308,15 @@ a.custom-card:hover {
   .form-label-group input::-ms-input-placeholder {
     color: #777;
   }
+}
+
+/* Products list -> product info link */
+a.product-link {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }

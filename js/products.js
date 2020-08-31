@@ -8,7 +8,7 @@ let maxPrice = Infinity;
 function showProductsList(){
   let array = (sortedArray) ? sortedArray : productsArray;
   let htmlContentToAppend = "";
-  
+
   for (let i = 0, l = array.length; i < l; i++) {
     let product = array[i];
 
@@ -34,6 +34,7 @@ function showProductsList(){
                   </div>
                   <p>${product.description}</p>
               </div>
+              <a href="product-info.html" class="product-link"></a>
           </div>
       </div>
       `;
@@ -158,7 +159,7 @@ document.addEventListener("DOMContentLoaded", function(e){
     document.getElementById("searchInput").addEventListener("keyup", (e) => {
       const clearSearch = document.getElementById("clearSearch");
       const query = e.target.value.toLowerCase().replace(/\s+/g,' ').trim();
-      
+
       if (query.length > 0)  {
         searchQuery = query;
         clearSearch.style.display = "inline-block";
@@ -166,9 +167,9 @@ document.addEventListener("DOMContentLoaded", function(e){
         searchQuery = undefined;
         clearSearch.style.display = "none";
       }
-      
+
       showProductsList();
-      
+
       clearSearch.addEventListener("click", () => {
         searchQuery = undefined;
         clearSearch.style.display = "none";
