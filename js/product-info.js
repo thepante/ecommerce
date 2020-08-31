@@ -1,4 +1,5 @@
 let product = {};
+let commentsArray = [];
 
 function showProductInfo() {
 
@@ -69,6 +70,48 @@ function showProductInfo() {
 
 }
 
+function showComments() {
+
+  function ratingHtml(rating) {
+    let html = "";
+    for (let i = 0; i < 5; i++) {
+      html += `<li><i class="fas fa-star ${(i < rating) ? 'blue-text' : ''}"></i></li>`;
+    }
+    return html;
+  }
+
+  let commentsList = document.getElementById("comments");
+  for (let c in commentsArray) {
+    // commentsNode.innerHTML += `<p>${commentsArray[c].user}</p>`
+    let comment = commentsArray[c];
+    let ogDate = comment.dateTime.split(' ')[0];
+    console.log(ogDate)
+    let date = ogDate.slice(8, 10) +'/'+ ogDate.slice(5, 7) +'/'+ ogDate.slice(0, 4);
+    let singleComment = `
+      <div class="row mb-5">
+        <div class="col-sm-1 col-12 mb-3">
+          <img src="${(comment.avatar) ? comment.avatar : 'img/user.png'}" class="avatar rounded-circle">
+        </div>
+
+        <div class="col-sm-10 col-12">
+          <h5 class="user-name font-weight-bold">${comment.user}</h5>
+          <ul class="rating">
+            ${ratingHtml(comment.score)}
+          </ul>
+          <p class="dark-grey-text article">${comment.description}</p>
+
+          <div class="card-data comment-date font-small grey-text">
+            <span title="${comment.dateTime}">${date}</span>
+          </div>
+        </div>
+      </div>
+    `;
+
+    commentsList.innerHTML += singleComment;
+
+  }
+}
+
 document.addEventListener("DOMContentLoaded", function(e){
   getJSONData(PRODUCT_INFO_URL).then(function(resultObj){
     if (resultObj.status === "ok") {
@@ -77,4 +120,10 @@ document.addEventListener("DOMContentLoaded", function(e){
     }
   });
 
+  getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function(resultObj){
+    if (resultObj.status === "ok") {
+      commentsArray = resultObj.data;
+      showComments();
+    }
+  });
 });
