@@ -23,6 +23,19 @@ html {
   margin: 0 auto;
 }
 
+nav {
+  box-shadow: 0 0 8px #0000004a;
+}
+
+nav li a {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.navbar-light .navbar-nav .active > .nav-link {
+  border-bottom: 2px solid silver;
+}
+
 #userMenu img {
   width: 22px;
   height: 22px;
