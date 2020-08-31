@@ -54,7 +54,10 @@ const showNavBar = async () => {
     `
       <a class="nav-link dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown" aria-expanded="false">
         <img src="${userData.picture}" />
-        ${userData.username}
+        ${(userData.username.length > 28)
+          ? '<span title="'+userData.username+'">' + userData.username.slice(0, 25) + '...</span>'
+          : userData.username
+        }
       </a>
       <div class="dropdown-menu" aria-labelledby="userMenu">
         <a class="dropdown-item" href="my-profile.html">Mi cuenta</a>
@@ -94,7 +97,7 @@ const showNavBar = async () => {
     Categorías: "categories.html",
     Productos: "products.html",
     Vender: "sell.html",
-    Carrito: "cart.html" 
+    Carrito: "cart.html"
   };
 
   // Agrego los links
