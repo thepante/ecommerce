@@ -77,7 +77,8 @@ function showComments() {
     return html;
   }
 
-  let commentsList = document.getElementById("comments");
+  let commentsDiv = document.getElementById("comments");
+  let commentsList = '';
 
   // ordeno los comentarios por su fecha
   // commentsArray.sort((a, b) => a.dateTime.match(/(\d+)/g).join('') - b.dateTime.match(/(\d+)/g).join(''));
@@ -109,8 +110,10 @@ function showComments() {
       </div>
     `;
 
-    commentsList.innerHTML += singleComment;
+    commentsList += singleComment;
   }
+
+  commentsDiv.innerHTML = commentsList;
 }
 
 
@@ -124,11 +127,12 @@ function showWriteComment() {
         <div style="width: 100%;">
           <div class="panel panel-info">
             <div class="panel-body">
-              <textarea class="writec-textarea" placeholder="${userData.username}, calificá este producto!"></textarea>
+              <textarea class="writec-textarea" placeholder="${userData.username}, calificá este producto!" required></textarea>
               <div class="send-group">
                 <div class="btn-group">
                   <div id="rate-stars">
-                    <label><input type="radio" name="rating" value="1" autocomplete="off"><i class="fas fa-star"></i></label>
+                    <div id="rate-required">Puntaje requerido <span class="fas fa-arrow-right"></span></div>
+                    <label><input type="radio" name="rating" value="1" autocomplete="off" required><i class="fas fa-star"></i></label>
                     <label><input type="radio" name="rating" value="2" autocomplete="off"><i class="fas fa-star"></i></label>
                     <label><input type="radio" name="rating" value="3" autocomplete="off"><i class="fas fa-star"></i></label>
                     <label><input type="radio" name="rating" value="4" autocomplete="off"><i class="fas fa-star"></i></label>
@@ -149,7 +153,7 @@ function showWriteComment() {
       let stars = document.querySelectorAll('#rate-stars i');
       let userRate = e.srcElement.value;
 
-      if (userRate) console.log(userRate);
+      document.getElementById('rate-required').style.opacity = 0;
 
       // asegurar que las mayores al puntaje permatezcan grises (al cambiar de selección)
       stars.forEach((i) => i.style.color = '#8d8d8d');
@@ -160,6 +164,37 @@ function showWriteComment() {
       }
     });
 
+    // al clickear el botón de enviar comentario
+    document.getElementById('publish-comment').addEventListener('click', function(e){
+      let starChecked = document.querySelector('input[name="rating"]:checked');
+
+      const userComment = {
+        score: (starChecked) ? starChecked.value : null,
+        description: document.querySelector('#write-comment textarea').value,
+        user: userData.username,
+        dateTime: new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
+      }
+
+      // si tiene imagen de perfil, se la agrego
+      if (userData) userComment.avatar = userData.picture;
+
+      // si está lo necesario, lo agrego al array
+      if (userComment.score && userComment.description) {
+        commentsArray.push(userComment);
+        showComments();
+      }
+      // si no, muestro advertencias
+      else {
+        if (!userComment.description) {
+          let textarea = document.querySelector('#write-comment textarea');
+          textarea.classList.add('textarea-alert');
+          textarea.addEventListener('keyup', () => textarea.classList.remove('textarea-alert'))
+        }
+        if (!userComment.score) {
+          document.getElementById('rate-required').style.opacity = 1;
+        }
+      }
+    });
   };
 
   // mostrar contenido dependiendo si inició sesión o no
