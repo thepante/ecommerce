@@ -6,7 +6,6 @@ function showProductInfo() {
   function imagesHtml() {
     let imgs = "";
     for (let img in product.images) {
-      // html += `<div class="item-gallery"> <img src="${product.images[img]}"> </div>`;
       imgs += `<div class="item-gallery" style="background-image: url(${product.images[img]});"></div>`;
     }
     return imgs;
@@ -19,17 +18,15 @@ function showProductInfo() {
           <div class="img-big-wrap">
             <div id="preview-img" style="background-image: url(${product.images[0]});"></div>
           </div>
-
           <div class="img-small-wrap" id="thumbnails">
             ${imagesHtml()}
           </div>
-
         </article>
       </aside>
+
       <aside class="col-sm-6">
         <article class="card-body p-5">
           <h3 class="title mb-3">${product.name}</h3>
-
           <p class="price-detail-wrap">
             <span class="price h4">
               <span class="currency badge badge-light">${product.currency} ${product.cost}</span>
@@ -81,12 +78,17 @@ function showComments() {
   }
 
   let commentsList = document.getElementById("comments");
+
+  // ordeno los comentarios por su fecha
+  // commentsArray.sort((a, b) => a.dateTime.match(/(\d+)/g).join('') - b.dateTime.match(/(\d+)/g).join(''));
+
   for (let c in commentsArray) {
-    // commentsNode.innerHTML += `<p>${commentsArray[c].user}</p>`
     let comment = commentsArray[c];
+
+    // cambio el formato de la fecha para que se visualice como dd/mm/aaaa
     let ogDate = comment.dateTime.split(' ')[0];
-    console.log(ogDate)
     let date = ogDate.slice(8, 10) +'/'+ ogDate.slice(5, 7) +'/'+ ogDate.slice(0, 4);
+
     let singleComment = `
       <div class="row mb-5">
         <div class="col-sm-1 col-12 mb-3">
@@ -108,8 +110,69 @@ function showComments() {
     `;
 
     commentsList.innerHTML += singleComment;
-
   }
+}
+
+
+function showWriteComment() {
+  let writeCommentBox = document.getElementById('write-comment');
+
+  function showWriteBox() {
+    writeCommentBox.innerHTML = `
+      <h5>Agregá el tuyo</h5>
+      <div class="row">
+        <div style="width: 100%;">
+          <div class="panel panel-info">
+            <div class="panel-body">
+              <textarea class="writec-textarea" placeholder="${userData.username}, calificá este producto!"></textarea>
+              <div class="send-group">
+                <div class="btn-group">
+                  <div id="rate-stars">
+                    <label><input type="radio" name="rating" value="1" autocomplete="off"><i class="fas fa-star"></i></label>
+                    <label><input type="radio" name="rating" value="2" autocomplete="off"><i class="fas fa-star"></i></label>
+                    <label><input type="radio" name="rating" value="3" autocomplete="off"><i class="fas fa-star"></i></label>
+                    <label><input type="radio" name="rating" value="4" autocomplete="off"><i class="fas fa-star"></i></label>
+                    <label><input type="radio" name="rating" value="5" autocomplete="off"><i class="fas fa-star"></i></label>
+                  </div>
+                </div>
+                <button class="btn btn-primary" type="button" id="publish-comment">Publicar comentario</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+    `;
+
+    // cuando seleccione una estrella, pintar las que correspondan al puntaje
+    document.getElementById('rate-stars').addEventListener('click', function(e) {
+      let stars = document.querySelectorAll('#rate-stars i');
+      let userRate = e.srcElement.value;
+
+      if (userRate) console.log(userRate);
+
+      // asegurar que las mayores al puntaje permatezcan grises (al cambiar de selección)
+      stars.forEach((i) => i.style.color = '#8d8d8d');
+
+      // pongo color a las que sean menos o igual al puntaje seleccionado
+      for (let s in stars) {
+        if (s < userRate) stars[s].style.color = '#2196f3';
+      }
+    });
+
+  };
+
+  // mostrar contenido dependiendo si inició sesión o no
+  if (userData) {
+    showWriteBox();
+  } else {
+    writeCommentBox.innerHTML = `
+      <div class="alert-light">
+        <a href="index.html" class="alert-link">Inicia sesión</a> para dejar el tuyo.
+      </div>
+    `;
+  }
+
 }
 
 document.addEventListener("DOMContentLoaded", function(e){
@@ -126,4 +189,6 @@ document.addEventListener("DOMContentLoaded", function(e){
       showComments();
     }
   });
+
+  showWriteComment();
 });
