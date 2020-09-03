@@ -346,6 +346,14 @@ a.product-link {
   border-radius: 4px;
 }
 
+#thumbnails .selected:before {
+  content: "";
+  background: #007bff;
+  display: block;
+  width: 100%;
+  height: 3px;
+}
+
 .gallery-wrap .img-small-wrap {
     text-align: center;
 }

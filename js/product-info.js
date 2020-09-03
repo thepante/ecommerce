@@ -6,7 +6,7 @@ function showProductInfo() {
   function imagesHtml() {
     let imgs = "";
     for (let img in product.images) {
-      imgs += `<div class="item-gallery" style="background-image: url(${product.images[img]});"></div>`;
+      imgs += `<div class="item-gallery ${(img == 0) ? 'selected' : ''}" style="background-image: url(${product.images[img]});"></div>`;
     }
     return imgs;
   }
@@ -59,10 +59,19 @@ function showProductInfo() {
   document.getElementById("product-info").innerHTML = htmlContent;
 
   // si se clickea una miniatura pongo esa img como src para la principal
-  document.getElementById("thumbnails").addEventListener("click", function(el) {
+  const thumbnails = document.getElementById("thumbnails");
+  thumbnails.addEventListener("click", function(el) {
     let clickedSrc = el.target.style.backgroundImage;
     let previewImg = document.getElementById("preview-img");
-    if (clickedSrc != "") previewImg.style.backgroundImage = clickedSrc;
+
+    if (clickedSrc != "") {
+      previewImg.style.backgroundImage = clickedSrc;
+      thumbnails.querySelectorAll('div').forEach(function(i){
+        (i.style.backgroundImage == previewImg.style.backgroundImage)
+          ? i.classList.add('selected')
+          : i.classList.remove('selected');
+      });
+    }
   });
 
 }
@@ -167,10 +176,11 @@ function showWriteComment() {
     // al clickear el botón de enviar comentario
     document.getElementById('publish-comment').addEventListener('click', function(e){
       let starChecked = document.querySelector('input[name="rating"]:checked');
+      let textarea = document.querySelector('#write-comment textarea');
 
       const userComment = {
         score: (starChecked) ? starChecked.value : null,
-        description: document.querySelector('#write-comment textarea').value,
+        description: textarea.value,
         user: userData.username,
         dateTime: new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
       }
@@ -186,7 +196,6 @@ function showWriteComment() {
       // si no, muestro advertencias
       else {
         if (!userComment.description) {
-          let textarea = document.querySelector('#write-comment textarea');
           textarea.classList.add('textarea-alert');
           textarea.addEventListener('keyup', () => textarea.classList.remove('textarea-alert'))
         }
