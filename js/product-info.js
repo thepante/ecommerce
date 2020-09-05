@@ -3,7 +3,7 @@ let commentsArray = [];
 
 function showProductInfo() {
 
-  function imagesHtml() {
+  function getThumbnailsHtml() {
     let imgs = "";
     for (let img in product.images) {
       imgs += `<div class="item-gallery ${(img == 0) ? 'selected' : ''}" style="background-image: url(${product.images[img]});"></div>`;
@@ -19,7 +19,7 @@ function showProductInfo() {
             <div id="preview-img" style="background-image: url(${product.images[0]});"></div>
           </div>
           <div class="img-small-wrap" id="thumbnails">
-            ${imagesHtml()}
+            ${getThumbnailsHtml()}
           </div>
         </article>
       </aside>
@@ -78,10 +78,10 @@ function showProductInfo() {
 
 function showComments() {
 
-  function ratingHtml(rating) {
+  function getScoreHtml(rated) {
     let html = "";
     for (let i = 0; i < 5; i++) {
-      html += `<li><i class="fas fa-star ${(i < rating) ? 'blue-text' : ''}"></i></li>`;
+      html += `<li><i class="fas fa-star ${(i < rated) ? 'blue-text' : ''}"></i></li>`;
     }
     return html;
   }
@@ -108,7 +108,7 @@ function showComments() {
         <div class="col-sm-10 col-12">
           <h5 class="user-name font-weight-bold">${comment.user}</h5>
           <ul class="rating">
-            ${ratingHtml(comment.score)}
+            ${getScoreHtml(comment.score)}
           </ul>
           <p class="dark-grey-text article">${comment.description}</p>
 
