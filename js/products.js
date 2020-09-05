@@ -1,4 +1,9 @@
-var productsArray = [];
+const rangeMin = document.getElementById("rangePriceMin");
+const rangeMax = document.getElementById("rangePriceMax");
+const clearSearch = document.getElementById("clearSearch");
+const searchInput = document.getElementById("searchInput");
+
+let productsArray = [];
 let sortedArray;
 
 let searchQuery;
@@ -60,73 +65,58 @@ function showProductsList(){
 
 const sortList = (criteria) => {
   document.getElementById("clearSort").style.display = "inline-block";
-
-  // clono el array original para trabajar con uno aparte y no alterar el orden inicial
-  // así el usuario puede quitar la preferencia de orden y que se muestre como lo hacía originalmente
   sortedArray = productsArray.slice(0);
 
-  if (criteria === "ASC") {
+  if (criteria === "sortAsc") {
     sortedArray = sortedArray.sort((a, b) => a.cost - b.cost);
-  } else if (criteria === "DESC") {
+  } else if (criteria === "sortDesc") {
     sortedArray = sortedArray.sort((a, b) => b.cost - a.cost);
-  } else if (criteria === "SOLD") {
+  } else if (criteria === "sortByCount") {
     sortedArray = sortedArray.sort((a, b) => b.soldCount - a.soldCount);
   }
 
-  // sortedArray.forEach(e => console.log(e.cost, e.soldCount));
   showProductsList();
 }
 
-const clearInputs = () => {
+function clearInputs() {
   if (searchQuery) {
     searchQuery = undefined;
-    document.getElementById("searchInput").value = null;
-    document.getElementById("clearSearch").style.display = "none";
+    searchInput.value = null;
+    clearSearch.style.display = "none";
   }
   if (minPrice != 0 || maxPrice != Infinity) {
     minPrice = 0;
     maxPrice = Infinity;
-    document.getElementById("rangePriceMin").value = null;
-    document.getElementById("rangePriceMax").value = null;
+    rangeMin.value = null;
+    rangeMax.value = null;
   }
   showProductsList();
 }
 
-//Función que se ejecuta una vez que se haya lanzado el evento de
-//que el documento se encuentra cargado, es decir, se encuentran todos los
-//elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function(e){
     getJSONData(PRODUCTS_URL).then(function(resultObj){
-        if (resultObj.status === "ok") {
-            productsArray = resultObj.data;
-            showProductsList();
-        }
+      if (resultObj.status === "ok") {
+        productsArray = resultObj.data;
+        showProductsList();
+      }
     });
 
-    // Filtrar resultados
+    // Filtrar resultado por precios
     document.getElementById("rangeFilter").addEventListener("click", () => {
-      let rangeMin = document.getElementById("rangePriceMin").value;
-      let rangeMax = document.getElementById("rangePriceMax").value;
-
-      // No aceptar que el min sea igual o mayor al max
-      if (parseInt(rangeMin) >= parseInt(rangeMax)) {
-        document.getElementById("rangePriceMin").value = null;
-        document.getElementById("rangePriceMax").value = null;
-        alert("El mínimo debe ser menor al máximo");
-        return;
+      if (parseInt(rangeMin.value) >= parseInt(rangeMax.value)) {
+        return alert("El mínimo debe ser menor al máximo");
       }
 
       // Doble check de no aceptar valores negativos (en el HTML se invalidó esta posibilidad)
-      if (((parseInt(rangeMin) || parseInt(rangeMax)) < 0)) {
-        document.getElementById("rangePriceMin").value = null;
-        document.getElementById("rangePriceMax").value = null;
+      if (((parseInt(rangeMin.value) || parseInt(rangeMax.value)) < 0)) {
+        rangeMin.value = null;
+        rangeMax.value = null;
         alert("No pueden ser negativos");
         return;
       }
 
-      // Tomar min y max correspondientes
-      minPrice = (parseInt(rangeMin)) ? parseInt(rangeMin) : 0;
-      maxPrice = (parseInt(rangeMax)) ? parseInt(rangeMax) : Infinity;
+      minPrice = (parseInt(rangeMin.value)) ? parseInt(rangeMin.value) : 0;
+      maxPrice = (parseInt(rangeMax.value)) ? parseInt(rangeMax.value) : Infinity;
 
       showProductsList();
     });
@@ -136,28 +126,25 @@ document.addEventListener("DOMContentLoaded", function(e){
       minPrice = 0;
       maxPrice = Infinity;
 
-      document.getElementById("rangePriceMin").value = null;
-      document.getElementById("rangePriceMax").value = null;
+      rangeMin.value = null;
+      rangeMax.value = null;
 
       showProductsList();
     });
 
-    // Orden del listado
-    document.getElementById("sortAsc").addEventListener("click", () => sortList("ASC"));
-    document.getElementById("sortDesc").addEventListener("click", () => sortList("DESC"));
-    document.getElementById("sortByCount").addEventListener("click", () => sortList("SOLD"));
+    // Opciones de ordenar el listado
+    const sortButtons = ['sortAsc', 'sortDesc', 'sortByCount'];
+    sortButtons.forEach(e => document.getElementById(e).addEventListener('click', () => sortList(e)));
 
     // Quita el orden del listado
-    document.getElementById("clearSort").addEventListener("click", () => {
-      document.getElementById("clearSort").style.display = "none";
-
+    document.getElementById("clearSort").addEventListener("click", function() {
+      this.style.display = "none";
       sortedArray = undefined;
       showProductsList();
     });
 
     // Barra de filtrado por texto (búsqueda)
-    document.getElementById("searchInput").addEventListener("keyup", (e) => {
-      const clearSearch = document.getElementById("clearSearch");
+    searchInput.addEventListener("keyup", function(e) {
       const query = e.target.value.toLowerCase().replace(/\s+/g,' ').trim();
 
       if (query.length > 0)  {
@@ -173,7 +160,7 @@ document.addEventListener("DOMContentLoaded", function(e){
       clearSearch.addEventListener("click", () => {
         searchQuery = undefined;
         clearSearch.style.display = "none";
-        document.getElementById("searchInput").value = null;
+        this.value = null;
         showProductsList();
       });
     });
