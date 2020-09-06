@@ -187,7 +187,7 @@ function showWriteComment() {
       const selected = e.srcElement.value;
 
       // asegurar que las mayores al puntaje permatezcan grises (al cambiar de elección)
-      stars.forEach((s) => cleanColor(s));
+      stars.forEach(cleanColor);
 
       // si es la misma entonces deseleccionar y cortar acá
       if (userRate && userRate == selected) return userRate = null;
