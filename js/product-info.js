@@ -140,7 +140,7 @@ function showWriteComment() {
               <div class="send-group">
                 <div class="btn-group">
                   <div id="rate-stars">
-                    <div id="rate-required">Puntaje requerido <span class="fas fa-arrow-right"></span></div>
+                    <div id="rate-required">Requerido <span class="fas fa-arrow-right"></span></div>
                     <label><input type="radio" name="rating" value="1" autocomplete="off" required><i class="fas fa-star"></i></label>
                     <label><input type="radio" name="rating" value="2" autocomplete="off"><i class="fas fa-star"></i></label>
                     <label><input type="radio" name="rating" value="3" autocomplete="off"><i class="fas fa-star"></i></label>
@@ -157,15 +157,43 @@ function showWriteComment() {
       <br>
     `;
 
+    const rateStars = document.getElementById('rate-stars');
+    const stars = document.querySelectorAll('#rate-stars i');
+    const cleanColor = (e) => e.style.color = '#8d8d8d';
+    let userRate = null;
+
+    // colorear estrellas al pasar el mouse - "previsualizar" elección
+    rateStars.addEventListener('mouseover', function(e) {
+      let over = e.srcElement.previousSibling.value;
+      if (!over) return; // <- asegura que continúe solo si es en base al elemento de una estrella
+
+      // asegurar que permatezcan grises las mayores a la estrella actual
+      stars.forEach((s, i) => { if (i > userRate-1) cleanColor(s) });
+
+      // pongo color a las necesarias mientras sean mayor al puntaje seleccionado
+      for (let s in stars) {
+        if (s > userRate-1 && s < over) stars[s].style.color = '#8baec9';
+      }
+    });
+
+    // limpiar coloreo del mouseover
+    rateStars.addEventListener('mouseout', function(e) {
+      stars.forEach((s, i) => { if (i > userRate-1) cleanColor(s) });
+    });
+
     // cuando seleccione una estrella, pintar las que correspondan al puntaje
-    document.getElementById('rate-stars').addEventListener('click', function(e) {
-      let stars = document.querySelectorAll('#rate-stars i');
-      let userRate = e.srcElement.value;
+    rateStars.addEventListener('click', function(e) {
+      if (e.srcElement.type != 'radio') return;
+      const selected = e.srcElement.value;
 
+      // asegurar que las mayores al puntaje permatezcan grises (al cambiar de elección)
+      stars.forEach((s) => cleanColor(s));
+
+      // si es la misma entonces deseleccionar y cortar acá
+      if (userRate && userRate == selected) return userRate = null;
+
+      userRate = selected;
       document.getElementById('rate-required').style.opacity = 0;
-
-      // asegurar que las mayores al puntaje permatezcan grises (al cambiar de selección)
-      stars.forEach((i) => i.style.color = '#8d8d8d');
 
       // pongo color a las que sean menos o igual al puntaje seleccionado
       for (let s in stars) {
@@ -179,7 +207,7 @@ function showWriteComment() {
       let textarea = document.querySelector('#write-comment textarea');
 
       const userComment = {
-        score: (starChecked) ? starChecked.value : null,
+        score: userRate,
         description: textarea.value,
         user: userData.username,
         dateTime: new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
