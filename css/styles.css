@@ -454,10 +454,10 @@ a.add-cart {
 #rate-required {
 	float: left;
   position: absolute;
-  left: -170px;
+  left: -110px;
   top: 0px;
 	padding: 0px 10px;
-	margin-top: 3px;
+	margin-top: 2px;
 	margin-right: 0px;
 	text-transform: uppercase;
 	font-size: 0.8rem;
