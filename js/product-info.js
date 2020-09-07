@@ -129,6 +129,17 @@ function showComments() {
 function showWriteComment() {
   let writeCommentBox = document.getElementById('write-comment');
 
+  // mostrar contenido dependiendo si inició sesión o no
+  if (userData) {
+    showWriteBox();
+  } else {
+    writeCommentBox.innerHTML = `
+      <div class="alert-light">
+        <a href="index.html" class="alert-link">Inicia sesión</a> para dejar el tuyo.
+      </div>
+    `;
+  }
+
   function showWriteBox() {
     writeCommentBox.innerHTML = `
       <h5>Agregá el tuyo</h5>
@@ -203,7 +214,6 @@ function showWriteComment() {
 
     // al clickear el botón de enviar comentario
     document.getElementById('publish-comment').addEventListener('click', function(e){
-      let starChecked = document.querySelector('input[name="rating"]:checked');
       let textarea = document.querySelector('#write-comment textarea');
 
       const userComment = {
@@ -233,17 +243,6 @@ function showWriteComment() {
       }
     });
   };
-
-  // mostrar contenido dependiendo si inició sesión o no
-  if (userData) {
-    showWriteBox();
-  } else {
-    writeCommentBox.innerHTML = `
-      <div class="alert-light">
-        <a href="index.html" class="alert-link">Inicia sesión</a> para dejar el tuyo.
-      </div>
-    `;
-  }
 
 }
 
