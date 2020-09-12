@@ -145,23 +145,19 @@ function showWriteComment() {
       <h5>Agregá el tuyo</h5>
       <div class="row">
         <div style="width: 100%;">
-          <div class="panel panel-info">
-            <div class="panel-body">
-              <textarea class="writec-textarea" placeholder="${userData.username}, calificá este producto!" required></textarea>
-              <div class="send-group">
-                <div class="btn-group">
-                  <div id="rate-stars">
-                    <div id="rate-required">Requerido <span class="fas fa-arrow-right"></span></div>
-                    <label><input type="radio" name="rating" value="1" autocomplete="off" required><i class="fas fa-star"></i></label>
-                    <label><input type="radio" name="rating" value="2" autocomplete="off"><i class="fas fa-star"></i></label>
-                    <label><input type="radio" name="rating" value="3" autocomplete="off"><i class="fas fa-star"></i></label>
-                    <label><input type="radio" name="rating" value="4" autocomplete="off"><i class="fas fa-star"></i></label>
-                    <label><input type="radio" name="rating" value="5" autocomplete="off"><i class="fas fa-star"></i></label>
-                  </div>
-                </div>
-                <button class="btn btn-primary" type="button" id="publish-comment">Publicar comentario</button>
+          <textarea class="writec-textarea" placeholder="${userData.username}, calificá este producto!" required></textarea>
+          <div class="send-group">
+            <div class="btn-group">
+              <div id="rate-stars" class="btn-group">
+                <div id="rate-required">Requerido <span class="fas fa-arrow-right"></span></div>
+                <label><input type="radio" name="rating" value="1" autocomplete="off" required><i class="fas fa-star"></i></label>
+                <label><input type="radio" name="rating" value="2" autocomplete="off"><i class="fas fa-star"></i></label>
+                <label><input type="radio" name="rating" value="3" autocomplete="off"><i class="fas fa-star"></i></label>
+                <label><input type="radio" name="rating" value="4" autocomplete="off"><i class="fas fa-star"></i></label>
+                <label><input type="radio" name="rating" value="5" autocomplete="off"><i class="fas fa-star"></i></label>
               </div>
             </div>
+            <button class="btn btn-primary" type="button" id="publish-comment">Publicar comentario</button>
           </div>
         </div>
       </div>
