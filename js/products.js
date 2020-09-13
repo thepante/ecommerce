@@ -11,8 +11,24 @@ let minPrice = 0;
 let maxPrice = Infinity;
 
 String.highlight = String.prototype.highlight = function(query) {
-  let pos = this.toLowerCase().indexOf(query.toLowerCase());
-  return pos == -1 ? this : this.substr(0, pos) + `<span class="highlight">${this.substr(pos, query.length)}</span>` + this.substr(pos + query.length);
+  let result = '';
+  let scan = true;
+  let from = 0;
+  let i = 0;
+
+  while (scan) {
+    let rest = this.substr(from);
+    i = rest.toLowerCase().indexOf(query.toLowerCase());
+
+    if (i == -1) {
+      result += rest;
+      scan = false;
+    } else {
+      result += rest.substr(0, i) + `<span class="highlight">${rest.substr(i, query.length)}</span>`;
+      from += i + query.length;
+    }
+  }
+  return result;
 };
 
 function renderText(content) { return (searchQuery) ? content.highlight(searchQuery) : content;}
