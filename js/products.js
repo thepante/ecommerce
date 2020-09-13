@@ -10,6 +10,13 @@ let searchQuery;
 let minPrice = 0;
 let maxPrice = Infinity;
 
+String.highlight = String.prototype.highlight = function(query) {
+  let pos = this.toLowerCase().indexOf(query.toLowerCase());
+  return pos == -1 ? this : this.substr(0, pos) + `<span class="highlight">${this.substr(pos, query.length)}</span>` + this.substr(pos + query.length);
+};
+
+function renderText(content) { return (searchQuery) ? content.highlight(searchQuery) : content;}
+
 function showProductsList(){
   let array = (sortedArray) ? sortedArray : productsArray;
   let htmlContentToAppend = "";
@@ -34,10 +41,10 @@ function showProductsList(){
               </div>
               <div class="col">
                   <div class="d-flex w-100 justify-content-between">
-                      <h4 class="mb-1"><span class="badge badge-secondary">${product.currency} ${product.cost}</span> <strong>${product.name}</strong></h4>
+                      <h4 class="mb-1"><span class="badge badge-secondary">${product.currency} ${product.cost}</span> <strong>${renderText(product.name)}</strong></h4>
                       <small class="text-muted">${product.soldCount} vendidos</small>
                   </div>
-                  <p>${product.description}</p>
+                  <p>${renderText(product.description)}</p>
               </div>
               <a href="product-info.html" class="product-link"></a>
           </div>
