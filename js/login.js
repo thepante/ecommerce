@@ -34,11 +34,13 @@ const removeWarning = () => {
 function onSignIn(googleUser) {
   const profile = googleUser.getBasicProfile();
   const data = {
-    username: profile.getName(), 
-    picture: profile.getImageUrl()
+    username: profile.getName(),
+    email: profile.getEmail(),
+    picture: profile.getImageUrl(),
+    viagoogle: true,
   };
   localStorage.setItem('Logged-User', JSON.stringify(data));
-  accessHome();
+  if (!requestedLogout) accessHome();
 }
 
 document.addEventListener("DOMContentLoaded", function(e){
@@ -46,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function(e){
     document.getElementById('inputUser'),
     document.getElementById('inputPassword')
   ];
-  
+
   // Revisa los inputs si se clickea en 'Entrar' o si se pulsa la tecla 'Enter'
   document.getElementById("submitButton").addEventListener('click', checkInputs);
   document.getElementById("loginForm").addEventListener('keydown', (e) => {

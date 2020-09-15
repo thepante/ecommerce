@@ -60,9 +60,10 @@ const showNavBar = async () => {
         }
       </a>
       <div class="dropdown-menu" aria-labelledby="userMenu">
-        <a class="dropdown-item" href="my-profile.html">Mi cuenta</a>
-        <a class="dropdown-item" href="#">Historial</a>
-        <a class="dropdown-item" href="#">Cerrar sesión</a>
+      <a class="dropdown-item" href="cart.html">Ver Carrito</a>
+        <a class="dropdown-item" href="my-profile.html">Ver mi perfil</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="./?logout">Cerrar sesión</a>
       </div>
     `
     :
@@ -97,7 +98,6 @@ const showNavBar = async () => {
     Categorías: "categories.html",
     Productos: "products.html",
     Vender: "sell.html",
-    Carrito: "cart.html"
   };
 
   // Agrego los links
