@@ -13,24 +13,28 @@
       const URLparams = new URLSearchParams(window.location.search);
       let requestedLogout = URLparams.get('logout') != null;
 
-      // si solo está logueado: redirigir
-      if (userLogged && !requestedLogout) window.location = './home.html';
-
-      // si se llegó con el parámetro logout
-      if (userLogged && requestedLogout) {
-        window.history.replaceState({}, document.title, './');
-        localStorage.removeItem(userInfoKey);
-
-        if (requestedLogout && !userLogged.viagoogle) requestedLogout = false;
+      // si está logueado
+      if (userLogged) {
+        // si no era por deslogueo: redirigir
+        if (!requestedLogout) {
+          window.location = './home.html';
+        }
+        // de lo contrario, era con el parámetro logout
+        else {
+          localStorage.removeItem(userInfoKey);
+          if (!userLogged.viagoogle) requestedLogout = false;
+        }
       }
+
+      window.history.replaceState({}, document.title, './');
 
       // revisar si el usuario se deslogueó: asegurarse de cerrar la instancia de google
       function takeAction() {
         if (userLogged && userLogged.viagoogle && requestedLogout) {
           gapi.load('auth2', function(){
             gapi.auth2.init().then(function(){
+              localStorage.removeItem(userInfoKey);
               gapi.auth2.getAuthInstance().signOut().then(function(){
-                localStorage.removeItem(userInfoKey);
                 requestedLogout = false;
               });
             });
