@@ -33,9 +33,10 @@
         if (userLogged && userLogged.viagoogle && requestedLogout) {
           gapi.load('auth2', function(){
             gapi.auth2.init().then(function(){
-              localStorage.removeItem(userInfoKey);
               gapi.auth2.getAuthInstance().signOut().then(function(){
+                localStorage.removeItem(userInfoKey);
                 requestedLogout = false;
+                document.getElementById('spinner-wrapper').remove();
               });
             });
           });
@@ -71,6 +72,13 @@
         </div>
       </div>
     </main>
+    <script>
+      if (userLogged && userLogged.viagoogle) {
+        document.body.innerHTML += `
+          <div id="spinner-wrapper"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>
+        `;
+      }
+    </script>
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/init.js"></script>
