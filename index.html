@@ -36,7 +36,7 @@
               gapi.auth2.getAuthInstance().signOut().then(function(){
                 localStorage.removeItem(userInfoKey);
                 requestedLogout = false;
-                document.getElementById('spinner-wrapper').remove();
+                document.getElementById('logout-spinner-wrapper').remove();
               });
             });
           });
@@ -75,7 +75,7 @@
     <script>
       if (userLogged && userLogged.viagoogle) {
         document.body.innerHTML += `
-          <div id="spinner-wrapper"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>
+          <div id="logout-spinner-wrapper"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>
         `;
       }
     </script>

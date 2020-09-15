@@ -498,7 +498,7 @@ a.add-cart {
 }
 
 /* Logout spinner */
-#spinner-wrapper {
+#logout-spinner-wrapper {
   background: #fff;
   top: 0;
   left: 0;
