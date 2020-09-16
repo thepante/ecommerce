@@ -276,7 +276,7 @@ document.addEventListener("DOMContentLoaded", function(e){
   }).then(function(){
     getJSONData(PRODUCTS_URL).then(function(resultObj){
       if (resultObj.status === "ok") {
-        relatedProducts = resultObj.data.filter((e, i) => product.relatedProducts.indexOf(i) != -1);
+        product.relatedProducts.forEach(e => relatedProducts.push(resultObj.data[e]));
         showRelatedProducts();
       }
     });
