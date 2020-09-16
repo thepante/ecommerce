@@ -63,7 +63,7 @@ const showNavBar = async () => {
       <a class="dropdown-item" href="cart.html">Ver Carrito</a>
         <a class="dropdown-item" href="my-profile.html">Ver mi perfil</a>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="./?logout">Cerrar sesión</a>
+        <a class="dropdown-item" href="./index.html?logout">Cerrar sesión</a>
       </div>
     `
     :
