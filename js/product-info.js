@@ -1,5 +1,6 @@
 let product = {};
 let commentsArray = [];
+let relatedProducts = [];
 
 function showProductInfo() {
 
@@ -242,12 +243,43 @@ function showWriteComment() {
 
 }
 
+function showRelatedProducts() {
+  const relProductsDiv = document.getElementById('related-products');
+  let htmlRelProducts = '';
+
+  relatedProducts.forEach(product => {
+    htmlRelProducts += `
+    <div class="card m-2">
+      <div class="no-gutters">
+        <a href="./product-info.html" class="stretched-link"></a>
+        <img class="rel-thumbnail" src="./${product.imgSrc}" />
+        <div class="description">${product.description}</div>
+        <div class="info">
+          <h5>${product.name}</h5>
+          <p class="badge badge-light">${product.currency} ${product.cost}</p>
+          <p class="card-text"><small class="text-muted">${product.soldCount} vendidos</small></p>
+        </div>
+      </div>
+    </div>
+    `;
+  });
+
+  relProductsDiv.innerHTML = htmlRelProducts;
+}
+
 document.addEventListener("DOMContentLoaded", function(e){
   getJSONData(PRODUCT_INFO_URL).then(function(resultObj){
     if (resultObj.status === "ok") {
       product = resultObj.data;
       showProductInfo();
     }
+  }).then(function(){
+    getJSONData(PRODUCTS_URL).then(function(resultObj){
+      if (resultObj.status === "ok") {
+        relatedProducts = resultObj.data.filter((e, i) => product.relatedProducts.indexOf(i) != -1);
+        showRelatedProducts();
+      }
+    });
   });
 
   getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function(resultObj){
