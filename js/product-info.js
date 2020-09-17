@@ -2,6 +2,55 @@ let product = {};
 let commentsArray = [];
 let relatedProducts = [];
 
+// función que hace de carousel - quería probar hacerlo por mi cuenta
+const slideshow = {
+  // definir los indices de las imgs: actual, anterior y siguiente
+  setIndex: function() {
+    for (let i = 0; i < this.imgs.length; i++) {
+      if (this.imgs[i].style.backgroundImage === this.displayedImg.style.backgroundImage) {
+        this.actual = i;
+        this.prev = i > 0 ? i - 1 : this.imgs.length-1;
+        this.next = this.imgs[i+1] ? i + 1 : 0;
+      }
+    }
+  },
+
+  // muestra la img y asigna el selected a la correspondiente
+  changeImage: function(i) {
+    this.displayedImg.style.backgroundImage = this.imgs[i].style.backgroundImage;
+    this.imgs[this.actual].classList.remove('selected');
+    this.imgs[i].classList.add('selected');
+  },
+
+  // pasar a la anterior
+  showPrev: function() {
+    this.setIndex();
+    this.changeImage(this.prev);
+  },
+
+  // pasar a la siguiente
+  showNext: function() {
+    this.setIndex();
+    this.changeImage(this.next);
+  },
+
+  // hace next automaticamente cada 5 segundos
+  // se detiene cuando mouseover en la foto grande y lo reinicia cuando mouseout (ver línea 68)
+  startLoop: async function () {
+    this.loop = setTimeout(function(){
+      slideshow.showNext();
+      slideshow.startLoop();
+    }, 5000);
+  },
+
+  // declara la img principal y el array de imgs, e inicia el cambio de img automático
+  init: function() {
+    this.displayedImg = document.getElementById('preview-img');
+    this.imgs = document.getElementsByClassName('item-gallery');
+    this.startLoop();
+  }
+}
+
 function showProductInfo() {
 
   function getThumbnailsHtml() {
@@ -16,8 +65,13 @@ function showProductInfo() {
     <div class="row">
       <aside class="col-sm-6 border-right" style="padding-right:0;">
         <article class="gallery-wrap">
-          <div class="img-big-wrap">
-            <div id="preview-img" style="background-image: url(${product.images[0]});"></div>
+          <div class="img-big-wrap" onmouseover="clearTimeout(slideshow.loop);" onmouseout="slideshow.startLoop()">
+            <div id="preview-img" style="background-image: url(${product.images[0]});">
+              <div id="controls">
+                <i class="fas fa-chevron-left" onclick="slideshow.showPrev()"></i>
+                <i class="fas fa-chevron-right" onclick="slideshow.showNext()"></i>
+              </div>
+            </div>
           </div>
           <div class="img-small-wrap" id="thumbnails">
             ${getThumbnailsHtml()}
@@ -72,6 +126,8 @@ function showProductInfo() {
           ? i.classList.add('selected')
           : i.classList.remove('selected');
       });
+      clearTimeout(slideshow.loop);
+      slideshow.startLoop();
     }
   });
 
@@ -272,6 +328,7 @@ document.addEventListener("DOMContentLoaded", function(e){
     if (resultObj.status === "ok") {
       product = resultObj.data;
       showProductInfo();
+      slideshow.init();
     }
   }).then(function(){
     getJSONData(PRODUCTS_URL).then(function(resultObj){
