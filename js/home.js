@@ -14,7 +14,7 @@ window.addEventListener('scroll', function(){
   updateNavStyle();
 
   // movimiento de la ilustración y opacidad de logos ceibal-jap
-  const scrolled = parseInt(window.scrollY) / 3;
+  const scrolled = window.scrollY / 3;
   const actualY = `-${illuInit + scrolled / 16}em`;
   header.style.setProperty('--illu-offset', actualY);
   japLogo.style.opacity = (100 - Math.abs(scrolled)) / 100;
