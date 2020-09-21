@@ -173,11 +173,11 @@ nav .dropdown-menu {
 }
 
 /* Pages */
-main {
+main:not(.home) {
   --bg-offset: -25rem;
 }
 
-main::before {
+main:not(.home)::before {
   position: absolute;
   content: '';
   width: 100%;
