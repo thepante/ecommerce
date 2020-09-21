@@ -25,6 +25,7 @@ html {
 
 nav {
   box-shadow: 0 0 8px #0000004a;
+  z-index: 99999 !important;
 }
 
 nav, nav * {
@@ -81,18 +82,25 @@ nav .dropdown-menu {
   box-shadow: 0 0 16px #0000001a;
 }
 
-#header::before {
+.card-body,
+.container,
+.site-header {
+  font-family: "Raleway", serif !important;
+}
+
+/* Home */
+#header.home::before {
   position: absolute;
   content: '';
+  width: 100%;
+  height: 770px;
+  top: -12.5rem;
+  left: 0;
   background-image: url(../img/home/header-bg.png);
   background-repeat: no-repeat;
   background-position: top center;
-  width: 100%;
-  height: 770px;
-  top: -200px;
-  left: 0;
   background-size: 100% 100%;
-  z-index: 0;
+  z-index: -999;
 }
 
 #header {
@@ -106,7 +114,7 @@ nav .dropdown-menu {
 }
 
 @media (min-width: 1000px) {
-  #header > div::before {
+  #header.home > div::before {
     position: absolute;
     content: '';
     display: block;
@@ -134,7 +142,7 @@ nav .dropdown-menu {
   background-color: #ffdc9a;
   left: 0;
   bottom: 17px;
-  z-index: auto;
+  z-index: -1;
 }
 
 #header p {
@@ -142,8 +150,8 @@ nav .dropdown-menu {
 	font-size: 0.85rem;
 }
 
-@media (max-width: 1500px){
-  #header p {
+@media (min-width: 1000px) and (max-width: 1200px){
+  #header.home p {
     max-width: 30rem;
   }
 }
@@ -164,10 +172,60 @@ nav .dropdown-menu {
   }
 }
 
-.card-body,
-.container,
-.site-header {
-  font-family: "Raleway", serif !important;
+/* Pages */
+main {
+  --bg-offset: -25rem;
+}
+
+main::before {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 770px;
+  top: var(--bg-offset);
+  left: 0;
+  background-image: url(../img/home/header-bg.png);
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: 100% 100%;
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  transform: scaleX(-1);
+  z-index: -999;
+}
+
+#header:not(.home) {
+  padding-top: 3rem;
+  padding-bottom: 1rem !important;
+  margin-bottom: 1rem !important;
+}
+
+#header:not(.home) p,
+#header:not(.home) h3 {
+  margin: 0 auto;
+}
+
+#header:not(.home) p {
+  font-size: 1rem;
+}
+
+#header:not(.home) h3::after {
+  background-color: #ffdc9ae7;
+}
+
+#header:not(.home) p.alert-warning {
+  border-radius: 4px;
+  padding: 1rem 2rem;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  box-shadow: 0.2rem 0.2rem 0.2rem #c0c0c03d;
+}
+
+.sell-section {
+  background: #fff;
+  border-radius: 0.6rem;
+  box-shadow: 0.3rem 0.5rem 0.5rem #c0c0c047;
 }
 
 /* Home - categories */
@@ -241,7 +299,7 @@ nav .dropdown-menu {
   float: left;
   width: 100%;
   height: 100%;
-  z-index: 999999;
+  z-index: 9999;
 }
 .category-card a:hover {
   text-decoration: none;
@@ -499,6 +557,10 @@ a.product-link {
   padding: 1px 1px;
   margin: 0 -1px;
   border-radius: 4px;
+}
+
+.btn-group.filters {
+  box-shadow: .1rem .2rem .5rem #c0c0c07d;
 }
 
 /* Product info */

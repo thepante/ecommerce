@@ -8,6 +8,7 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
@@ -30,13 +31,20 @@
     <link href="css/dropzone.css" rel="stylesheet">
   </head>
   <body>
-    <nav class="site-header navbar navbar-expand-lg navbar-light bg-light sticky-top" style="min-height: 55px;">
+    <nav class="site-header navbar navbar-expand-lg navbar-light bg-light sticky-top transparent" style="min-height: 55px;">
     </nav>
-      <div class="container">
-        <div class="text-center p-4">
-          <h2>Vender</h2>
-          <p class="lead">Ingresa los datos del artículo a vender.</p>
+    <main role="main" class="pb-5">
+      <div id="header" class="container">
+        <div class="row">
+          <h3>Publica un artículo</h3>
         </div>
+        <div class="row">
+          <p>Completa los datos del producto a vender
+          </p>
+        </div>
+      </div>
+
+      <div class="container mt-5 p-4 sell-section">
         <div class="row justify-content-md-center">
           <div class="col-md-8 order-md-1">
             <h4 class="mb-3">Información del producto</h4>
@@ -158,6 +166,7 @@
           </div>
         </div>
       </div>
+    </main>
       <footer class="text-muted">
         <div class="container">
             <p>Este sitio forma parte de Desarrollo Web - JAP - 2020</p>
@@ -204,7 +213,7 @@
           </div>
         </div>
       </div>
-      <div id="spinner-wrapper"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>
+      <div id="spinner-wrapper"><div class="lds-ellipsis-load"><div></div><div></div><div></div><div></div></div></div>
       <script src="js/jquery-3.4.1.min.js"></script>
       <script src="js/bootstrap.bundle.min.js"></script>
       <script src="js/dropzone.js"></script>

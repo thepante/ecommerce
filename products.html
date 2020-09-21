@@ -14,20 +14,24 @@
     <link href="css/styles.css" rel="stylesheet">
   </head>
   <body>
-    <nav class="site-header navbar navbar-expand-lg navbar-light bg-light sticky-top" style="min-height: 55px;">
+    <nav class="site-header navbar navbar-expand-lg navbar-light bg-light sticky-top transparent" style="min-height: 55px;">
     </nav>
-    <!--
-    <p>Esta sección corresponde a: Entrega 1 (Fecha de entrega: 16/08/2020) y Entrega 2 (Fecha de entrega: 30/08/2020).</p>
-    -->
     <main role="main" class="pb-5">
-      <div class="text-center p-4">
-          <h2>Productos</h2>
+      <div id="header" class="container">
+        <div class="row">
+          <h3>Productos</h3>
+        </div>
+        <div class="row">
+          <p>Artículos disponibles en esta categoría
+          </p>
+        </div>
       </div>
-      <div class="container">
+
+      <div class="container content">
         <div class="row">
           <div class="col text-right">
-              <div class="btn-group btn-group-toggle mb-4" data-toggle="buttons">
-                  <label class="btn btn-light" id="clearSort" title="Quitar orden" style="display: none;">
+              <div class="btn-group btn-group-toggle filters mb-4" data-toggle="buttons">
+                  <label class="btn btn-light" id="clearSort" title="Quitar preferencia" style="display: none;">
                     <input type="radio" name="options" autocomplete="off"><i class="fas fa-times-circle"></i>
                   </label>
                   <label class="btn btn-light" id="sortAsc" title="Ordenar de menor a mayor precio">
@@ -68,7 +72,7 @@
               </div>
             </div>
           </div>
-          <div class="row" id="products-list-container">
+          <div id="products-list-container">
           </div>
       </div>
     </main>
@@ -88,7 +92,7 @@
         <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
       </div>
     </footer>
-    <div id="spinner-wrapper"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>
+    <div id="spinner-wrapper"><div class="lds-ellipsis-load"><div></div><div></div><div></div><div></div></div></div>
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/init.js"></script>

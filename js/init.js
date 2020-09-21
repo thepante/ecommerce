@@ -9,37 +9,49 @@ const CART_BUY_URL = "https://japdevdep.github.io/ecommerce-api/cart/buy.json";
 
 const userData = (localStorage.getItem("Logged-User")) ? JSON.parse(localStorage.getItem("Logged-User")) : undefined;
 
-var showSpinner = function(){
-  document.getElementById("spinner-wrapper").style.display = "block";
-}
+// elementos y dato para los efectos relacionados al scroll
+const navElement = document.querySelector('nav');
+const pageHeader = document.querySelector('#header:not(.home)');
+const header = document.getElementById('header');
+const headerHeight = (header) ? header.offsetHeight : 0;
 
-var hideSpinner = function(){
-  document.getElementById("spinner-wrapper").style.display = "none";
-}
+// ajusta el estilo del navbar
+function updateNavStyle(){ navElement.classList.toggle('transparent', window.scrollY < 1); }
+updateNavStyle();
+
+// reacciona al scroll
+window.addEventListener('scroll', function(){
+  updateNavStyle();
+  if (pageHeader) pageHeader.style.opacity = ((100 + headerHeight / 4) - Math.abs(window.scrollY)) / 100;
+});
+
+// spinner
+var showSpinner = function(){ document.getElementById("spinner-wrapper").style.display = "block"; }
+var hideSpinner = function(){ document.getElementById("spinner-wrapper").style.display = "none"; }
 
 var getJSONData = function(url){
-    var result = {};
-    showSpinner();
-    return fetch(url)
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      }else{
-        throw Error(response.statusText);
-      }
-    })
-    .then(function(response) {
-          result.status = 'ok';
-          result.data = response;
-          hideSpinner();
-          return result;
-    })
-    .catch(function(error) {
-        result.status = 'error';
-        result.data = error;
-        hideSpinner();
-        return result;
-    });
+  var result = {};
+  showSpinner();
+  return fetch(url)
+  .then(response => {
+    if (response.ok) {
+      return response.json();
+    }else{
+      throw Error(response.statusText);
+    }
+  })
+  .then(function(response) {
+    result.status = 'ok';
+    result.data = response;
+    hideSpinner();
+    return result;
+  })
+  .catch(function(error) {
+    result.status = 'error';
+    result.data = error;
+    hideSpinner();
+    return result;
+  });
 }
 
 
@@ -69,7 +81,7 @@ const showNavBar = async () => {
     :
       `
       <a class="nav-link" href="index.html" id="userMenu" aria-expanded="false">
-        Ingresar
+        Ingresar <i class="fas fa-sign-in-alt"></i>
       </a>
     `;
 
@@ -125,8 +137,6 @@ document.addEventListener("DOMContentLoaded", function(e){
 
   // Si hay botón 'Volver arriba' agregarle funcionamiento
   const goTopButton = document.getElementById('goTop');
-  if (goTopButton){
-    goTopButton.addEventListener('click', () => window.scroll({top:0}));
-  }
+  if (goTopButton) goTopButton.addEventListener('click', () => window.scroll({top:0}));
 
 });
