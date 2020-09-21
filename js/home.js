@@ -1,13 +1,5 @@
-const nav = document.querySelector('nav');
-const header = document.getElementById('header');
 const japLogo = document.querySelector('.logo-jap');
 const illuInit = 5;
-
-// ajustar el estilo del navbar
-function updateNavStyle(){
-  nav.classList.toggle('transparent', window.scrollY < 1);
-}
-updateNavStyle(); // para asegurarse cuando se hace reload (ya que no depende del evento scroll)
 
 // reacciona al scroll
 window.addEventListener('scroll', function(){
