@@ -17,7 +17,7 @@ const headerHeight = (header) ? header.offsetHeight : 0;
 
 // ajusta el estilo del navbar
 function updateNavStyle(){ navElement.classList.toggle('transparent', window.scrollY < 1); }
-updateNavStyle();
+if (navElement) updateNavStyle();
 
 // reacciona al scroll
 window.addEventListener('scroll', function(){
