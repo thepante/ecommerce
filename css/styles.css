@@ -247,6 +247,7 @@ main:not(.home)::before {
   height: 290px;
   max-width: 550px;
   overflow: hidden;
+  margin: 0 auto;
 }
 
 .category-card .cat-img-container {
