@@ -21,7 +21,7 @@ if (navElement) updateNavStyle();
 
 // reacciona al scroll
 window.addEventListener('scroll', function(){
-  updateNavStyle();
+  if (navElement) updateNavStyle();
   if (pageHeader) pageHeader.style.opacity = ((100 + headerHeight / 4) - Math.abs(window.scrollY)) / 100;
 });
 
