@@ -158,17 +158,15 @@ function showComments() {
 
     let singleComment = `
       <div class="row mb-5">
-        <div class="col-sm-1 col-12 mb-3">
+        <div class="col-sm-10">
           <img src="${(comment.avatar) ? comment.avatar : 'img/user.png'}" class="avatar rounded-circle">
-        </div>
-
-        <div class="col-sm-10 col-12">
           <h5 class="user-name font-weight-bold">${comment.user}</h5>
           <ul class="rating">
             ${getScoreHtml(comment.score)}
           </ul>
+        </div>
+        <div class="col-sm-10 comment-content">
           <p class="dark-grey-text article">${comment.description}</p>
-
           <div class="card-data comment-date font-small grey-text">
             <span title="${comment.dateTime}">${date}</span>
           </div>
