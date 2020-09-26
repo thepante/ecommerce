@@ -21,59 +21,47 @@
         <div class="row">
           <h3>Productos</h3>
         </div>
-        <div class="row">
-          <p>Artículos disponibles en esta categoría
+        <div class="information">
+          <p class="row justify-content-center">
+            Mostrando precios desde:
+            <span>
+              <input class="inline-input" type="number" min="0" placeholder="min." id="rangePriceMin" oninput="validity.valid||(value='');">
+              hasta
+              <input class="inline-input" type="number" min="0" placeholder="máx." id="rangePriceMax" oninput="validity.valid||(value='');">
+              -
+              <button class="inline-filter" id="rangeFilter">filtrar</button>
+              <button class="inline-filter" id="clearFilter" style="display: none;"><i class="fas fa-times-circle"></i></button>
+            </span>
           </p>
         </div>
       </div>
 
       <div class="container content">
         <div class="row">
+          <div id="searchFilter" class="row form-inline ml-1 justify-content-end">
+            <input id="searchInput" class="form-control form-control-sm ml-3" type="text" placeholder="Buscar..." aria-label="Buscar...">
+            <i id="clearSearch" class="fas fa-times-circle" aria-hidden="true" style="display: none;"></i>
+          </div>
           <div class="col text-right">
-              <div class="btn-group btn-group-toggle filters mb-4" data-toggle="buttons">
-                  <label class="btn btn-light" id="clearSort" title="Quitar preferencia" style="display: none;">
-                    <input type="radio" name="options" autocomplete="off"><i class="fas fa-times-circle"></i>
-                  </label>
-                  <label class="btn btn-light" id="sortAsc" title="Ordenar de menor a mayor precio">
-                      <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-numeric-down"></i>
-                  </label>
-                  <label class="btn btn-light" id="sortDesc" title="Ordenar de mayor a menor precio">
-                      <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-numeric-down-alt"></i>
-                  </label>
-                  <label class="btn btn-light" id="sortByCount" >
-                      <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-amount-down mr-1"></i>Relevancia
-                  </label>
-              </div>
+            <div class="btn-group btn-group-toggle filters mb-4" data-toggle="buttons">
+              <label class="btn btn-dark" id="clearSort" title="Quitar preferencia" style="display: none;">
+                <input type="radio" name="options" autocomplete="off"><i class="fas fa-times-circle"></i>
+              </label>
+              <label class="btn btn-dark" id="sortAsc" title="Ordenar de menor a mayor precio">
+                <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-numeric-down"></i>
+              </label>
+              <label class="btn btn-dark" id="sortDesc" title="Ordenar de mayor a menor precio">
+                <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-numeric-down-alt"></i>
+              </label>
+              <label class="btn btn-dark" id="sortByCount">
+                <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-amount-down mr-1"></i>Relevancia
+              </label>
             </div>
           </div>
-          <div class="row justify-content-end">
-            <div class="col-md-6 mb-1 form-inline d-flex md-form form-sm mt-0">
-              <i class="fas fa-search" aria-hidden="true"></i>
-              <input id="searchInput" class="form-control form-control-sm ml-3" type="text" placeholder="Buscar..." aria-label="Buscar...">
-              <i id="clearSearch" class="fas fa-times-circle" aria-hidden="true" style="display: none; margin-left: -20px;"></i>
-            </div>
-            <div class="col-md-6 col-sm-12 mb-1 container">
-              <div class="row container p-0 m-0">
-                <div class="col">
-                  <p class="font-weight-normal text-right my-2">Precio</p>
-                </div>
-                <div class="col">
-                  <input class="form-control" type="number" min="0" placeholder="min." id="rangePriceMin" oninput="validity.valid||(value='');">
-                </div>
-                <div class="col">
-                  <input class="form-control" type="number" min="0" placeholder="máx." id="rangePriceMax" oninput="validity.valid||(value='');">
-                </div>
-                <div class="col-3 p-0">
-                  <div class="btn-group" role="group">
-                    <button class="btn btn-light btn-block" id="rangeFilter">Filtrar</button>
-                    <button class="btn btn-link btn-sm" id="clearFilter">Limpiar</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div id="products-list-container">
-          </div>
+        </div>
+
+        <div id="products-list-container">
+        </div>
       </div>
     </main>
     <footer class="text-muted bg-light">

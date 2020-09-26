@@ -2,6 +2,7 @@ const rangeMin = document.getElementById("rangePriceMin");
 const rangeMax = document.getElementById("rangePriceMax");
 const clearSearch = document.getElementById("clearSearch");
 const searchInput = document.getElementById("searchInput");
+const clearFilter = document.getElementById("clearFilter");
 
 let productsArray = [];
 let sortedArray;
@@ -113,6 +114,8 @@ function clearInputs() {
     rangeMin.value = null;
     rangeMax.value = null;
   }
+
+  clearFilter.style.display = "none";
   showProductsList();
 }
 
@@ -141,17 +144,21 @@ document.addEventListener("DOMContentLoaded", function(e){
       minPrice = (parseInt(rangeMin.value)) ? parseInt(rangeMin.value) : 0;
       maxPrice = (parseInt(rangeMax.value)) ? parseInt(rangeMax.value) : Infinity;
 
+      clearFilter.style.display = "inline";
       showProductsList();
+
+      clearFilter.scrollIntoView();
     });
 
     // Limpiar el filtrado
-    document.getElementById("clearFilter").addEventListener("click", () => {
+    clearFilter.addEventListener("click", () => {
       minPrice = 0;
       maxPrice = Infinity;
 
       rangeMin.value = null;
       rangeMax.value = null;
 
+      clearFilter.style.display = "none";
       showProductsList();
     });
 

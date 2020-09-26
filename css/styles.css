@@ -199,6 +199,7 @@ main:not(.home)::before {
   padding-top: 3rem;
   padding-bottom: 1rem !important;
   margin-bottom: 1rem !important;
+  cursor: default;
 }
 
 #header:not(.home) p,
@@ -208,6 +209,53 @@ main:not(.home)::before {
 
 #header:not(.home) p {
   font-size: 1rem;
+}
+
+#header .information {
+  text-align: center;
+}
+
+#header .information .inline-input,
+#header .information .inline-input::-webkit-inner-spin-button,
+#header .information .inline-input::-webkit-outer-spin-button,
+#header .information .inline-filter {
+  background: transparent;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: textfield !important;
+  outline: none;
+  border: none;
+  margin: 0;
+}
+
+#header .information .inline-input {
+  font-weight: 700;
+  width: 3.2rem;
+  text-align: center !important;
+  border-bottom: 0.15rem solid silver;
+}
+
+#header .information .inline-filter {
+  font-weight: 700;
+  transition: all .2s ease-out;
+}
+
+#header .information .inline-filter:hover {
+  color: #b49786;
+}
+
+#header .information #rangeFilter {
+  border: 0.1rem solid transparent;
+  border-radius: 0.25rem;
+  transition: all .2s ease-out;
+}
+
+#header .information #rangeFilter:hover {
+  border-color: #79363657 !important;
+}
+
+#header .information #clearFilter {
+  margin-left: -0.5rem !important;
 }
 
 #header:not(.home) h3::after {
@@ -560,8 +608,54 @@ a.product-link {
   border-radius: 4px;
 }
 
+/* Listing filters */
 .btn-group.filters {
   box-shadow: .1rem .2rem .5rem #c0c0c07d;
+}
+
+.filters .btn {
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.filters .btn-dark {
+  background-color: #4f4343;
+  border-color: #393131;
+}
+
+.filters .btn-dark:not(:disabled):not(.disabled).active,
+.filters .btn-dark:not(:disabled):not(.disabled):active,
+.filters .show > .btn-dark.dropdown-toggle {
+	background-color: #241d1d;
+	border-color: #171a1d;
+}
+
+#searchFilter {
+  z-index: 99;
+}
+
+#searchInput {
+  border: 0px;
+  background: transparent;
+  border-radius: 0px;
+  border-bottom: 0.2rem solid silver;
+  padding-right: 1.5rem;
+}
+
+#searchInput:active,
+#searchInput:focus {
+  box-shadow: none !important;
+}
+
+#searchInput:not(:placeholder-shown) {
+  border-bottom-color: #814949;
+}
+
+#clearSearch {
+  margin-left: -20px;
+  cursor: pointer;
+  z-index: 999;
 }
 
 /* Product info */
