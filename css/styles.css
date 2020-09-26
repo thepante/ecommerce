@@ -631,6 +631,28 @@ a.product-link {
 	border-color: #171a1d;
 }
 
+@media (max-width: 767px) {
+  #listing-top-options {
+    text-align: center !important;
+  }
+
+  #listing-top-options #searchFilter {
+    width: 18rem !important;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+  }
+
+  #listing-top-options #searchInput {
+    width: 14rem;
+  }
+}
+
+@media (min-width: 768px) {
+  #listing-top-options .offset-md-4 {
+    text-align: right !important;
+  }
+}
+
 #searchFilter {
   z-index: 99;
 }
