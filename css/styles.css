@@ -631,6 +631,14 @@ a.product-link {
 	border-color: #171a1d;
 }
 
+#listing-top-options {
+  margin-bottom: -0.4rem;
+}
+
+#listing-top-options #searchInput {
+  width: 14rem;
+}
+
 @media (max-width: 767px) {
   #listing-top-options {
     text-align: center !important;
@@ -640,10 +648,6 @@ a.product-link {
     width: 18rem !important;
     margin: 0 auto;
     margin-bottom: 1rem;
-  }
-
-  #listing-top-options #searchInput {
-    width: 14rem;
   }
 }
 
