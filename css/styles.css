@@ -632,11 +632,12 @@ a.product-link {
 }
 
 #listing-top-options {
-  margin-bottom: -0.4rem;
+  margin-bottom: 1rem;
 }
 
 #listing-top-options #searchInput {
   width: 14rem;
+  float: left;
 }
 
 @media (max-width: 767px) {
@@ -654,6 +655,10 @@ a.product-link {
 @media (min-width: 768px) {
   #listing-top-options .offset-md-4 {
     text-align: right !important;
+  }
+
+  #listing-top-options #clearSort {
+    margin-left: -2rem;
   }
 }
 
