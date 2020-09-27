@@ -1,6 +1,8 @@
 const ORDER_ASC_BY_NAME = "AZ";
 const ORDER_DESC_BY_NAME = "ZA";
 const ORDER_BY_PROD_COUNT = "Cant.";
+const minCountInput = document.getElementById("rangeFilterCountMin");
+const maxCountInput = document.getElementById("rangeFilterCountMax");
 var currentCategoriesArray = [];
 var currentSortCriteria = undefined;
 var minCount = undefined;
@@ -104,38 +106,45 @@ document.addEventListener("DOMContentLoaded", function(e){
     const clearRangeFilter = document.getElementById('clearRangeFilter');
 
     clearRangeFilter.addEventListener("click", function(){
-        document.getElementById("rangeFilterCountMin").value = "";
-        document.getElementById("rangeFilterCountMax").value = "";
+      minCountInput.value = '';
+      maxCountInput.value = '';
 
-        minCount = undefined;
-        maxCount = undefined;
+      minCount = undefined;
+      maxCount = undefined;
 
-        showCategoriesList();
-        clearRangeFilter.style.display = 'none';
+      showCategoriesList();
+      clearRangeFilter.style.display = 'none';
     });
 
     document.getElementById("rangeFilterCount").addEventListener("click", function(){
-        //Obtengo el mínimo y máximo de los intervalos para filtrar por cantidad
-        //de productos por categoría.
-        minCount = document.getElementById("rangeFilterCountMin").value;
-        maxCount = document.getElementById("rangeFilterCountMax").value;
+      //Obtengo el mínimo y máximo de los intervalos para filtrar por cantidad
+      //de productos por categoría.
+      minCount = minCountInput.value;
+      maxCount = maxCountInput.value;
 
-        if ((minCount != undefined) && (minCount != "") && (parseInt(minCount)) >= 0){
-            minCount = parseInt(minCount);
-        }
-        else{
-            minCount = undefined;
-        }
+      // En caso de inputs vacíos no filtrar y señalizar
+      if (minCount == '' && maxCount == '') {
+        return [minCountInput, maxCountInput].forEach(e => e.style.borderBottomColor = '#dd7e7e');
+      } else {
+        [minCountInput, maxCountInput].forEach(e => e.style.borderBottomColor = 'silver');
+      }
 
-        if ((maxCount != undefined) && (maxCount != "") && (parseInt(maxCount)) >= 0){
-            maxCount = parseInt(maxCount);
-        }
-        else{
-            maxCount = undefined;
-        }
+      if ((minCount != undefined) && (minCount != "") && (parseInt(minCount)) >= 0){
+          minCount = parseInt(minCount);
+      }
+      else{
+          minCount = undefined;
+      }
 
-        showCategoriesList();
-        clearRangeFilter.style.display = 'inline';
-        clearRangeFilter.scrollIntoView();
+      if ((maxCount != undefined) && (maxCount != "") && (parseInt(maxCount)) >= 0){
+          maxCount = parseInt(maxCount);
+      }
+      else{
+          maxCount = undefined;
+      }
+
+      showCategoriesList();
+      clearRangeFilter.style.display = 'inline';
+      clearRangeFilter.scrollIntoView();
     });
 });

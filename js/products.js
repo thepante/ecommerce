@@ -129,6 +129,14 @@ document.addEventListener("DOMContentLoaded", function(e){
 
     // Filtrar resultado por precios
     document.getElementById("rangeFilter").addEventListener("click", () => {
+
+      // En caso de inputs vacíos no filtrar y señalizar
+      if (rangeMin.value == '' && rangeMax.value == '') {
+        return [rangeMin, rangeMax].forEach(e => e.style.borderBottomColor = '#dd7e7e');
+      } else {
+        [rangeMin, rangeMax].forEach(e => e.style.borderBottomColor = 'silver');
+      }
+
       if (parseInt(rangeMin.value) >= parseInt(rangeMax.value)) {
         return alert("El mínimo debe ser menor al máximo");
       }
