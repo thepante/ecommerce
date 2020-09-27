@@ -22,8 +22,18 @@
         <div class="row">
           <h3>Categorías</h3>
         </div>
-        <div class="row">
-          <p>Aquí verás todas las categorías del sitio
+        <div class="information">
+          <p class="row justify-content-center">
+            <p>Mostrando las que contengan cantidad de productos:</p>
+            <span>
+              desde
+              <input class="inline-input" type="number" min="0" placeholder="min." id="rangeFilterCountMin" oninput="validity.valid||(value='');">
+              hasta
+              <input class="inline-input" type="number" min="0" placeholder="máx." id="rangeFilterCountMax" oninput="validity.valid||(value='');">
+              -
+              <button class="inline-filter" id="rangeFilterCount">filtrar</button>
+              <button class="inline-filter" id="clearRangeFilter" style="display: none;"><i class="fas fa-times-circle"></i></button>
+            </span>
           </p>
         </div>
       </div>
@@ -32,37 +42,15 @@
         <div class="row">
           <div class="col text-right">
             <div class="btn-group btn-group-toggle filters mb-4" data-toggle="buttons">
-              <label class="btn btn-light active" id="sortAsc">
+              <label class="btn btn-dark active" id="sortAsc">
                 <input type="radio" name="options" autocomplete="off" checked>A-Z
               </label>
-              <label class="btn btn-light" id="sortDesc">
+              <label class="btn btn-dark" id="sortDesc">
                 <input type="radio" name="options" autocomplete="off">Z-A
               </label>
-              <label class="btn btn-light" id="sortByCount">
+              <label class="btn btn-dark" id="sortByCount">
                 <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-amount-down mr-1"></i>Cant.
               </label>
-            </div>
-          </div>
-        </div>
-        <div class="row justify-content-end">
-          <div class="col-md-6"></div>
-          <div class="col-md-6 col-sm-12 mb-1 container">
-            <div class="row container p-0 m-0">
-              <div class="col">
-                <p class="font-weight-normal text-right my-2">Cant.</p>
-              </div>
-              <div class="col">
-                <input class="form-control" type="number" placeholder="min." id="rangeFilterCountMin">
-              </div>
-              <div class="col">
-                <input class="form-control" type="number" placeholder="máx." id="rangeFilterCountMax">
-              </div>
-              <div class="col-3 p-0">
-                <div class="btn-group" role="group">
-                  <button class="btn btn-light btn-block" id="rangeFilterCount">Filtrar</button>
-                  <button class="btn btn-link btn-sm" id="clearRangeFilter">Limpiar</button>
-                </div>
-              </div>
             </div>
           </div>
         </div>

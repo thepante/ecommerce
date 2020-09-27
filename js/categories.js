@@ -101,7 +101,9 @@ document.addEventListener("DOMContentLoaded", function(e){
         sortAndShowCategories(ORDER_BY_PROD_COUNT);
     });
 
-    document.getElementById("clearRangeFilter").addEventListener("click", function(){
+    const clearRangeFilter = document.getElementById('clearRangeFilter');
+
+    clearRangeFilter.addEventListener("click", function(){
         document.getElementById("rangeFilterCountMin").value = "";
         document.getElementById("rangeFilterCountMax").value = "";
 
@@ -109,6 +111,7 @@ document.addEventListener("DOMContentLoaded", function(e){
         maxCount = undefined;
 
         showCategoriesList();
+        clearRangeFilter.style.display = 'none';
     });
 
     document.getElementById("rangeFilterCount").addEventListener("click", function(){
@@ -132,5 +135,7 @@ document.addEventListener("DOMContentLoaded", function(e){
         }
 
         showCategoriesList();
+        clearRangeFilter.style.display = 'inline';
+        clearRangeFilter.scrollIntoView();
     });
 });
