@@ -12,22 +12,6 @@
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
   <link href="css/font-awesome.min.css" rel="stylesheet">
 
-  <style>
-    .bd-placeholder-img {
-      font-size: 1.125rem;
-      text-anchor: middle;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-    }
-
-    @media (min-width: 768px) {
-      .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-      }
-    }
-  </style>
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
   <link href="css/dropzone.css" rel="stylesheet">
@@ -36,14 +20,92 @@
 <body>
   <nav class="site-header navbar navbar-expand-lg navbar-light bg-light sticky-top transparent" style="min-height: 55px;">
   </nav>
-  <div class="container p-5">
-    <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-      <h4 class="alert-heading">¡A trabajar! :)</h4>
-      <p>Esta sección corresponde a: Entrega 5 (Fecha de entrega: 11/10/2020) y Entrega 6 (Fecha de entrega: 25/10/2020).</p>
-      <hr>
-      <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
+  <!-- <p>Esta sección corresponde a: Entrega 5 (Fecha de entrega: 11/10/2020) y Entrega 6 (Fecha de entrega: 25/10/2020).</p> -->
+  <main role="main" class="pb-5">
+    <div id="header" class="container">
+      <div class="row">
+        <h3>Carrito de compras</h3>
+      </div>
+      <div class="row information">
+        <p>Mostrando precios en <span id="currency-label">...</span> -<button class="inline-filter" onclick="changeCurrency()">cambiar</button></p>
+      </div>
     </div>
-  </div>
+
+    <div id="cart" class="cart-section container p-5">
+      <div class="row">
+
+        <div id="cart-list" class="col-8">
+          <h5 class="mb-4">Productos en tu carro <span id="items-amount" class="badge badge-light">-</span></h5>
+          <table class="table">
+            <thead>
+              <tr>
+                <th width="35%" scope="col" colspan="2">Producto</th>
+                <th width="25%" scope="col">Precio</th>
+                <th width="15%" scope="col">Cantidad</th>
+                <th width="25%" scope="col">Subtotal</th>
+              </tr>
+            </thead>
+            <tbody id="cart-articles">
+            </tbody>
+          </table>
+        </div>
+
+        <div class="col">
+          <div class="card mb-3">
+            <div id="shipping" class="card-body">
+              <h6 class="mb-4">Tipo de envío:</h6>
+              <p class="mb-0">
+                <div class="btn-group btn-group-toggle btn-block filters" onchange="calcShipping()" data-toggle="buttons">
+                  <label class="btn btn-light active">
+                    <input type="radio" name="shippingMethod" autocomplete="off" value="standard" checked><i class="fas fa-truck mr-2"></i>Standard
+                  </label>
+                  <label class="btn btn-light">
+                    <input type="radio" name="shippingMethod" autocomplete="off" value="express"><i class="fas fa-shipping-fast mr-2"></i>Express
+                  </label>
+                </div>
+              </p>
+              <p><small>El costo de envío es del <span id="show-cost">1</span> % sobre el valor de los productos, sin tomar en cuenta los descuentos.</small></p>
+            </div>
+
+            <div id="coupons" class="card-body">
+              <h6 class="mb-4">Tenés un cupón de descuento? <span title="Válidos: DES10, DES22"><i class="fas fa-info-circle"></i></span></h6>
+              <div class="input-group mb-3">
+                <input type="text" id="coupon-code" class="form-control" placeholder="Ingresalo acá"></input>
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="button" onclick="calcDiscount()">Aplicar</button>
+                </div>
+              </div>
+            </div>
+
+            <hr class="ml-5 mr-5 mt-0 mb-0">
+
+            <div id="checkout" class="card-body">
+              <table class="table">
+                <tr>
+                  <td width="50%" title="Costo de los productos">Productos:</td>
+                  <td width="50%" id="pricesTotal" class="price">-</td>
+                </tr>
+                <tr>
+                  <td title="Descuento sobre los productos">Descuento:</td>
+                  <td id="discount-amount" class="price">-</td>
+                </tr>
+                <tr>
+                  <td>Costo de envío:</td>
+                  <td id="shipping-price" class="price">-</td>
+                </tr>
+                <tr>
+                  <td>Total final:</td>
+                  <td id="final-cost" class="price">-</td>
+                </tr>
+              </table>
+              <button type="button" class="btn btn-primary btn-block mt-4">Finalizar compra</button>
+            </div>
+          </div>
+
+      </div>
+    </div>
+  </main>
+
   <div id="spinner-wrapper"><div class="lds-ellipsis-load"><div></div><div></div><div></div><div></div></div></div>
   <script src="js/jquery-3.4.1.min.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
