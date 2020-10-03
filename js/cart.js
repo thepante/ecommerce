@@ -157,16 +157,18 @@ function calcDiscount() {
     DES22: 22,
   };
 
-  couponCode = couponInput.value.toUpperCase();
+  const applied = couponInput.value.toUpperCase();
 
-  if (couponCode in validCoupons) {
+  if (applied in validCoupons) {
+    couponCode = applied;
     couponInput.style.color = '#83b083';
     const discount = validCoupons[couponCode];
     const productsPrice = extractPrice(productsTotal);
     const discountAmount = productsPrice * (discount / 100);
     discounted.innerText = formatPrice(discountAmount);
-
-  } else {
+  }
+  else {
+    couponCode = null;
     couponInput.style.color = '#dd8585';
     discounted.innerText = '-';
   }
