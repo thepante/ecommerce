@@ -1147,4 +1147,7 @@ a.add-cart {
   font-size: 1rem;
 }
 
-
+#cart .price,
+#cart .productCount {
+  font-family:  'Roboto', sans-serif;
+}
