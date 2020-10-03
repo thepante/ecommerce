@@ -16,20 +16,18 @@ let couponCode = null;
 let articles = [];
 
 
-// forzar mostrar 2 puntos decimales cuando sea necesario
-// por ej. en vez de USD2.5 -> USD2.50
-function toFixedIfDecimals(num) {
-  return (num % 1 != 0) ? (Math.floor(num * 100) / 100).toFixed(2) : num;
-}
-
-// tomar el precio de un elemento (quitar el símbolo de la moneda)
+// tomar el precio de un elemento (le quita el formato)
 function extractPrice(element) {
-  return Number(element.innerText.match(/\b\d[\d,.]*\b/g));
+  let price = element.innerText.match(/\b\d[\d,.]*\b/g);
+  price = price.map(p => p.replaceAll('.','').replace(',', '.'));
+  return Number(price);
 }
 
-// agrega la moneda al precio y ajustar los decimales
+// formatea el precio y agrega la moneda
 function formatPrice(price) {
-  return `${SELECTED_CURRENCY} ${toFixedIfDecimals(price)}`;
+  if (price % 1 != 0) price = price.toFixed(2).replace('.', ',');
+  price = String(price).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$&.');
+  return `${SELECTED_CURRENCY} ${price}`;
 }
 
 // convierte el precio de moneda (si no es la seleccionada)
