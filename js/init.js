@@ -23,7 +23,6 @@ if (navElement) updateNavStyle();
 window.addEventListener('scroll', function(){
   if (navElement) updateNavStyle();
   if (pageHeader) pageHeader.style.opacity = (headerHeight - Math.abs(window.scrollY)) / 100;
-  console.log(header.offsetHeight);
 });
 
 // spinner
@@ -131,11 +130,7 @@ const showNavBar = async () => {
 // Al llamar el init quiere decir que ya tengo el nav presente
 showNavBar();
 
-//Función que se ejecuta una vez que se haya lanzado el evento de
-//que el documento se encuentra cargado, es decir, se encuentran todos los
-//elementos HTML presentes.
-document.addEventListener("DOMContentLoaded", function(e){
-
+document.addEventListener("DOMContentLoaded", function (e) {
   // Si hay botón 'Volver arriba' agregarle funcionamiento
   const goTopButton = document.getElementById('goTop');
   if (goTopButton) goTopButton.addEventListener('click', () => window.scroll({top:0}));
