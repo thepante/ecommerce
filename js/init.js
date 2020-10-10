@@ -13,7 +13,7 @@ const userData = (localStorage.getItem("Logged-User")) ? JSON.parse(localStorage
 const navElement = document.querySelector('nav');
 const pageHeader = document.querySelector('#header:not(.home)');
 const header = document.getElementById('header');
-const headerHeight = (header) ? header.offsetHeight : 0;
+const headerHeight = header ? (100 + header.offsetHeight / 4) : 0;
 
 // ajusta el estilo del navbar
 function updateNavStyle(){ navElement.classList.toggle('transparent', window.scrollY < 1); }
@@ -22,7 +22,8 @@ if (navElement) updateNavStyle();
 // reacciona al scroll
 window.addEventListener('scroll', function(){
   if (navElement) updateNavStyle();
-  if (pageHeader) pageHeader.style.opacity = ((100 + headerHeight / 4) - Math.abs(window.scrollY)) / 100;
+  if (pageHeader) pageHeader.style.opacity = (headerHeight - Math.abs(window.scrollY)) / 100;
+  console.log(header.offsetHeight);
 });
 
 // spinner
