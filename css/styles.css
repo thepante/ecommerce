@@ -795,6 +795,8 @@ a.add-cart {
 /* Comments section */
 #comments-section {
   padding: 40px 40px 0 40px;
+  border-radius: .3rem;
+  box-shadow: 0 3px 7px rgba(154,160,185,.05), 0 10px 40px rgba(166,173,201,.1);
 }
 
 #comments .avatar {
@@ -804,6 +806,10 @@ a.add-cart {
 }
 
 @media (min-width: 768px) {
+  #comments-section {
+    margin: 1rem 3rem;
+  }
+
   #comments .comment-content {
     margin-left: 4.75rem !important;
   }
@@ -837,8 +843,12 @@ a.add-cart {
 }
 
 #write-comment {
-  width: 90%;
   margin: 0 auto;
+  padding: 1rem;
+}
+
+#write-comment h5 {
+  margin-bottom: 1rem;
 }
 
 #write-comment .alert-light {
