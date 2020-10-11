@@ -105,7 +105,7 @@ nav .dropdown-menu {
 
 #header {
   padding-bottom: 0px !important;
-  --illu-offset: -80px;
+  --illu-offset: -5rem;
 }
 
 #header div {
@@ -1110,13 +1110,28 @@ a.add-cart {
 }
 
 #cart-list input {
-  width: 3.75rem;
+  width: 2rem;
+}
+
+#cart-list input,
+#cart-list input::-webkit-inner-spin-button,
+#cart-list input::-webkit-outer-spin-button {
+  background: #f3f3f3;
+  border-radius: .2rem;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: textfield !important;
+  outline: none;
+  border: none;
+  margin: 0;
 }
 
 #cart-list button {
   background: transparent;
   appearance: none;
   border: none;
+  padding: .2rem !important;
+  color: #525252;
 }
 
 #shipping p:last-child {
@@ -1149,5 +1164,5 @@ a.add-cart {
 
 #cart .price,
 #cart .productCount {
-  font-family:  'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }

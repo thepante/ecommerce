@@ -50,9 +50,9 @@ function calcProductsTotal() {
   calcShipping();
 }
 
-// recibe solo un índice. ya que trabaja en base a esa fila de la tabla
-function calcSubtotal(i) {
-  const row = document.getElementById('item'+i);
+// recibe el id de la fila, ya que trabaja en base a ella
+function calcSubtotal(id) {
+  const row = document.getElementById(id);
   const price = extractPrice(row.querySelector('.unitCost'));
   const amount = Number(row.querySelector('.productCount').value);
   const subtotal = price * amount;
@@ -60,6 +60,23 @@ function calcSubtotal(i) {
   calcProductsTotal();
 }
 
+// cambia la cantidad de un producto
+function changeAmount(e, step) {
+  const row = e.parentNode.parentNode;
+  const input = row.querySelector('input');
+  step > 0 ? input.stepUp() : input.stepDown();
+  calcSubtotal(row.id);
+}
+
+// svgs para los botones de cantidad
+const btnIcon = {
+  plus: `<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+    </svg>`,
+  minus: `<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+    </svg>`,
+}
 
 // mostrar productos en el carrito
 function showCartProducts() {
@@ -76,7 +93,9 @@ function showCartProducts() {
         <td>${name}</td>
         <td class="price unitCost">${formatPrice(price)}</td>
         <td>
-          <input type="number" min="1" class="productCount" value="${count}" onchange="calcSubtotal(${i})"></input>
+          <button onclick="changeAmount(this, -1)">${btnIcon.minus}</button>
+          <input type="number" min="1" class="productCount" value="${count}" onchange="calcSubtotal('item${i}')"></input>
+          <button onclick="changeAmount(this, 1)">${btnIcon.plus}</button>
         </td>
         <td class="price subtotal">${formatPrice(subtotal)}</td>
       </tr>
@@ -105,7 +124,7 @@ function convertDisplayedPrices(prevCurrency) {
   const allDisplayedValues = document.querySelectorAll('#cart .price');
 
   allDisplayedValues.forEach(e => {
-    // reviso el length para ignorar casillero del descuento cuando todavía no se aplicó ningún cupón
+    // reviso el length para ignorar casillero del descuento cuando no hay cupón aplicado
     if (e.innerText.length > 1) {
       const price = processPrice(prevCurrency, extractPrice(e));
       e.innerText = formatPrice(price);
@@ -134,7 +153,7 @@ function calcFinalCost() {
   finalElement.innerText = formatPrice(finalCost);
 }
 
-// el costo de envío es un porcentaje del costo total de los productos (sin el descuento)
+// el costo de envío es un porcentaje del costo total de los productos (sin tomar en cuenta el descuento)
 function calcShipping() {
   const costs = {
     standard: 1,
