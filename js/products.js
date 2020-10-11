@@ -51,21 +51,22 @@ function showProductsList(){
       }
 
       htmlContentToAppend += `
-      <div class="list-group-item list-group-item-action">
-          <div class="row">
-              <div class="col-3">
-                  <img src="${product.imgSrc}" alt="${product.name}" class="img-thumbnail">
+        <div class="product-card">
+          <div class="row" style="display: inherit;">
+            <div class="col-3">
+              <img src="${product.imgSrc}" alt="${product.name}" class="product-img">
+            </div>
+            <div class="col info">
+              <div class="d-flex w-100 justify-content-between">
+                <h4 class="mb-1 pl-0"><strong>${renderText(product.name)}</strong></h4>
+                <small>${product.soldCount} vendidos</small>
               </div>
-              <div class="col">
-                  <div class="d-flex w-100 justify-content-between">
-                      <h4 class="mb-1 pl-0 col-10"><span class="badge badge-secondary">${product.currency} ${product.cost.asPrice()}</span> <strong>${renderText(product.name)}</strong></h4>
-                      <small class="text-muted">${product.soldCount} vendidos</small>
-                  </div>
-                  <p>${renderText(product.description)}</p>
-              </div>
-              <a href="product-info.html" class="product-link"></a>
+              <p><span class="badge badge-secondary">${product.currency} ${product.cost.asPrice()}</span></p>
+              <p>${renderText(product.description)}</p>
+            </div>
+            <a href="product-info.html" class="product-link"></a>
           </div>
-      </div>
+        </div>
       `;
     }
   };
