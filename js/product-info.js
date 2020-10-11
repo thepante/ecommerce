@@ -84,7 +84,7 @@ function showProductInfo() {
           <h3 class="title mb-3">${product.name}</h3>
           <p class="price-detail-wrap">
             <span class="price h4">
-              <span class="currency badge badge-light">${product.currency} ${product.cost}</span>
+              <span class="currency badge badge-light">${product.currency} ${product.cost.asPrice()}</span>
             </span>
           </p>
           <dl class="item-property">

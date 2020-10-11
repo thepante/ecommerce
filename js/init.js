@@ -132,6 +132,14 @@ const showNavBar = async () => {
 // Al llamar el init quiere decir que ya tengo el nav presente
 showNavBar();
 
+// formateo de precios
+Number.asPrice = Number.prototype.asPrice = function () {
+  let num = this;
+  if (num % 1 != 0) num = num.toFixed(2).replace('.', ',');
+  num = String(num).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$&.');
+  return num;
+};
+
 document.addEventListener("DOMContentLoaded", function (e) {
   // Si hay botón 'Volver arriba' agregarle funcionamiento
   const goTopButton = document.getElementById('goTop');
