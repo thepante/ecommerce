@@ -58,7 +58,7 @@ function showProductsList(){
             </div>
             <div class="col info">
               <div class="d-flex w-100 justify-content-between">
-                <h4 class="mb-1 pl-0"><strong>${renderText(product.name)}</strong></h4>
+                <h4 class="mb-1 pl-0">${renderText(product.name)}</h4>
                 <small>${product.soldCount} vendidos</small>
               </div>
               <p><span class="badge badge-secondary">${product.currency} ${product.cost.asPrice()}</span></p>

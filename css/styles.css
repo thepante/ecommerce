@@ -601,12 +601,12 @@ a.custom-card:hover {
 }
 
 .product-card {
-	position: relative;
-	display: -ms-flexbox;
-	display: flex;
-	-ms-flex-direction: column;
-	flex-direction: column;
-	word-wrap: break-word;
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  word-wrap: break-word;
   min-width: 0;
   margin-bottom: 1.5rem;
   border-radius: .3rem;
@@ -639,19 +639,20 @@ a.custom-card:hover {
   color: #a1a5a8 !important;
 }
 
-.product-card h4 {
+.product-card .info h4 {
+  font-weight: 700;
   height: 2rem;
 }
 
 .product-card h4::after {
-	content: '';
-	position: relative;
-	display: inline-block;
-	width: 30%;
-	height: 0.5rem;
-	bottom: 1rem;
-	left: 0;
-	background-color: transparent;
+  content: '';
+  position: relative;
+  display: inline-block;
+  width: 30%;
+  height: 0.5rem;
+  bottom: 1rem;
+  left: 0;
+  background-color: transparent;
   z-index: 9;
   transition: all .2s ease-in-out;
 }
@@ -676,6 +677,7 @@ a.product-link {
   padding: 1px 1px;
   margin: 0 -1px;
   border-radius: 4px;
+  display: inline-block;
 }
 
 @media (max-width: 768px) {
