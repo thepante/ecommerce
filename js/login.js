@@ -44,6 +44,13 @@ function onSignIn(googleUser) {
 }
 
 document.addEventListener("DOMContentLoaded", function(e){
+
+  if (params.msg) {
+    const alert = document.getElementById('alertMsg');
+    alert.innerText = params.msg;
+    alert.style.display = 'inline-block';
+  }
+
   loginInputs = [
     document.getElementById('inputUser'),
     document.getElementById('inputPassword')
