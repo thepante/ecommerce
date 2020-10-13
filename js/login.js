@@ -1,6 +1,6 @@
 let loginInputs = [];
 
-const accessHome = () => window.location = 'home.html';
+const accessHome = () => window.location = params.from ? params.from : 'home.html';
 
 const checkInputs = () => {
   let filledForm = true;

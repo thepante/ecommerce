@@ -82,7 +82,7 @@ const showNavBar = async () => {
     `
     :
       `
-      <a class="nav-link" href="index.html" id="userMenu" aria-expanded="false">
+      <a class="nav-link" href="index.html?from=${window.location.pathname}" id="userMenu" aria-expanded="false">
         Ingresar <i class="fas fa-sign-in-alt"></i>
       </a>
     `;

@@ -11,7 +11,8 @@
       const userInfoKey = "Logged-User";
       const userLogged = JSON.parse(localStorage.getItem(userInfoKey));
       const URLparams = new URLSearchParams(window.location.search);
-      let requestedLogout = URLparams.get('logout') != null;
+      const params = Object.fromEntries(URLparams);
+      let requestedLogout = params.logout != null;
 
       // si está logueado
       if (userLogged) {
