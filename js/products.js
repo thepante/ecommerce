@@ -51,7 +51,7 @@ function showProductsList(){
       }
 
       htmlContentToAppend += `
-        <div class="product-card">
+        <div class="list-card">
           <div class="row" style="display: inherit;">
             <div class="col-3">
               <img src="${product.imgSrc}" alt="${product.name}" class="product-img">

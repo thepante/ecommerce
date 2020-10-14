@@ -47,21 +47,22 @@ function showCategoriesList(){
             ((maxCount == undefined) || (maxCount != undefined && parseInt(category.productCount) <= maxCount))){
 
             htmlContentToAppend += `
-            <a href="category-info.html" class="list-group-item list-group-item-action">
-                <div class="row">
-                    <div class="col-3">
-                        <img src="` + category.imgSrc + `" alt="` + category.description + `" class="img-thumbnail">
+              <div class="list-card">
+                <div class="row" style="display: inherit;">
+                  <div class="col-3">
+                    <img src="${category.imgSrc}" alt="${category.description}" class="product-img">
+                  </div>
+                  <div class="col info">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h4 class="mb-1 pl-0">${category.name}</h4>
+                      <small>${category.productCount} artículos</small>
                     </div>
-                    <div class="col">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h4 class="mb-1">`+ category.name +`</h4>
-                            <small class="text-muted">` + category.productCount + ` artículos</small>
-                        </div>
-                        <p class="mb-1">` + category.description + `</p>
-                    </div>
+                    <p>${category.description}</p>
+                  </div>
+                  <a href="product-info.html" class="product-link"></a>
                 </div>
-            </a>
-            `
+              </div>
+            `;
         }
 
         document.getElementById("cat-list-container").innerHTML = htmlContentToAppend;

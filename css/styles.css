@@ -1,3 +1,4 @@
+/* Global - General */
 html {
   scroll-behavior: smooth;
 }
@@ -25,7 +26,7 @@ html {
 
 nav {
   box-shadow: 0 0 8px #0000004a;
-  z-index: 99999 !important;
+  z-index: 100 !important;
 }
 
 nav, nav * {
@@ -86,6 +87,16 @@ nav .dropdown-menu {
 .container,
 .site-header {
   font-family: "Raleway", serif !important;
+}
+
+.modal-dialog {
+  margin-top: 4rem !important;
+}
+
+.login-msg {
+  position: relative !important;
+  top: 3rem !important;
+  text-align: center;
 }
 
 /* Home */
@@ -592,7 +603,8 @@ a.custom-card:hover {
   }
 }
 
-/* Products list */
+/* Products & cateogries list */
+#cat-list-container,
 #products-list-container {
   padding: 2.5rem;
   border-radius: .3rem;
@@ -600,7 +612,7 @@ a.custom-card:hover {
   box-shadow: 0 3px 7px rgba(154,160,185,.05), 0 10px 40px rgba(166,173,201,.1);
 }
 
-.product-card {
+.list-card {
   position: relative;
   display: -ms-flexbox;
   display: flex;
@@ -616,35 +628,35 @@ a.custom-card:hover {
   transition: all .2s ease-in-out;
 }
 
-.product-card:hover {
+.list-card:hover {
   border-color: #cca57863;
 }
 
-.product-card .product-img {
+.list-card .product-img {
   max-width: 100%;
   height: auto;
 }
 
-.product-card .info {
+.list-card .info {
   margin: .5rem;
   margin-left: 0rem;
 }
 
-.product-card .info .d-flex {
+.list-card .info .d-flex {
   flex-wrap: wrap;
 }
 
-.product-card .info small {
+.list-card .info small {
   font-weight: 700;
   color: #a1a5a8 !important;
 }
 
-.product-card .info h4 {
+.list-card .info h4 {
   font-weight: 700;
   height: 2rem;
 }
 
-.product-card h4::after {
+.list-card h4::after {
   content: '';
   position: relative;
   display: inline-block;
@@ -657,7 +669,7 @@ a.custom-card:hover {
   transition: all .2s ease-in-out;
 }
 
-.product-card:hover h4::after {
+.list-card:hover h4::after {
   width: 100%;
   background-color: #ffdc9ae7;
 }
@@ -681,16 +693,17 @@ a.product-link {
 }
 
 @media (max-width: 768px) {
+  #cat-list-container,
   #products-list-container {
     margin-top: 2rem;
     padding: 0rem;
   }
 
-  .product-card {
+  .list-card {
     border-radius: 0rem;
   }
 
-  .product-card .product-img {
+  .list-card .product-img {
     top: -10vh;
     max-width: 100vw !important;
     display: block;
@@ -699,11 +712,11 @@ a.product-link {
     filter: grayscale(.8);
   }
 
-  .product-card div.col-3:first-of-type {
+  .list-card div.col-3:first-of-type {
     position: absolute;
   }
 
-  .product-card .info {
+  .list-card .info {
     margin-left: 1.2rem;
   }
 }
