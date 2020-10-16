@@ -89,10 +89,6 @@ nav .dropdown-menu {
   font-family: "Raleway", serif !important;
 }
 
-.modal-dialog {
-  margin-top: 4rem !important;
-}
-
 .login-msg {
   position: relative !important;
   top: 3rem !important;
@@ -1201,9 +1197,9 @@ a.add-cart {
 #cart-list thead th,
 #cart-list tbody input,
 #cart-list tbody td:last-child,
-#cart-list tbody td:first-child,
 #cart-list tbody td:nth-child(3),
-#cart-list tbody td:nth-child(4) {
+#cart-list tbody td:nth-child(4),
+#cart-list tbody td:nth-child(5) {
   text-align: center;
 }
 
@@ -1223,6 +1219,27 @@ a.add-cart {
 #cart-list tbody td:last-child,
 #cart-list tbody td:nth-child(2) {
   font-weight: 700;
+}
+
+#cart-list td:last-of-type {
+  position: relative;
+}
+#cart-list td:last-of-type span {
+  line-height: 4rem;
+  font-size: 1rem;
+  cursor: pointer;
+  opacity: .5;
+  transition: all .3s ease-in-out;
+  z-index: 999;
+}
+
+#cart-list tr:hover td:last-of-type span {
+  opacity: 1;
+}
+
+#cart-list tr td:last-of-type span i {
+  width: 24px;
+  height: 24px;
 }
 
 #cart-list img {
@@ -1286,4 +1303,188 @@ a.add-cart {
 #cart .price,
 #cart .productCount {
   font-family: 'Roboto', sans-serif;
+}
+
+.checkout {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: .8rem;
+  padding: 0.55rem 1.6rem;
+}
+
+.checkout i {
+  margin-left: .5rem;
+}
+
+#shipping-info {
+  font-size: .8rem;
+  font-weight: 700;
+  color: #535353;
+}
+
+#edit-address,
+#cancel-edit-address {
+  position: relative;
+  float: right;
+  top: .2rem;
+  cursor: pointer;
+  color: #535353;
+  font-size: .8rem;
+  opacity: 0.6;
+  transition: all .2s ease-in-out;
+}
+
+#edit-address:hover,
+#cancel-edit-address:hover {
+  opacity: 1;
+}
+
+.empty-cart {
+  text-align: center;
+}
+
+.empty-cart a {
+  text-decoration: none;
+  color: #998469;
+}
+
+/* Payment process - animación de https://tobiasahlin.com/spinkit/ */
+.processing-payment {
+  margin: 8rem auto;
+}
+
+.processing-payment p {
+  margin-top: 2rem;
+  color: #424242;
+}
+
+.sk-folding-cube {
+  margin: 0 auto;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  -webkit-transform: rotateZ(45deg);
+  transform: rotateZ(45deg);
+}
+
+.sk-folding-cube .sk-cube {
+  float: left;
+  width: 50%;
+  height: 50%;
+  position: relative;
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+}
+.sk-folding-cube .sk-cube:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ffdc9a;
+  -webkit-animation: sk-foldCubeAngle 2.4s infinite linear both;
+  animation: sk-foldCubeAngle 2.4s infinite linear both;
+  -webkit-transform-origin: 100% 100%;
+  -ms-transform-origin: 100% 100%;
+  transform-origin: 100% 100%;
+}
+.sk-folding-cube .sk-cube2 {
+  -webkit-transform: scale(1.1) rotateZ(90deg);
+  transform: scale(1.1) rotateZ(90deg);
+}
+.sk-folding-cube .sk-cube3 {
+  -webkit-transform: scale(1.1) rotateZ(180deg);
+  transform: scale(1.1) rotateZ(180deg);
+}
+.sk-folding-cube .sk-cube4 {
+  -webkit-transform: scale(1.1) rotateZ(270deg);
+  transform: scale(1.1) rotateZ(270deg);
+}
+.sk-folding-cube .sk-cube2:before {
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+.sk-folding-cube .sk-cube3:before {
+  -webkit-animation-delay: 0.6s;
+  animation-delay: 0.6s;
+}
+.sk-folding-cube .sk-cube4:before {
+  -webkit-animation-delay: 0.9s;
+  animation-delay: 0.9s;
+}
+@-webkit-keyframes sk-foldCubeAngle {
+  0%, 10% {
+    -webkit-transform: perspective(140px) rotateX(-180deg);
+    transform: perspective(140px) rotateX(-180deg);
+    opacity: 0;
+  } 25%, 75% {
+    -webkit-transform: perspective(140px) rotateX(0deg);
+    transform: perspective(140px) rotateX(0deg);
+    opacity: 1;
+  } 90%, 100% {
+    -webkit-transform: perspective(140px) rotateY(180deg);
+    transform: perspective(140px) rotateY(180deg);
+    opacity: 0;
+  }
+}
+
+@keyframes sk-foldCubeAngle {
+  0%, 10% {
+    -webkit-transform: perspective(140px) rotateX(-180deg);
+    transform: perspective(140px) rotateX(-180deg);
+    opacity: 0;
+  } 25%, 75% {
+    -webkit-transform: perspective(140px) rotateX(0deg);
+    transform: perspective(140px) rotateX(0deg);
+    opacity: 1;
+  } 90%, 100% {
+    -webkit-transform: perspective(140px) rotateY(180deg);
+    transform: perspective(140px) rotateY(180deg);
+    opacity: 0;
+  }
+}
+
+/* Cart - Checkout - Receipt */
+.receipt .alert-success {
+  padding: .5rem 1rem;
+  border-radius: .3rem;
+}
+
+.receipt table tr:first-of-type {
+  border-top: 2px dashed #ececec;
+}
+
+.receipt td:not(:first-of-type) {
+  vertical-align: middle;
+}
+
+.receipt hr {
+  border-top: 2px dashed #ececec;
+}
+
+.receipt .datetime {
+  text-align: center;
+  color: #979797;
+}
+
+.receipt .products-summary th:nth-of-type(2),
+.receipt .products-summary td:nth-of-type(2) {
+  text-align: center;
+}
+
+.receipt .products-summary th:last-of-type,
+.receipt .products-summary td:last-of-type,
+.receipt .costs-summary th:last-of-type,
+.receipt .costs-summary td:last-of-type {
+  text-align: right;
+}
+
+.modal-content {
+  border-color: #ececec;
+  box-shadow: 0 5px 10px rgba(154,160,185,.05), 0 15px 40px rgba(166,173,201,.2) !important;
+}
+.modal {
+  background: rgba(255, 255, 255, 0.623) !important;
 }

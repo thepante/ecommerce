@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <!-- saved from url=(0049)https://getbootstrap.com/docs/4.3/examples/album/ -->
 <html lang="en">
-
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -21,7 +20,6 @@
 <body>
   <nav class="site-header navbar navbar-expand-lg navbar-light bg-light sticky-top transparent" style="min-height: 55px;">
   </nav>
-  <!-- <p>Esta sección corresponde a: Entrega 5 (Fecha de entrega: 11/10/2020) y Entrega 6 (Fecha de entrega: 25/10/2020).</p> -->
   <main role="main" class="pb-5">
     <div id="header" class="container">
       <div class="row">
@@ -41,9 +39,10 @@
             <thead>
               <tr>
                 <th width="35%" scope="col" colspan="2">Producto</th>
-                <th width="22%" scope="col">Precio</th>
+                <th width="20%" scope="col">Precio</th>
                 <th width="20%" scope="col">Cantidad</th>
                 <th width="23%" scope="col">Subtotal</th>
+                <th width="2%" scope="col"></th>
               </tr>
             </thead>
             <tbody id="cart-articles">
@@ -51,10 +50,45 @@
           </table>
         </div>
 
-        <div class="col">
+        <div class="col p-0">
           <div class="card mb-3">
-            <div id="shipping" class="card-body">
-              <h6 class="mb-4">Tipo de envío:</h6>
+
+            <div class="card-body">
+              <h6 class="mb-2 mb-0">Datos de envío:</h6>
+              <div id="address-edit" style="display: none;">
+                <div id="cancel-edit-address" onclick="shippingInfo.toggle()" title="Cancelar cambios" style="display: none;"><i class="fas fa-times-circle"></i></div>
+                <label for="country">País:</label>
+                <select class="form-control" id="address-country" required>
+                  <option>Uruguay</option>
+                  <option>Argentina</option>
+                  <option>Brasil</option>
+                  <option>Chile</option>
+                  <option>Paraguay</option>
+                </select>
+                <br>
+                <div class="row">
+                  <div class="col-8">
+                    <input type="text" id="address-st" placeholder="Calle" class="form-control" required>
+                  </div>
+                  <div class="col">
+                    <input type="text" id="address-number" placeholder="Puerta" class="form-control" required>
+                  </div>
+                </div>
+                <br>
+                <input type="text" id="address-corner" placeholder="Esquina" class="form-control" required>
+
+                <button type="button" id="save-shipping-info" class="btn btn-primary btn-block mt-4 checkout" >
+                  Guardar datos de envío <i class="fas fa-check"></i>
+                </button>
+              </div>
+
+              <div id="shipping-info" style="display: none;">
+              </div>
+            </div>
+
+
+            <div id="shipping" class="card-body pt-0 pb-0">
+              <h6 class="mb-3">Tipo de envío:</h6>
               <p class="mb-0">
                 <div class="btn-group btn-group-toggle btn-block filters" onchange="calcShipping()" data-toggle="buttons">
                   <label class="btn btn-light active">
@@ -63,15 +97,23 @@
                   <label class="btn btn-light">
                     <input type="radio" name="shippingMethod" autocomplete="off" value="express"><i class="fas fa-shipping-fast mr-2"></i>Express
                   </label>
+                  <label class="btn btn-light">
+                    <input type="radio" name="shippingMethod" autocomplete="off" value="premium"><i class="fas fa-gem mr-2"></i></i>Premium
+                  </label>
                 </div>
               </p>
-              <p><small>El costo de envío es del <span id="show-cost">1</span> % sobre el valor de los productos, sin tomar en cuenta los descuentos.</small></p>
+              <p>
+                <small>
+                  <strong>Tiempo de entrega entre <span id="shipping-from">-</span> a <span id="shipping-until">-</span> días.</strong> <br>
+                  El costo de envío es del <span id="shipping-cost">-</span> % sobre el valor de los productos, sin tomar en cuenta los descuentos.
+                </small>
+              </p>
             </div>
 
             <div id="coupons" class="card-body">
-              <h6 class="mb-4">Tenés un cupón de descuento? <span title="Válidos: DES10, DES22"><i class="fas fa-info-circle"></i></span></h6>
+              <h6 class="mb-3">Tenés un cupón de descuento? <span title="Válidos: DES10, DES22"><i class="fas fa-info-circle"></i></span></h6>
               <!-- <h6 class="mb-4">Tenés un cupón de descuento? <dfn data-info="Válidos: DES10, DES22"><i class="fas fa-info-circle"></i></dfn></h6> -->
-              <div class="input-group mb-3">
+              <div class="input-group">
                 <input type="text" id="coupon-code" class="form-control" placeholder="Ingresalo acá"></input>
                 <div class="input-group-append">
                   <button class="btn btn-outline-secondary" type="button" onclick="calcDiscount()">Aplicar</button>
@@ -100,34 +142,115 @@
                   <td id="final-cost" class="price">-</td>
                 </tr>
               </table>
-              <button type="button" class="btn btn-primary btn-block mt-4" data-toggle="modal" data-target="#checkoutModal">
-                Realizar compra
+
+              <hr class="ml-1 mr-1 mt-0 mb-0">
+
+              <p class="mb-0 mt-2">
+                <div id="payment-method">
+                  <small>
+                    <label class="">
+                      <input type="radio" name="paymentMethod" autocomplete="off" value="card" required>Tarjeta de crédito
+                    </label> <br>
+                    <label class="">
+                      <input type="radio" name="paymentMethod" autocomplete="off" value="transfer">Transferencia bancaria
+                    </label>
+                  </div>
+                </small>
+              </p>
+              <button type="button" id="proceedCheckout" class="btn btn-primary btn-block mt-4 checkout" data-toggle="modal" data-target="#checkoutModal" disabled>
+                Continuar con el pago <i class="far fa-credit-card"></i>
               </button>
             </div>
           </div>
 
       </div>
-      </div>
-
-      <div class="modal fade" id="checkoutModal" tabindex="-1" role="dialog" aria-labelledby="checkoutModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="checkoutModalLabel">Modal title</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              ...
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-      </div>
+    </div>
   </main>
+
+  <div class="modal fade" id="checkoutModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="checkoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="checkoutModalLabel">Realizar compra</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <!-- tarjeta de crédito -->
+        <div id="checkout-card" class="needs-validation" style="display: none;">
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="fullname">Nombre completo en la tarjeta</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-user"></i></span>
+                </div>
+                <input type="text" class="form-control" id="fullname" name="fullname" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="cardnumber">Número de la tarjeta</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-credit-card"></i></span>
+                </div>
+                <input type="text" class="form-control" id="cardnumber" name="cardnumber" required>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-8">
+                <div class="form-group">
+                  <label for="expiration-m"><span class="hidden-xs">Vencimiento</span> </label>
+                  <div class="input-group">
+                    <input type="number" placeholder="MM" id="expiration-m" class="form-control" required>
+                    <input type="number" placeholder="AA" id="expiration-y" class="form-control" required>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="cvv" data-toggle="tooltip">CVV <i class="fa fa-question-circle"></i></label>
+                  <input type="text" class="form-control" id="cvv" name="cvv" required>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary btn-block" onclick="confirmPayment()">Confirmar compra</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          </div>
+
+        </div>
+
+        <!-- transferencia bancaria -->
+        <div id="checkout-transfer" class="needs-validation" style="display: none;">
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="bank-acc-number">Número de cuenta</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-user"></i></span>
+                </div>
+                <input type="text" class="form-control" id="bank-acc-number" name="bank-acc-number" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary btn-block" onclick="confirmPayment()">Confirmar compra</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
 
   <footer class="text-muted bg-light">
     <div class="container">
