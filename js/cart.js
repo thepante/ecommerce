@@ -322,6 +322,7 @@ function setCheckoutBtnStatus() {
     checkoutButton.classList.remove('disabled');
     checkoutButton.setAttribute('data-target', '#checkoutModal');
   } else {
+    if (!isAddressValid) document.getElementById('checkout-section').scrollIntoView();
     checkoutButton.classList.add('disabled');
   }
 
