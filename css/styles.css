@@ -1488,3 +1488,7 @@ a.add-cart {
 .modal {
   background: rgba(255, 255, 255, 0.623) !important;
 }
+
+.custom-control-label {
+  padding-top: .150rem !important;
+}

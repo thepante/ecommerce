@@ -123,7 +123,7 @@ function showCartProducts() {
           <button onclick="changeAmount(this, 1)">${btnIcon.plus}</button>
         </td>
         <td class="price subtotal">${formatPrice(subtotal)}</td>
-        <td><span onclick="removeItem(this)" title="Quitar '${name}' del carrito"><i class="fas fa-times"></i></span></td>
+        <td><span onclick="removeItem(this)" title="Eliminar '${name}' del carrito"><i class="fas fa-times"></i></span></td>
       </tr>
     `;
   }).join('');
@@ -256,7 +256,10 @@ const shippingInfo = {
 
       localStorage.setItem(this.KEY, JSON.stringify(data));
       this.display();
+    } else {
+      this.EDIT.classList.add('was-validated');
     }
+    setCheckoutBtnStatus();
   },
 
   // cargar los datos desde localStorage
@@ -279,7 +282,7 @@ const shippingInfo = {
     document.getElementById('cancel-edit-address').style.display = 'inline';
     this.INFO.style.display = 'inline';
     this.EDIT.style.display = 'none';
-    setCheckoutBtnStatus();
+    // setCheckoutBtnStatus();
   },
 
   // cambia de vista (edición o visualización de los datos)
@@ -308,10 +311,23 @@ function isShippingAndPaymentValid() {
   return valid;
 }
 
-// establecer disponibilidad de continuar con el pago
+// validar y establecer disponibilidad de continuar con el pago
 function setCheckoutBtnStatus() {
   const isDataFilled = isShippingAndPaymentValid();
-  document.getElementById('proceedCheckout').disabled = !isDataFilled;
+  const checkoutButton = document.getElementById('proceedCheckout');
+  const forms = [
+    document.getElementById('address-edit'),
+    document.getElementById('payment-method'),
+  ];
+
+  if (isDataFilled) {
+    checkoutButton.classList.remove('disabled');
+    checkoutButton.setAttribute('data-target', '#checkoutModal');
+  } else {
+    checkoutButton.classList.add('disabled');
+  }
+
+  forms.forEach(form => form.classList.add('was-validated'));
 }
 
 // mostrar el formulario de pago que corresponda
@@ -330,8 +346,7 @@ function enablePaymentForm(selected) {
   setCheckoutBtnStatus();
 }
 
-// habilitar el pago si están todos los datos necesarios
-// solo revisa que no estén vacíos, nada más
+// habilitar el pago si están todos los datos necesarios - solo valida que no estén vacíos, nada más
 function confirmPayment() {
   const paymentForm = document.getElementById(`checkout-${SELECTED_PAYMENT_METHOD}`);
 
@@ -340,12 +355,8 @@ function confirmPayment() {
   const validPrices = Array.from(document.getElementsByClassName('price')).every(e => e.innerText.trim() !== '');
   const validPayment = Array.from(paymentForm.getElementsByTagName('input')).every(e => e.value.trim() !== '');
 
-  console.log("A", validAmounts);
-  console.log("B", validPrices)
-  console.log("C", validSaP);
-  console.log("D", validPayment);
-
   if (validSaP && validAmounts && validPrices && validPayment) showBuySuccess();
+  paymentForm.classList.add('was-validated');
 }
 
 // confirma la compra y muestra un resumen de la misma
@@ -504,7 +515,10 @@ document.addEventListener("DOMContentLoaded", function(e){
   });
 
   // establecer estado al botón de checkout
-  setCheckoutBtnStatus();
+  // setCheckoutBtnStatus();
+  document.getElementById('proceedCheckout').addEventListener('click', function() {
+    setCheckoutBtnStatus();
+  });
 
   // const checkout = document.getElementById('form-checkout');
   // checkout.addEventListener('submit', function (e) {

@@ -55,7 +55,7 @@
 
             <div class="card-body">
               <h6 class="mb-2 mb-0">Datos de envío:</h6>
-              <div id="address-edit" style="display: none;">
+              <div id="address-edit" class="needs-validation" style="display: none;">
                 <div id="cancel-edit-address" onclick="shippingInfo.toggle()" title="Cancelar cambios" style="display: none;"><i class="fas fa-times-circle"></i></div>
                 <label for="country">País:</label>
                 <select class="form-control" id="address-country" required>
@@ -145,19 +145,22 @@
 
               <hr class="ml-1 mr-1 mt-0 mb-0">
 
-              <p class="mb-0 mt-2">
-                <div id="payment-method">
+              <p class="mb-0 mt-3">
+                <div id="payment-method" class="needs-validation">
                   <small>
-                    <label class="">
-                      <input type="radio" name="paymentMethod" autocomplete="off" value="card" required>Tarjeta de crédito
-                    </label> <br>
-                    <label class="">
-                      <input type="radio" name="paymentMethod" autocomplete="off" value="transfer">Transferencia bancaria
-                    </label>
-                  </div>
-                </small>
+                    <div class="custom-control custom-radio">
+                      <input type="radio" class="custom-control-input" autocomplete="off" value="card" id="opt-card" name="paymentMethod" required>
+                      <label class="custom-control-label" for="opt-card">Tarjeta de crédito</label>
+                    </div>
+                    <div class="custom-control custom-radio mb-2">
+                      <input type="radio" class="custom-control-input" autocomplete="off" value="transfer" id="opt-transfer" name="paymentMethod" required>
+                      <label class="custom-control-label" for="opt-transfer">Transferencia bancaria</label>
+                      <div class="invalid-feedback"><strong>Seleccione un método de pago</strong></div>
+                    </div>
+                  </small>
+                </div>
               </p>
-              <button type="button" id="proceedCheckout" class="btn btn-primary btn-block mt-4 checkout" data-toggle="modal" data-target="#checkoutModal" disabled>
+              <button type="button" id="proceedCheckout" class="btn btn-primary btn-block mt-4 checkout disabled" data-toggle="modal">
                 Continuar con el pago <i class="far fa-credit-card"></i>
               </button>
             </div>
@@ -230,6 +233,15 @@
         <!-- transferencia bancaria -->
         <div id="checkout-transfer" class="needs-validation" style="display: none;">
           <div class="modal-body">
+            <label for="bank-name">Banco:</label>
+            <select class="form-control" id="bank-name" required>
+              <option>BROU</option>
+              <option>Itaú</option>
+              <option>HSBC</option>
+              <option>Santander</option>
+              <option>Scotiabank</option>
+            </select>
+            <br>
             <div class="form-group">
               <label for="bank-acc-number">Número de cuenta</label>
               <div class="input-group">
