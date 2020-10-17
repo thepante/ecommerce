@@ -1216,8 +1216,8 @@ a.add-cart {
 }
 
 #cart-list tfoot td,
-#cart-list tbody td:last-child,
-#cart-list tbody td:nth-child(2) {
+#cart-list tbody td:nth-child(2),
+#cart-list tbody td:nth-child(5) {
   font-weight: 700;
 }
 
