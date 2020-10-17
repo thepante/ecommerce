@@ -1492,3 +1492,9 @@ a.add-cart {
 .custom-control-label {
   padding-top: .150rem !important;
 }
+
+/* Floating labels fix: cart -> datos de envío */
+.form-label-group.col label,
+.form-label-group.col-8 label {
+  padding-left: 1.7rem;
+}

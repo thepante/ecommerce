@@ -67,15 +67,20 @@
                 </select>
                 <br>
                 <div class="row">
-                  <div class="col-8">
+                  <div class="col-8 form-label-group">
                     <input type="text" id="address-st" placeholder="Calle" class="form-control" required>
+                    <label for="address-st">Calle</label>
                   </div>
-                  <div class="col">
+                  <div class="col form-label-group">
                     <input type="text" id="address-number" placeholder="Puerta" class="form-control" required>
+                    <label for="address-number">Puerta</label>
                   </div>
                 </div>
                 <br>
-                <input type="text" id="address-corner" placeholder="Esquina" class="form-control" required>
+                <div class="form-label-group">
+                  <input type="text" id="address-corner" placeholder="Esquina" class="form-control" required>
+                  <label for="address-corner">Esquina</label>
+                </div>
 
                 <button type="button" id="save-shipping-info" class="btn btn-primary btn-block mt-4 checkout" >
                   Guardar datos de envío <i class="fas fa-check"></i>
