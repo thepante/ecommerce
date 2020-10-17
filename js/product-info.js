@@ -190,7 +190,7 @@ function showWriteComment() {
   } else {
     writeCommentBox.innerHTML = `
       <div class="alert-light">
-        <a href="index.html" class="alert-link">Inicia sesión</a> para dejar el tuyo.
+        <a href="index.html?from=product-info.html&focus=write-comment&msg=Inicia sesión y califica el producto!" class="alert-link">Inicia sesión</a> para dejar el tuyo.
       </div>
     `;
   }
@@ -226,7 +226,7 @@ function showWriteComment() {
 
     // colorear estrellas al pasar el mouse - "previsualizar" elección
     rateStars.addEventListener('mouseover', function(e) {
-      let over = e.srcElement.previousSibling.value;
+      let over = e.target.previousSibling.value;
       if (!over) return; // <- asegura que continúe solo si es en base al elemento de una estrella
 
       // asegurar que permatezcan grises las mayores a la estrella actual
@@ -245,8 +245,8 @@ function showWriteComment() {
 
     // cuando seleccione una estrella, pintar las que correspondan al puntaje
     rateStars.addEventListener('click', function(e) {
-      if (e.srcElement.type != 'radio') return;
-      const selected = e.srcElement.value;
+      if (e.target.type != 'radio') return;
+      const selected = e.target.value;
 
       // asegurar que las mayores al puntaje permatezcan grises (al cambiar de elección)
       stars.forEach(cleanColor);
@@ -321,6 +321,21 @@ function showRelatedProducts() {
   relProductsDiv.innerHTML = htmlRelProducts;
 }
 
+function scrollIfRequested() {
+  const URLparams = new URLSearchParams(window.location.search);
+  const params = Object.fromEntries(URLparams);
+
+  if (params.focus) {
+    const element = document.getElementById(params.focus);
+    const offsetPosition = element.getBoundingClientRect().top - 100;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: "smooth"
+    });
+  }
+}
+
 document.addEventListener("DOMContentLoaded", function(e){
   getJSONData(PRODUCT_INFO_URL).then(function(resultObj){
     if (resultObj.status === "ok") {
@@ -328,20 +343,23 @@ document.addEventListener("DOMContentLoaded", function(e){
       showProductInfo();
       slideshow.init();
     }
-  }).then(function(){
+  })
+  .then(function(){
+    getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function(resultObj){
+      if (resultObj.status === "ok") {
+        commentsArray = resultObj.data;
+        showComments();
+        scrollIfRequested();
+      }
+    })
+  })
+  .then(function(){
     getJSONData(PRODUCTS_URL).then(function(resultObj){
       if (resultObj.status === "ok") {
         product.relatedProducts.forEach(e => relatedProducts.push(resultObj.data[e]));
         showRelatedProducts();
       }
     });
-  });
-
-  getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function(resultObj){
-    if (resultObj.status === "ok") {
-      commentsArray = resultObj.data;
-      showComments();
-    }
   });
 
   showWriteComment();

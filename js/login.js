@@ -1,6 +1,6 @@
 let loginInputs = [];
 
-const accessHome = () => window.location = params.from ? params.from : 'home.html';
+const loginAccess = () => window.location = params.from && params.focus ? `${params.from}?focus=${params.focus}` : params.from || 'home.html';
 
 const checkInputs = () => {
   let filledForm = true;
@@ -18,7 +18,7 @@ const checkInputs = () => {
       picture: './img/user.png'
     };
     localStorage.setItem('Logged-User', JSON.stringify(data));
-    accessHome();
+    loginAccess();
   }
 }
 
@@ -40,7 +40,7 @@ function onSignIn(googleUser) {
     viagoogle: true,
   };
   localStorage.setItem('Logged-User', JSON.stringify(data));
-  if (!requestedLogout) accessHome();
+  if (!requestedLogout) loginAccess();
 }
 
 document.addEventListener("DOMContentLoaded", function(e){
