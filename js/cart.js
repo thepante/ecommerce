@@ -292,29 +292,26 @@ const shippingInfo = {
 }
 
 
-// verifica si están todos los datos previos necesarios para continuar con el checkout
-function isShippingAndPaymentValid() {
-  let valid = null;
-
+// validación de los métodos de envío y de pago
+function areShippingAndPaymentSelected() {
   const radios = [
     document.getElementsByName('shippingMethod'),
     document.getElementsByName('paymentMethod'),
   ];
-
-  // validar radios
-  valid = radios.every(group => Array.from(group).some(radio => radio.checked));
-
-  // validar la data en localStorage. ya de por sí para guardarlo pasó por una previa validación
-  const storedInfo = JSON.parse(localStorage.getItem(shippingInfo.KEY));
-  if (valid) valid = storedInfo ? Object.values(storedInfo).every(value => value.trim() !== '') : false;
-
-  return valid;
+  return radios.every(group => Array.from(group).some(radio => radio.checked));
 }
 
+// validación de datos de envío
+function isShippingAddressValid() {
+  const storedInfo = JSON.parse(localStorage.getItem(shippingInfo.KEY));
+  return storedInfo ? Object.values(storedInfo).every(value => value.trim() !== '') : false;
+}
 
-// validar y establecer disponibilidad de continuar con el pago
+// establecer disponibilidad de continuar con el pago
 function setCheckoutBtnStatus() {
-  const isDataFilled = isShippingAndPaymentValid();
+  const areSaPSelected = areShippingAndPaymentSelected();
+  const isAddressValid = isShippingAddressValid();
+  const isDataFilled = areSaPSelected && isAddressValid;
   const checkoutButton = document.getElementById('proceedCheckout');
   const forms = [
     document.getElementById('address-edit'),
@@ -332,7 +329,7 @@ function setCheckoutBtnStatus() {
 }
 
 
-// mostrar el formulario de pago que corresponda
+// establecer el formulario de pago que corresponda
 function enablePaymentForm(selected) {
   SELECTED_PAYMENT_METHOD = selected;
 
@@ -352,13 +349,17 @@ function enablePaymentForm(selected) {
 function confirmPayment() {
   const paymentForm = document.getElementById(`checkout-${SELECTED_PAYMENT_METHOD}`);
 
-  const validSaP = isShippingAndPaymentValid();
-  const validAmounts = Array.from(document.querySelectorAll('#cart-articles input[type="number"]')).every(e => Number(e.value) > 0);
-  const validPrices = Array.from(document.getElementsByClassName('price')).every(e => e.innerText.trim() !== '');
-  const validPayment = Array.from(paymentForm.getElementsByTagName('input')).every(e => e.value.trim() !== '');
+  const isDataValid = {
+    SaP: areShippingAndPaymentSelected(),
+    address: isShippingAddressValid(),
+    amounts: Array.from(document.querySelectorAll('#cart-articles input[type="number"]')).every(e => Number(e.value) > 0),
+    prices: Array.from(document.getElementsByClassName('price')).every(e => e.innerText.trim() !== ''),
+    payment: Array.from(paymentForm.getElementsByTagName('input')).every(e => e.value.trim() !== ''),
+  };
+  const isAllValid = Object.values(isDataValid).every(Boolean);
 
   paymentForm.classList.add('was-validated');
-  if (validSaP && validAmounts && validPrices && validPayment) showBuySuccess();
+  if (isAllValid) showBuySuccess();
 }
 
 
