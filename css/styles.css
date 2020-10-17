@@ -1464,9 +1464,10 @@ a.add-cart {
   border-top: 2px dashed #ececec;
 }
 
-.receipt .datetime {
+.receipt .receipt-details {
   text-align: center;
   color: #979797;
+  font-size: .9rem;
 }
 
 .receipt .products-summary th:nth-of-type(2),

@@ -384,6 +384,8 @@ function showBuySuccess() {
   };
 
   const shipping = SHIPPING_METHODS[SELECTED_SHIPPING_METHOD];
+  const cardPayment = SELECTED_PAYMENT_METHOD === 'card';
+  const paymentAccNumber = document.getElementById(cardPayment ? 'cardnumber' : 'bank-acc-number').value;
   const modalContent = document.querySelector('#checkoutModal .modal-content');
 
   const today = new Date();
@@ -453,7 +455,11 @@ function showBuySuccess() {
         <tr><th>Total final:</th><th class="price">${finalTotal}</th></tr>
       </table>
       <hr>
-      <div class="datetime">Fecha y hora de compra: ${datetime}</div>
+      <div class="receipt-details">
+        Fecha y hora de compra: ${datetime} <br>
+        Pago con ${cardPayment ? 'tarjeta de crédito' : 'transferencia bancaria'}:
+        **** ${paymentAccNumber.length > 4 ? paymentAccNumber.substr(paymentAccNumber.length-4, paymentAccNumber.length) : paymentAccNumber}
+      </div>
     </div>
     <div class="modal-footer text-center">
       <button type="button" onclick="window.location = './categories.html'" class="btn btn-light ml-auto"><i class="fas fa-shopping-cart"></i> Continuar comprando</button>
