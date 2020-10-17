@@ -187,7 +187,6 @@ function calcFinalCost() {
   const finalElement = document.getElementById('final-cost');
   const beforeShipping = couponCode ? (extractPrice(productsTotal) - extractPrice(discounted)) : extractPrice(productsTotal);
   const finalCost = beforeShipping + extractPrice(shippingPrice);
-
   finalElement.innerText = formatPrice(finalCost);
 }
 
@@ -230,6 +229,7 @@ function calcDiscount() {
 
   calcFinalCost();
 }
+
 
 // manejo de la sección de 'datos de envío'
 const shippingInfo = {
@@ -282,7 +282,6 @@ const shippingInfo = {
     document.getElementById('cancel-edit-address').style.display = 'inline';
     this.INFO.style.display = 'inline';
     this.EDIT.style.display = 'none';
-    // setCheckoutBtnStatus();
   },
 
   // cambia de vista (edición o visualización de los datos)
@@ -292,7 +291,8 @@ const shippingInfo = {
   },
 }
 
-// verifica si están todos los datos previos para continuar con el checkout
+
+// verifica si están todos los datos previos necesarios para continuar con el checkout
 function isShippingAndPaymentValid() {
   let valid = null;
 
@@ -304,12 +304,13 @@ function isShippingAndPaymentValid() {
   // validar radios
   valid = radios.every(group => Array.from(group).some(radio => radio.checked));
 
-  // validar la data en localStorage
+  // validar la data en localStorage. ya de por sí para guardarlo pasó por una previa validación
   const storedInfo = JSON.parse(localStorage.getItem(shippingInfo.KEY));
   if (valid) valid = storedInfo ? Object.values(storedInfo).every(value => value.trim() !== '') : false;
 
   return valid;
 }
+
 
 // validar y establecer disponibilidad de continuar con el pago
 function setCheckoutBtnStatus() {
@@ -329,6 +330,7 @@ function setCheckoutBtnStatus() {
 
   forms.forEach(form => form.classList.add('was-validated'));
 }
+
 
 // mostrar el formulario de pago que corresponda
 function enablePaymentForm(selected) {
@@ -355,9 +357,10 @@ function confirmPayment() {
   const validPrices = Array.from(document.getElementsByClassName('price')).every(e => e.innerText.trim() !== '');
   const validPayment = Array.from(paymentForm.getElementsByTagName('input')).every(e => e.value.trim() !== '');
 
-  if (validSaP && validAmounts && validPrices && validPayment) showBuySuccess();
   paymentForm.classList.add('was-validated');
+  if (validSaP && validAmounts && validPrices && validPayment) showBuySuccess();
 }
+
 
 // confirma la compra y muestra un resumen de la misma
 function showBuySuccess() {
@@ -515,18 +518,8 @@ document.addEventListener("DOMContentLoaded", function(e){
   });
 
   // establecer estado al botón de checkout
-  // setCheckoutBtnStatus();
   document.getElementById('proceedCheckout').addEventListener('click', function() {
     setCheckoutBtnStatus();
   });
-
-  // const checkout = document.getElementById('form-checkout');
-  // checkout.addEventListener('submit', function (e) {
-  //   if (checkout.checkValidity() === false) {
-  //     e.preventDefault();
-  //     e.stopPropagation();
-  //   }
-  //   checkout.classList.add('was-validated');
-  // });
 
 });
