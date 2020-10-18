@@ -12,18 +12,9 @@ const couponInput = document.getElementById('coupon-code');
 const discounted = document.getElementById('discount-amount');
 
 const SHIPPING_METHODS = {
-  standard: {
-    cost: 5,
-    days: [12, 15],
-  },
-  express: {
-    cost: 7,
-    days: [5, 8],
-  },
-  premium: {
-    cost: 15,
-    days: [2, 5],
-  },
+  standard: { cost: 5, days: [12, 15] },
+  express: { cost: 7, days: [5, 8] },
+  premium: { cost: 15, days: [2, 5] },
 };
 
 let SELECTED_SHIPPING_METHOD = null;
@@ -42,9 +33,7 @@ function extractPrice(element) {
 
 // formatea el precio y agrega la moneda
 function formatPrice(price) {
-  if (price % 1 != 0) price = price.toFixed(2).replace('.', ',');
-  price = String(price).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$&.');
-  return `${SELECTED_CURRENCY} ${price}`;
+  return `${SELECTED_CURRENCY} ${price.asPrice()}`;
 }
 
 // convierte el precio de moneda (si no es la seleccionada)
@@ -526,8 +515,6 @@ document.addEventListener("DOMContentLoaded", function(e){
   });
 
   // establecer estado al botón de checkout
-  document.getElementById('proceedCheckout').addEventListener('click', function() {
-    setCheckoutBtnStatus();
-  });
+  document.getElementById('proceedCheckout').addEventListener('click', setCheckoutBtnStatus);
 
 });
