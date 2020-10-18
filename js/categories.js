@@ -59,7 +59,7 @@ function showCategoriesList(){
                     </div>
                     <p>${category.description}</p>
                   </div>
-                  <a href="product-info.html" class="product-link"></a>
+                  <a href="category-info.html" class="product-link"></a>
                 </div>
               </div>
             `;
@@ -80,6 +80,30 @@ function sortAndShowCategories(sortCriteria, categoriesArray){
 
     //Muestro las categorías ordenadas
     showCategoriesList();
+}
+
+function filterCategories(e) {
+  if (!(e.type === 'click' || e.key === 'Enter')) return;
+
+  //Obtengo el mínimo y máximo de los intervalos para filtrar por cantidad
+  //de productos por categoría.
+  minCount = minCountInput.value;
+  maxCount = maxCountInput.value;
+
+  // En caso de inputs vacíos no filtrar y señalizar
+  if (minCount == '' && maxCount == '') {
+    return [minCountInput, maxCountInput].forEach(e => e.style.borderBottomColor = '#dd7e7e');
+  } else {
+    [minCountInput, maxCountInput].forEach(e => e.style.borderBottomColor = 'silver');
+  }
+
+  const assignValue = val => val && val !== "" && Number(val) >= 0 ? Number(val) : null;
+  minCount = assignValue(minCount);
+  maxCount = assignValue(maxCount);
+
+  showCategoriesList();
+  clearRangeFilter.style.display = 'inline';
+  clearRangeFilter.scrollIntoView();
 }
 
 //Función que se ejecuta una vez que se haya lanzado el evento de
@@ -117,35 +141,6 @@ document.addEventListener("DOMContentLoaded", function(e){
       clearRangeFilter.style.display = 'none';
     });
 
-    document.getElementById("rangeFilterCount").addEventListener("click", function(){
-      //Obtengo el mínimo y máximo de los intervalos para filtrar por cantidad
-      //de productos por categoría.
-      minCount = minCountInput.value;
-      maxCount = maxCountInput.value;
-
-      // En caso de inputs vacíos no filtrar y señalizar
-      if (minCount == '' && maxCount == '') {
-        return [minCountInput, maxCountInput].forEach(e => e.style.borderBottomColor = '#dd7e7e');
-      } else {
-        [minCountInput, maxCountInput].forEach(e => e.style.borderBottomColor = 'silver');
-      }
-
-      if ((minCount != undefined) && (minCount != "") && (parseInt(minCount)) >= 0){
-          minCount = parseInt(minCount);
-      }
-      else{
-          minCount = undefined;
-      }
-
-      if ((maxCount != undefined) && (maxCount != "") && (parseInt(maxCount)) >= 0){
-          maxCount = parseInt(maxCount);
-      }
-      else{
-          maxCount = undefined;
-      }
-
-      showCategoriesList();
-      clearRangeFilter.style.display = 'inline';
-      clearRangeFilter.scrollIntoView();
-    });
+    document.getElementById('rangeFilterCount').addEventListener("click", filterCategories);
+    [minCountInput, maxCountInput].forEach(input => input.addEventListener("keypress", filterCategories));
 });

@@ -120,87 +120,82 @@ function clearInputs() {
   showProductsList();
 }
 
+function filterProducts(e) {
+  if (!(e.type === 'click' || e.key === 'Enter')) return;
+
+  // En caso de inputs vacíos no filtrar y señalizar
+  if (rangeMin.value == '' && rangeMax.value == '') {
+    return [rangeMin, rangeMax].forEach(e => e.style.borderBottomColor = '#dd7e7e');
+  } else {
+    [rangeMin, rangeMax].forEach(e => e.style.borderBottomColor = 'silver');
+  }
+
+  minPrice = Number(rangeMin.value) || 0;
+  maxPrice = Number(rangeMax.value) || Infinity;
+
+  if (minPrice && maxPrice && !(minPrice < maxPrice)) {
+    return alert("El mínimo debe ser menor al máximo");
+  }
+
+  showProductsList();
+  clearFilter.style.display = "inline";
+  clearFilter.scrollIntoView();
+}
+
 document.addEventListener("DOMContentLoaded", function(e){
-    getJSONData(PRODUCTS_URL).then(function(resultObj){
-      if (resultObj.status === "ok") {
-        productsArray = resultObj.data;
-        showProductsList();
-      }
-    });
-
-    // Filtrar resultado por precios
-    document.getElementById("rangeFilter").addEventListener("click", () => {
-
-      // En caso de inputs vacíos no filtrar y señalizar
-      if (rangeMin.value == '' && rangeMax.value == '') {
-        return [rangeMin, rangeMax].forEach(e => e.style.borderBottomColor = '#dd7e7e');
-      } else {
-        [rangeMin, rangeMax].forEach(e => e.style.borderBottomColor = 'silver');
-      }
-
-      if (parseInt(rangeMin.value) >= parseInt(rangeMax.value)) {
-        return alert("El mínimo debe ser menor al máximo");
-      }
-
-      // Doble check de no aceptar valores negativos (en el HTML se invalidó esta posibilidad)
-      if (((parseInt(rangeMin.value) || parseInt(rangeMax.value)) < 0)) {
-        rangeMin.value = null;
-        rangeMax.value = null;
-        alert("No pueden ser negativos");
-        return;
-      }
-
-      minPrice = (parseInt(rangeMin.value)) ? parseInt(rangeMin.value) : 0;
-      maxPrice = (parseInt(rangeMax.value)) ? parseInt(rangeMax.value) : Infinity;
-
-      clearFilter.style.display = "inline";
+  getJSONData(PRODUCTS_URL).then(function(resultObj){
+    if (resultObj.status === "ok") {
+      productsArray = resultObj.data;
       showProductsList();
+    }
+  });
 
-      clearFilter.scrollIntoView();
-    });
+  // Filtrar resultado por precios
+  document.getElementById("rangeFilter").addEventListener("click", filterProducts);
+  [rangeMin, rangeMax].forEach(input => input.addEventListener("keypress", filterProducts));
 
-    // Limpiar el filtrado
-    clearFilter.addEventListener("click", () => {
-      minPrice = 0;
-      maxPrice = Infinity;
+  // Limpiar el filtrado
+  clearFilter.addEventListener("click", () => {
+    minPrice = 0;
+    maxPrice = Infinity;
 
-      rangeMin.value = null;
-      rangeMax.value = null;
+    rangeMin.value = null;
+    rangeMax.value = null;
 
-      clearFilter.style.display = "none";
-      showProductsList();
-    });
+    clearFilter.style.display = "none";
+    showProductsList();
+  });
 
-    // Opciones de ordenar el listado
-    const sortButtons = ['sortAsc', 'sortDesc', 'sortByCount'];
-    sortButtons.forEach(e => document.getElementById(e).addEventListener('click', () => sortList(e)));
+  // Opciones de ordenar el listado
+  const sortButtons = ['sortAsc', 'sortDesc', 'sortByCount'];
+  sortButtons.forEach(e => document.getElementById(e).addEventListener('click', () => sortList(e)));
 
-    // Quita el orden del listado
-    document.getElementById("clearSort").addEventListener("click", function() {
-      this.style.display = "none";
-      sortedArray = undefined;
+  // Quita el orden del listado
+  document.getElementById("clearSort").addEventListener("click", function() {
+    this.style.display = "none";
+    sortedArray = undefined;
+    showProductsList();
+  });
+
+  // Barra de filtrado por texto (búsqueda)
+  searchInput.addEventListener("keyup", function(e) {
+    const query = e.target.value.toLowerCase().replace(/\s+/g,' ').trim();
+
+    if (query.length > 0)  {
+      searchQuery = query;
+      clearSearch.style.display = "inline-block";
+    } else {
+      searchQuery = undefined;
+      clearSearch.style.display = "none";
+    }
+
+    showProductsList();
+
+    clearSearch.addEventListener("click", () => {
+      searchQuery = undefined;
+      clearSearch.style.display = "none";
+      this.value = null;
       showProductsList();
     });
-
-    // Barra de filtrado por texto (búsqueda)
-    searchInput.addEventListener("keyup", function(e) {
-      const query = e.target.value.toLowerCase().replace(/\s+/g,' ').trim();
-
-      if (query.length > 0)  {
-        searchQuery = query;
-        clearSearch.style.display = "inline-block";
-      } else {
-        searchQuery = undefined;
-        clearSearch.style.display = "none";
-      }
-
-      showProductsList();
-
-      clearSearch.addEventListener("click", () => {
-        searchQuery = undefined;
-        clearSearch.style.display = "none";
-        this.value = null;
-        showProductsList();
-      });
-    });
+  });
 });
