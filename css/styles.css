@@ -1272,6 +1272,18 @@ a.add-cart {
   color: #525252;
 }
 
+#cart-list i.fa-times {
+  transition: all .2s ease-in-out;
+}
+
+#cart-list i.fa-times:hover {
+  color: #a83a3a !important;
+}
+
+#payment-method .custom-control {
+  font-family: 'Roboto';
+}
+
 #shipping p:last-child {
   color: #555555;
   line-height: 1rem;
