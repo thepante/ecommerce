@@ -640,6 +640,14 @@ a.custom-card:hover {
   margin-left: 0rem;
 }
 
+.list-card .info .badge {
+  font-size: .9rem;
+}
+
+.list-card .info p {
+  margin-bottom: .2rem;
+}
+
 .list-card .info .d-flex {
   flex-wrap: wrap;
 }
