@@ -10,6 +10,7 @@ const productsTotal = document.getElementById('pricesTotal');
 const shippingPrice = document.getElementById('shipping-price');
 const couponInput = document.getElementById('coupon-code');
 const discounted = document.getElementById('discount-amount');
+const saveAddressBtn = document.getElementById('save-shipping-info');
 
 const SHIPPING_METHODS = {
   standard: { cost: 5, days: [12, 15] },
@@ -230,12 +231,14 @@ const shippingInfo = {
   number: document.getElementById('address-number'),
   corner: document.getElementById('address-corner'),
 
+  isAddressFilled() {
+    const inputs = [this.country, this.street, this.number, this.corner];
+    return inputs.every(input => input.value.trim() !== '');
+  },
+
   // validar y guardar los datos de dirección
   save() {
-    const inputs = [this.country, this.street, this.number, this.corner];
-    let isValid = inputs.every(input => input.value.trim() !== '');
-
-    if (isValid) {
+    if (this.isAddressFilled()) {
       const data = {
         country: this.country.value,
         street: this.street.value,
@@ -290,7 +293,7 @@ function areShippingAndPaymentSelected() {
   return radios.every(group => Array.from(group).some(radio => radio.checked));
 }
 
-// validación de datos de envío
+// validación de datos de envío guardados
 function isShippingAddressValid() {
   const storedInfo = JSON.parse(localStorage.getItem(shippingInfo.KEY));
   return storedInfo ? Object.values(storedInfo).every(value => value.trim() !== '') : false;
@@ -311,7 +314,13 @@ function setCheckoutBtnStatus() {
     checkoutButton.classList.remove('disabled');
     checkoutButton.setAttribute('data-target', '#checkoutModal');
   } else {
-    if (!isAddressValid) document.getElementById('checkout-section').scrollIntoView();
+    if (!isAddressValid) {
+      document.getElementById('checkout-section').scrollIntoView();
+      if (shippingInfo.isAddressFilled()) {
+        saveAddressBtn.classList.add('btn-danger');
+        saveAddressBtn.classList.remove('btn-primary');
+      }
+    }
     checkoutButton.classList.add('disabled');
   }
 
@@ -506,7 +515,7 @@ document.addEventListener("DOMContentLoaded", function(e){
   localStorage.getItem(shippingInfo.KEY) ? shippingInfo.display() : shippingInfo.EDIT.style.display = 'inline';
 
   // guardar datos de envío
-  document.getElementById('save-shipping-info').addEventListener('click', () => shippingInfo.save());
+  saveAddressBtn.addEventListener('click', () => shippingInfo.save());
 
   // asignar el formulario del pago seleccionado
   document.getElementById('payment-method').addEventListener('change', function() {
