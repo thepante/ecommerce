@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 /* Global - General */
 html {
   scroll-behavior: smooth;
@@ -1281,7 +1283,7 @@ a.add-cart {
 }
 
 #payment-method .custom-control {
-  font-family: 'Roboto';
+  font-family: 'Roboto', sans-serif;
 }
 
 #shipping p:last-child {
