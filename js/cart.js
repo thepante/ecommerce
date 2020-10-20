@@ -224,62 +224,56 @@ function calcDiscount() {
 // manejo de la sección de 'datos de envío'
 const shippingInfo = {
   KEY: 'shipping-info',
-  INFO: document.getElementById('shipping-info'),
-  EDIT: document.getElementById('address-edit'),
-  country: document.getElementById('address-country'),
-  street: document.getElementById('address-st'),
-  number: document.getElementById('address-number'),
-  corner: document.getElementById('address-corner'),
-
-  isAddressFilled() {
-    const inputs = [this.country, this.street, this.number, this.corner];
-    return inputs.every(input => input.value.trim() !== '');
+  INFO_DIV: document.getElementById('shipping-info'),
+  EDIT_DIV: document.getElementById('address-edit'),
+  FORM: {
+    country: document.getElementById('address-country'),
+    street: document.getElementById('address-st'),
+    number: document.getElementById('address-number'),
+    corner: document.getElementById('address-corner'),
   },
 
-  // validar y guardar los datos de dirección
+  // verifica que el formulario de datos de envío esté completo
+  isAddressFilled() {
+    return Object.values(this.FORM).every(input => input.value.trim() !== '');
+  },
+
+  // guardar la dirección
   save() {
     if (this.isAddressFilled()) {
-      const data = {
-        country: this.country.value,
-        street: this.street.value,
-        number: this.number.value,
-        corner: this.corner.value,
-      };
-
-      localStorage.setItem(this.KEY, JSON.stringify(data));
+      const formData = {};
+      for (const [key, input] of Object.entries(this.FORM)) formData[key] = input.value;
+      localStorage.setItem(this.KEY, JSON.stringify(formData));
       this.display();
     } else {
-      this.EDIT.classList.add('was-validated');
+      this.EDIT_DIV.classList.add('was-validated');
     }
     setCheckoutBtnStatus();
   },
 
   // cargar los datos desde localStorage
   load() {
-    const {country, street, number, corner} = JSON.parse(localStorage.getItem(this.KEY));
-    this.country.value = country;
-    this.street.value = street;
-    this.number.value = number;
-    this.corner.value = corner;
+    const savedData = JSON.parse(localStorage.getItem(this.KEY));
+    Object.entries(this.FORM).forEach(([key, input]) => input.value = savedData[key]);
   },
 
-  // mostrar los datos de dirección
+  // visualizar los datos de dirección
   display() {
     this.load();
-    this.INFO.innerHTML = `
+    this.INFO_DIV.innerHTML = `
       <div id="edit-address" onclick="shippingInfo.toggle()" title="Editar dirección"><i class="fas fa-edit"></i></div>
-      ${this.country.value}: <br>
-      ${this.street.value} ${this.number.value}, ${this.corner.value}
+      ${this.FORM.country.value}: <br>
+      ${this.FORM.street.value} ${this.FORM.number.value}, ${this.FORM.corner.value}
     `;
     document.getElementById('cancel-edit-address').style.display = 'inline';
-    this.INFO.style.display = 'inline';
-    this.EDIT.style.display = 'none';
+    this.INFO_DIV.style.display = 'inline';
+    this.EDIT_DIV.style.display = 'none';
   },
 
   // cambia de vista (edición o visualización de los datos)
   toggle() {
     this.load();
-    [this.EDIT, this.INFO].forEach(e => e.style.display = e.style.display === 'none' ? 'inline' : 'none');
+    [this.EDIT_DIV, this.INFO_DIV].forEach(e => e.style.display = e.style.display === 'none' ? 'inline' : 'none');
   },
 }
 
@@ -365,22 +359,14 @@ function confirmPayment() {
 // confirma la compra y muestra un resumen de la misma
 function showBuySuccess() {
 
-  // datos de envío
-  const {country, street, number, corner} = {
-    country: shippingInfo.country.value,
-    street: shippingInfo.street.value,
-    number: shippingInfo.number.value,
-    corner: shippingInfo.corner.value,
-  };
+  // datos de envío y costos
+  const {country, street, number, corner} = JSON.parse(localStorage.getItem(shippingInfo.KEY));
+  const subtotal = document.getElementById('pricesTotal').innerText;
+  const discounted = document.getElementById('discount-amount').innerText;
+  const shippingCost = document.getElementById('shipping-price').innerText;
+  const finalTotal = document.getElementById('final-cost').innerText;
 
-  // datos de los productos
-  const {pricesTotal, discount, shippingCost, finalTotal} = {
-    pricesTotal: document.getElementById('pricesTotal').innerText,
-    discount: document.getElementById('discount-amount').innerText,
-    shippingCost: document.getElementById('shipping-price').innerText,
-    finalTotal: document.getElementById('final-cost').innerText,
-  };
-
+  // sobre métodos utilizados
   const shipping = SHIPPING_METHODS[SELECTED_SHIPPING_METHOD];
   const cardPayment = SELECTED_PAYMENT_METHOD === 'card';
   const paymentAccNumber = document.getElementById(cardPayment ? 'cardnumber' : 'bank-acc-number').value;
@@ -406,12 +392,10 @@ function showBuySuccess() {
 
   // html del listado de productos
   const productsListHTML = Array.from(document.querySelectorAll('tr[id^="item"]')).map(product => {
-    const {name, price, amount, subtotal} = {
-      name: product.querySelector('td:nth-of-type(2)').innerText,
-      price: product.querySelector('.unitCost').innerText,
-      amount: product.querySelector('input').value,
-      subtotal: product.querySelector('.subtotal').innerText,
-    };
+    const name = product.querySelector('td:nth-of-type(2)').innerText;
+    const price = product.querySelector('.unitCost').innerText;
+    const amount = product.querySelector('input').value;
+    const subtotal = product.querySelector('.subtotal').innerText;
 
     return `
       <tr>
@@ -447,8 +431,8 @@ function showBuySuccess() {
       </table>
       <table class="table costs-summary">
         <tr><th width="50%">Totales</th><th width="50%"></th></tr>
-        <tr><td>Productos:</td><td class="price">${pricesTotal}</td></tr>
-        <tr><td>Descuento:</td><td class="price">${discount}</td></tr>
+        <tr><td>Productos:</td><td class="price">${subtotal}</td></tr>
+        <tr><td>Descuento:</td><td class="price">${discounted}</td></tr>
         <tr><td>Costo de envío:</td><td class="price">${shippingCost}</td></tr>
         <tr><th>Total final:</th><th class="price">${finalTotal}</th></tr>
       </table>
@@ -512,7 +496,7 @@ document.addEventListener("DOMContentLoaded", function(e){
   });
 
   // datos de envío: mostrar la sección que corresponda
-  localStorage.getItem(shippingInfo.KEY) ? shippingInfo.display() : shippingInfo.EDIT.style.display = 'inline';
+  localStorage.getItem(shippingInfo.KEY) ? shippingInfo.display() : shippingInfo.EDIT_DIV.style.display = 'inline';
 
   // guardar datos de envío
   saveAddressBtn.addEventListener('click', () => shippingInfo.save());
