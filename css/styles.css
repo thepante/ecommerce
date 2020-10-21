@@ -1432,6 +1432,10 @@ a.add-cart {
   opacity: 1;
 }
 
+#address-country option {
+  font-family: 'Roboto', sans-serif;
+}
+
 .empty-cart {
   text-align: center;
 }
