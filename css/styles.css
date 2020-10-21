@@ -1290,8 +1290,38 @@ a.add-cart {
   color: #a83a3a !important;
 }
 
-#payment-method .custom-control {
-  font-family: 'Roboto', sans-serif;
+#cart-list tbody tr {
+  transition: all .2s ease-in-out;
+}
+
+#cart-list tr td {
+  transition: all .2s ease-in-out;
+}
+
+#cart-list tr td img {
+  mix-blend-mode: multiply;
+}
+
+#cart-list tbody:hover tr {
+  opacity: 0.7;
+}
+
+#cart-list tbody tr:hover {
+  opacity: 1;
+  background: #fafafa8a;
+  box-shadow: 0 4px 10px -1px rgba(154,160,185,.1);
+}
+
+#cart-list tbody tr:hover + tr td {
+  border-top-color: transparent !important;
+}
+
+#checkout-section {
+  transition: all .2s ease-in-out;
+}
+
+#checkout-section:hover {
+  box-shadow: 0 3px 7px rgba(154,160,185,.05), 0 10px 40px rgba(166,173,201,.1);
 }
 
 #shipping p:last-child {
@@ -1309,17 +1339,57 @@ a.add-cart {
   font-weight: 700;
 }
 
-#checkout td:last-child {
-  text-align: right;
-}
-
-#checkout tr {
+#checkout .prices-list > div {
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -ms-flex-pack: justify !important;
+  justify-content: space-between !important;
+  padding: .75rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
   font-size: 0.9rem;
 }
 
-#checkout tr:last-child {
+#checkout .prices-list > div:last-child {
   font-weight: 700;
   font-size: 1rem;
+}
+
+#checkout #payment-method {
+  padding: 0rem .75rem;
+}
+
+#cart .custom-control-label {
+  font-family: 'Roboto', sans-serif;
+  padding-top: .150rem !important;
+  border-bottom: .2rem solid transparent;
+  transition: all .2s ease-in-out;
+}
+
+#cart .custom-control-label:hover {
+  cursor: pointer;
+  border-bottom-color: #ffdc9a;
+}
+
+#cart .custom-radio .custom-control-label::before {
+  border-radius: 50%;
+}
+
+#cart .custom-control-input.is-valid ~ .custom-control-label, .was-validated .custom-control-input:valid ~ .custom-control-label {
+  color: #262626; /* #212529 */
+}
+
+#cart .custom-control-input.is-valid ~ .custom-control-label::before, .was-validated .custom-control-input:valid ~ .custom-control-label::before {
+  border-color: #adb5bd;
+}
+
+#cart .custom-control-input.is-valid:checked ~ .custom-control-label::before, .was-validated .custom-control-input:valid:checked ~ .custom-control-label::before {
+	border-color: #ffdc9ae7;/* #007bff;*/
+	background-color: #d4b06b; /*#007bff;*/
+}
+
+#cart .custom-control-input.is-valid:focus ~ .custom-control-label::before, .was-validated .custom-control-input:valid:focus ~ .custom-control-label::before {
+  box-shadow: 0 0 .21rem rgba(185, 136, 73, 0.59); /*0 0 0 .2rem rgba(40, 125, 167, 0.25);*/
 }
 
 #cart .price,
@@ -1339,9 +1409,10 @@ a.add-cart {
 }
 
 #shipping-info {
+  font-family: 'Roboto', sans-serif;
   font-size: .8rem;
   font-weight: 700;
-  color: #535353;
+  color: #686868;
 }
 
 #edit-address,
@@ -1510,10 +1581,6 @@ a.add-cart {
 }
 .modal {
   background: rgba(255, 255, 255, 0.623) !important;
-}
-
-.custom-control-label {
-  padding-top: .150rem !important;
 }
 
 /* Floating labels fix: cart -> datos de envío */

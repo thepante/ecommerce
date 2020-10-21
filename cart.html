@@ -51,68 +51,74 @@
         </div>
 
         <div id="checkout-section" class="col p-0">
-          <div class="card mb-3">
+          <div class="card">
 
-            <div class="card-body">
-              <h6 class="mb-2 mb-0">Datos de envío:</h6>
-              <div id="address-edit" class="needs-validation" style="display: none;">
-                <div id="cancel-edit-address" onclick="shippingInfo.toggle()" title="Cancelar cambios" style="display: none;"><i class="fas fa-times-circle"></i></div>
-                <label for="country">País:</label>
-                <select class="form-control" id="address-country" required>
-                  <option>Uruguay</option>
-                  <option>Argentina</option>
-                  <option>Brasil</option>
-                  <option>Chile</option>
-                  <option>Paraguay</option>
-                </select>
-                <br>
-                <div class="row">
-                  <div class="col-8 form-label-group">
-                    <input type="text" id="address-st" placeholder="Calle" class="form-control" required>
-                    <label for="address-st">Calle</label>
+            <!-- sección de envío -->
+            <div class="row">
+              <!-- dirección -->
+              <div class="col">
+                <div class="card-body">
+                  <h6 class="mb-2 mb-0">Dirección de envío:</h6>
+                  <div id="address-edit" class="needs-validation" style="display: none;">
+                    <div id="cancel-edit-address" onclick="shippingInfo.toggle()" title="Cancelar cambios" style="display: none;"><i class="fas fa-times-circle"></i></div>
+                    <label for="country">País:</label>
+                    <select class="form-control" id="address-country" required>
+                      <option>Uruguay</option>
+                      <option>Argentina</option>
+                      <option>Brasil</option>
+                      <option>Chile</option>
+                      <option>Paraguay</option>
+                    </select>
+                    <br>
+                    <div class="row">
+                      <div class="col-8 form-label-group">
+                        <input type="text" id="address-st" placeholder="Calle" class="form-control" required>
+                        <label for="address-st">Calle</label>
+                      </div>
+                      <div class="col form-label-group">
+                        <input type="text" id="address-number" placeholder="Puerta" class="form-control" required>
+                        <label for="address-number">Puerta</label>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="form-label-group">
+                      <input type="text" id="address-corner" placeholder="Esquina" class="form-control" required>
+                      <label for="address-corner">Esquina</label>
+                    </div>
+                    <button type="button" id="save-shipping-info" class="btn btn-primary btn-block mt-4 checkout" >
+                      Establecer datos de envío <i class="fas fa-check"></i>
+                    </button>
                   </div>
-                  <div class="col form-label-group">
-                    <input type="text" id="address-number" placeholder="Puerta" class="form-control" required>
-                    <label for="address-number">Puerta</label>
+                  <div id="shipping-info" style="display: none;">
                   </div>
                 </div>
-                <br>
-                <div class="form-label-group">
-                  <input type="text" id="address-corner" placeholder="Esquina" class="form-control" required>
-                  <label for="address-corner">Esquina</label>
-                </div>
-
-                <button type="button" id="save-shipping-info" class="btn btn-primary btn-block mt-4 checkout" >
-                  Establecer datos de envío <i class="fas fa-check"></i>
-                </button>
               </div>
 
-              <div id="shipping-info" style="display: none;">
-              </div>
-            </div>
-
-
-            <div id="shipping" class="card-body pt-0 pb-0">
-              <h6 class="mb-3">Tipo de envío:</h6>
-              <p class="mb-0">
-                <div class="btn-group btn-group-toggle btn-block filters" onchange="calcShipping()" data-toggle="buttons">
-                  <label class="btn btn-light active">
-                    <input type="radio" name="shippingMethod" autocomplete="off" value="standard" checked><i class="fas fa-truck mr-2"></i>Standard
-                  </label>
-                  <label class="btn btn-light">
-                    <input type="radio" name="shippingMethod" autocomplete="off" value="express"><i class="fas fa-shipping-fast mr-2"></i>Express
-                  </label>
-                  <label class="btn btn-light">
-                    <input type="radio" name="shippingMethod" autocomplete="off" value="premium"><i class="fas fa-gem mr-2"></i></i>Premium
-                  </label>
+              <!-- tipo de envío -->
+              <div class="col-xs-12 col-sm-7 col-lg-12">
+                <div id="shipping" class="card-body pl-sm-0 py-xl-0 px-lg-3">
+                  <h6 class="mb-3">Tipo de envío:</h6>
+                  <p class="mb-0">
+                    <div class="btn-group btn-group-toggle btn-block filters" onchange="calcShipping()" data-toggle="buttons">
+                      <label class="btn btn-light active">
+                        <input type="radio" name="shippingMethod" autocomplete="off" value="standard" checked><i class="fas fa-truck mr-2"></i>Standard
+                      </label>
+                      <label class="btn btn-light">
+                        <input type="radio" name="shippingMethod" autocomplete="off" value="express"><i class="fas fa-shipping-fast mr-2"></i>Express
+                      </label>
+                      <label class="btn btn-light">
+                        <input type="radio" name="shippingMethod" autocomplete="off" value="premium"><i class="fas fa-gem mr-2"></i></i>Premium
+                      </label>
+                    </div>
+                  </p>
+                  <p>
+                    <small>
+                      <strong>Tiempo de entrega entre <span id="shipping-from">-</span> a <span id="shipping-until">-</span> días.</strong> <br>
+                      El costo de envío es del <span id="shipping-cost">-</span> % sobre el valor de los productos, sin tomar en cuenta los descuentos.
+                    </small>
+                  </p>
                 </div>
-              </p>
-              <p>
-                <small>
-                  <strong>Tiempo de entrega entre <span id="shipping-from">-</span> a <span id="shipping-until">-</span> días.</strong> <br>
-                  El costo de envío es del <span id="shipping-cost">-</span> % sobre el valor de los productos, sin tomar en cuenta los descuentos.
-                </small>
-              </p>
+              </div>
             </div>
 
             <div id="coupons" class="card-body">
@@ -129,30 +135,30 @@
             <hr class="ml-5 mr-5 mt-0 mb-0">
 
             <div id="checkout" class="card-body">
-              <table class="table">
-                <tr>
-                  <td width="50%" title="Costo de los productos">Productos:</td>
-                  <td width="50%" id="pricesTotal" class="price">-</td>
-                </tr>
-                <tr>
-                  <td title="Descuento sobre los productos">Descuento:</td>
-                  <td id="discount-amount" class="price">-</td>
-                </tr>
-                <tr>
-                  <td>Costo de envío:</td>
-                  <td id="shipping-price" class="price">-</td>
-                </tr>
-                <tr>
-                  <td>Total final:</td>
-                  <td id="final-cost" class="price">-</td>
-                </tr>
-              </table>
+              <div class="prices-list">
+                <div>
+                  <div title="Costo de los productos">Productos:</div>
+                  <div id="pricesTotal" class="price">-</div>
+                </div>
+                <div>
+                  <div title="Descuento sobre los productos">Descuento:</div>
+                  <div id="discount-amount" class="price">-</div>
+                </div>
+                <div>
+                  <div>Costo de envío:</div>
+                  <div id="shipping-price" class="price">-</div>
+                </div>
+                <div>
+                  <div>Total final:</div>
+                  <div id="final-cost" class="price">-</div>
+                </div>
+              </div>
 
               <hr class="ml-1 mr-1 mt-0 mb-0">
 
               <p class="mb-0 mt-3">
                 <div id="payment-method" class="needs-validation">
-                  <h6>Pagar con:</h6>
+                  <h6>Método de pago:</h6>
                   <small>
                     <div class="custom-control custom-radio">
                       <input type="radio" class="custom-control-input" autocomplete="off" value="card" id="opt-card" name="paymentMethod" required>
@@ -161,7 +167,7 @@
                     <div class="custom-control custom-radio mb-2">
                       <input type="radio" class="custom-control-input" autocomplete="off" value="transfer" id="opt-transfer" name="paymentMethod" required>
                       <label class="custom-control-label" for="opt-transfer">Transferencia bancaria</label>
-                      <div class="invalid-feedback"><strong>Seleccione un método de pago</strong></div>
+                      <div class="invalid-feedback"><strong>Debe seleccionar un método de pago</strong></div>
                     </div>
                   </small>
                 </div>
@@ -222,7 +228,7 @@
               </div>
               <div class="col-sm-4">
                 <div class="form-group">
-                  <label for="cvv" data-toggle="tooltip">CVV <i class="fa fa-question-circle"></i></label>
+                  <label for="cvv" data-toggle="tooltip">CVC <i class="fa fa-question-circle"></i></label>
                   <input type="text" class="form-control" id="cvv" name="cvv" required>
                 </div>
               </div>
