@@ -63,7 +63,7 @@ function showProductInfo() {
 
   let htmlContent = `
     <div class="row">
-      <aside class="col-sm-6 border-right" style="padding-right:0;">
+      <aside class="col-md-6 border-right mr-3 mr-md-0 pr-0">
         <article class="gallery-wrap">
           <div class="img-big-wrap" onmouseover="clearTimeout(slideshow.loop);" onmouseout="slideshow.startLoop()">
             <div id="preview-img" style="background-image: url(${product.images[0]});">
@@ -79,8 +79,8 @@ function showProductInfo() {
         </article>
       </aside>
 
-      <aside class="col-sm-6">
-        <article class="card-body p-5">
+      <aside class="col-md-6">
+        <article class="card-body p-3 p-sm-5 p-md-3 p-lg-5">
           <h3 class="title mb-3">${product.name}</h3>
           <p class="price-detail-wrap">
             <span class="price h4">
@@ -92,14 +92,16 @@ function showProductInfo() {
               <p>${product.description}</p>
             </dd>
           </dl>
-          <dl class="param param-feature">
-            <dt>Categoría</dt>
-            <dd>${product.category}</dd>
-          </dl>
-          <dl class="param param-feature">
-            <dt>Vendidos</dt>
-            <dd>${product.soldCount}</dd>
-          </dl>
+          <div class="row">
+            <dl class="col col-md-12 mb-1 param param-feature">
+              <dt>Categoría</dt>
+              <dd>${product.category}</dd>
+            </dl>
+            <dl class="col mb-0 param param-feature">
+              <dt>Vendidos</dt>
+              <dd>${product.soldCount}</dd>
+            </dl>
+          </div>
           <hr>
           <div style="text-align:center;">
             <a href="#" class="btn btn-primary text-uppercase add-cart">
@@ -203,7 +205,7 @@ function showWriteComment() {
           <textarea class="writec-textarea" placeholder="${userData.username}, calificá este producto!" required></textarea>
           <div class="send-group">
             <div class="btn-group">
-              <div id="rate-stars" class="btn-group">
+              <div id="rate-stars" class="btn-group d-flex flex-row">
                 <div id="rate-required">Requerido <span class="fas fa-arrow-right"></span></div>
                 <label><input type="radio" name="rating" value="1" autocomplete="off" required><i class="fas fa-star"></i></label>
                 <label><input type="radio" name="rating" value="2" autocomplete="off"><i class="fas fa-star"></i></label>
@@ -216,7 +218,6 @@ function showWriteComment() {
           </div>
         </div>
       </div>
-      <br>
     `;
 
     const rateStars = document.getElementById('rate-stars');

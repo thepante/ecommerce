@@ -911,7 +911,6 @@ a.add-cart {
 
 /* Comments section */
 #comments-section {
-  padding: 40px 40px 0 40px;
   border-radius: .3rem;
   box-shadow: 0 3px 7px rgba(154,160,185,.05), 0 10px 40px rgba(166,173,201,.1);
 }
@@ -974,7 +973,6 @@ a.add-cart {
 }
 
 #write-comment .send-group {
-  float: right;
   margin-top: 0.9rem;
   text-align: right;
 }
@@ -1009,10 +1007,6 @@ a.add-cart {
 }
 
 #rate-required {
-  float: left;
-  position: absolute;
-  left: -110px;
-  top: 0px;
   padding: 0px 10px;
   margin-top: 3px;
   margin-right: 0px;
