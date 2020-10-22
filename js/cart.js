@@ -304,10 +304,14 @@ function setCheckoutBtnStatus() {
     document.getElementById('payment-method'),
   ];
 
-  if (isDataFilled) {
+  function enableBtn() {
+    checkoutButton.classList.add('btn-primary');
+    checkoutButton.classList.remove('btn-danger');
     checkoutButton.classList.remove('disabled');
     checkoutButton.setAttribute('data-target', '#checkoutModal');
-  } else {
+  }
+
+  function disableBtn() {
     if (!isAddressValid) {
       document.getElementById('checkout-section').scrollIntoView();
       if (shippingInfo.isAddressFilled()) {
@@ -315,9 +319,12 @@ function setCheckoutBtnStatus() {
         saveAddressBtn.classList.remove('btn-primary');
       }
     }
+    checkoutButton.classList.remove('btn-primary');
+    checkoutButton.classList.add('btn-danger');
     checkoutButton.classList.add('disabled');
   }
 
+  isDataFilled ? enableBtn() : disableBtn();
   forms.forEach(form => form.classList.add('was-validated'));
 }
 
