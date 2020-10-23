@@ -95,6 +95,7 @@ nav .dropdown-menu {
   position: relative !important;
   top: 3rem !important;
   text-align: center;
+  width: auto !important;
 }
 
 /* Home */
