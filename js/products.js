@@ -74,7 +74,7 @@ function showProductsList(){
   // Si no hay resultados, muestro un aviso de que no se encontraron productos
   if (htmlContentToAppend.length < 1) {
     htmlContentToAppend += `
-      <div class="alert alert-warning alert-dismissible fade show" role="alert" style="position: relative; top: 30px;">
+      <div class="alert-warning alert-dismissible p-4 m-6 fade show" role="alert" style="position: relative;">
         <strong>Sin resultados</strong>
         <br>
         No se econtraron productos que cumplan con ese criterio.
