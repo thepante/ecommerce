@@ -35,22 +35,19 @@ String.highlight = String.prototype.highlight = function(query) {
 function renderText(content) { return (searchQuery) ? content.highlight(searchQuery) : content;}
 
 function showProductsList(){
-  let array = (sortedArray) ? sortedArray : productsArray;
-  let htmlContentToAppend = "";
+  const array = sortedArray || productsArray;
 
-  for (let i = 0, l = array.length; i < l; i++) {
-    let product = array[i];
-
+  let htmlContentToAppend = array.map(product => {
     if ((product.cost >= minPrice) && (product.cost <= maxPrice)) {
 
-      // Si el usuario está filtrando con texto, reviso que el producto coincida con la búsqueda
+      // si el usuario está filtrando con texto, reviso que el producto coincida con la búsqueda
       if (searchQuery) {
-        let nameAndDesc = product.name + ' ' + product.description;
-        let indexOfTerm = nameAndDesc.toLowerCase().indexOf(searchQuery);
-        if (indexOfTerm == -1) continue;
+        const productInformation = product.name + ' ' + product.description;
+        const indexOfQueryString = productInformation.toLowerCase().indexOf(searchQuery);
+        if (indexOfQueryString == -1) return '';
       }
 
-      htmlContentToAppend += `
+      return `
         <div class="list-card">
           <div class="row" style="display: inherit;">
             <div class="col-3">
@@ -69,12 +66,12 @@ function showProductsList(){
         </div>
       `;
     }
-  };
+  }).join('');
 
   // Si no hay resultados, muestro un aviso de que no se encontraron productos
   if (htmlContentToAppend.length < 1) {
-    htmlContentToAppend += `
-      <div class="alert-warning alert-dismissible p-4 m-6 fade show" role="alert" style="position: relative;">
+    htmlContentToAppend = `
+      <div class="alert-warning alert-dismissible p-4 fade show" role="alert" style="position: relative;">
         <strong>Sin resultados</strong>
         <br>
         No se econtraron productos que cumplan con ese criterio.
@@ -105,7 +102,7 @@ const sortList = (criteria) => {
 
 function clearInputs() {
   if (searchQuery) {
-    searchQuery = undefined;
+    searchQuery = null;
     searchInput.value = null;
     clearSearch.style.display = "none";
   }
@@ -173,7 +170,7 @@ document.addEventListener("DOMContentLoaded", function(e){
   // Quita el orden del listado
   document.getElementById("clearSort").addEventListener("click", function() {
     this.style.display = "none";
-    sortedArray = undefined;
+    sortedArray = null;
     showProductsList();
   });
 
@@ -185,14 +182,14 @@ document.addEventListener("DOMContentLoaded", function(e){
       searchQuery = query;
       clearSearch.style.display = "inline-block";
     } else {
-      searchQuery = undefined;
+      searchQuery = null;
       clearSearch.style.display = "none";
     }
 
     showProductsList();
 
     clearSearch.addEventListener("click", () => {
-      searchQuery = undefined;
+      searchQuery = null;
       clearSearch.style.display = "none";
       this.value = null;
       showProductsList();
