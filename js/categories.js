@@ -39,35 +39,49 @@ function sortCategories(criteria, array){
 
 function showCategoriesList(){
 
-    let htmlContentToAppend = "";
-    for(let i = 0; i < currentCategoriesArray.length; i++){
-        let category = currentCategoriesArray[i];
+  let htmlContentToAppend = "";
+  for(let i = 0; i < currentCategoriesArray.length; i++){
+    let category = currentCategoriesArray[i];
 
-        if (((minCount == undefined) || (minCount != undefined && parseInt(category.productCount) >= minCount)) &&
-            ((maxCount == undefined) || (maxCount != undefined && parseInt(category.productCount) <= maxCount))){
+    if (((minCount == undefined) || (minCount != undefined && parseInt(category.productCount) >= minCount)) &&
+        ((maxCount == undefined) || (maxCount != undefined && parseInt(category.productCount) <= maxCount))){
 
-            htmlContentToAppend += `
-              <div class="list-card">
-                <div class="row" style="display: inherit;">
-                  <div class="col-3">
-                    <img src="${category.imgSrc}" alt="${category.description}" class="product-img">
-                  </div>
-                  <div class="col info">
-                    <div class="d-flex w-100 justify-content-between">
-                      <h4 class="mb-1 pl-0">${category.name}</h4>
-                      <small>${category.productCount} artículos</small>
-                    </div>
-                    <p>${category.description}</p>
-                  </div>
-                  <a href="category-info.html" class="product-link"></a>
-                </div>
+      htmlContentToAppend += `
+        <div class="list-card">
+          <div class="row" style="display: inherit;">
+            <div class="col-3">
+              <img src="${category.imgSrc}" alt="${category.description}" class="product-img">
+            </div>
+            <div class="col info">
+              <div class="d-flex w-100 justify-content-between">
+                <h4 class="mb-1 pl-0">${category.name}</h4>
+                <small>${category.productCount} artículos</small>
               </div>
-            `;
-        }
+              <p>${category.description}</p>
+            </div>
+            <a href="category-info.html" class="product-link"></a>
+          </div>
+        </div>
+      `;
+    };
+  }
 
-        document.getElementById("cat-list-container").innerHTML = htmlContentToAppend;
-    }
+  if (htmlContentToAppend.length < 1) {
+    htmlContentToAppend += `
+      <div class="alert-warning alert-dismissible p-4 fade show" role="alert" style="position: relative;">
+        <strong>Sin resultados</strong>
+        <br>
+        No se econtraron categorías que cumplan con ese criterio.
+        <button type="button" class="close" onclick="clearFilter()" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    `;
+  }
+
+  document.getElementById("cat-list-container").innerHTML = htmlContentToAppend;
 }
+
 
 function sortAndShowCategories(sortCriteria, categoriesArray){
     currentSortCriteria = sortCriteria;
@@ -104,6 +118,18 @@ function filterCategories(e) {
   showCategoriesList();
   clearRangeFilter.style.display = 'inline';
   clearRangeFilter.scrollIntoView();
+}
+
+
+function clearFilter() {
+  minCountInput.value = '';
+  maxCountInput.value = '';
+
+  minCount = undefined;
+  maxCount = undefined;
+
+  clearRangeFilter.style.display = 'none';
+  showCategoriesList();
 }
 
 //Función que se ejecuta una vez que se haya lanzado el evento de
