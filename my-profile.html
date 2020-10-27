@@ -89,11 +89,11 @@
             <div class="col-sm-6 d-flex p-0">
               <div class="form-group col-3">
                 <label class="form-control-label" for="age">Edad</label>
-                <input type="number" id="age" class="form-control">
+                <input type="number" id="age" class="form-control" min="0" oninput="validity.valid||(value='');">
               </div>
               <div class="form-group col-9">
                 <label class="form-control-label" for="telephone">Teléfono</label>
-                <input type="number" id="telephone" class="form-control">
+                <input type="number" id="telephone" class="form-control" min="0" oninput="validity.valid||(value='');">
               </div>
             </div>
           </div>
