@@ -1,7 +1,10 @@
 const profilePicture = document.getElementById('profile-picture');
 let updatedPicture = null;
 
-const setProfilePic = src => profilePicture.style.backgroundImage = `url('${src}')`;
+function setProfilePic(src) {
+  profilePicture.style.backgroundImage = `url('${src}')`;
+  updatedPicture = src;
+}
 
 // carga una imagen como string. base64
 function uploadPicture() {
@@ -12,7 +15,6 @@ function uploadPicture() {
       const reader = new FileReader();
       reader.addEventListener('load', function() {
         setProfilePic(this.result);
-        updatedPicture = this.result;
       }, false);
       reader.readAsDataURL(file);
     }
@@ -65,5 +67,6 @@ document.addEventListener("DOMContentLoaded", function() {
   loadUserData();
 
   document.getElementById('pic-picker').addEventListener('change', uploadPicture);
+  document.getElementById('delete-picture').addEventListener('click', () => setProfilePic('./img/user.png'));
   document.getElementById('save-profile').addEventListener('click', saveProfile);
 });
