@@ -1600,7 +1600,11 @@ a.add-cart {
   font-weight: 700;
 }
 
-.profile-settings a label {
+.profile-settings .dropdown-menu a {
+  cursor: pointer;
+}
+
+.profile-settings .dropdown-menu label {
   cursor: pointer;
   margin-bottom: 0 !important;
 }
@@ -1636,7 +1640,7 @@ a.add-cart {
 }
 
 .profile-picture:hover .picture-change-overlay,
-.profile-picture:focus .picture-change-overlay {
+.profile-settings .pp-btn.show .picture-change-overlay {
   opacity: 1;
 }
 
