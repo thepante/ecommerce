@@ -39,9 +39,11 @@ function loadUserData() {
 }
 
 
-function saveProfile() {
-  const form = document.getElementById('profile-settings');
-  const inputs = Array.from(form.getElementsByTagName('input'));
+function saveProfile(e) {
+  e.preventDefault();
+  e.stopPropagation();
+
+  const inputs = Array.from(this.getElementsByTagName('input'));
   const updatedData = userData;
 
   // actualiza, agrega o elimina los valores a la copia del userData para guardarlo
@@ -68,5 +70,5 @@ document.addEventListener("DOMContentLoaded", function() {
 
   document.getElementById('pic-picker').addEventListener('change', uploadPicture);
   document.getElementById('delete-picture').addEventListener('click', () => setProfilePic('./img/user.png'));
-  document.getElementById('save-profile').addEventListener('click', saveProfile);
+  document.getElementById('profile').addEventListener('submit', saveProfile);
 });
