@@ -1600,20 +1600,18 @@ a.add-cart {
   font-weight: 700;
 }
 
-.profile-settings .dropdown-menu a {
+.profile-settings .dropdown-item,
+.profile-settings .dropdown-item label {
   cursor: pointer;
-}
-
-.profile-settings .dropdown-menu label {
-  cursor: pointer;
-  margin-bottom: 0 !important;
 }
 
 .profile-settings hr {
   margin-bottom: 2rem !important;
 }
 
-.profile-settings input[type="number"] {
+.profile-settings input[type="number"],
+.profile-settings input[type="number"]::-webkit-inner-spin-button,
+.profile-settings input[type="number"]::-webkit-outer-spin-button {
   background: transparent;
   appearance: none !important;
   -webkit-appearance: none !important;
