@@ -703,21 +703,27 @@ a.product-link {
     border-radius: 0rem;
   }
 
-  .list-card .product-img {
-    top: -10vh;
-    max-width: 100vw !important;
-    display: block;
-    position: absolute;
-    opacity: .1;
-    filter: grayscale(.8);
+  .list-card h4 {
+    font-size: 1rem;
   }
 
-  .list-card div.col-3:first-of-type {
-    position: absolute;
+  .list-card h4::after {
+    bottom: .7rem;
+    height: .3rem;
   }
 
-  .list-card .info {
-    margin-left: 1.2rem;
+  .list-card small {
+    float: left;
+    position: absolute;
+    top: 1.2rem;
+  }
+
+  .list-card .badge {
+    font-size: .75rem !important;
+  }
+
+  .list-card .list-desc {
+    font-size: .8rem;
   }
 }
 
