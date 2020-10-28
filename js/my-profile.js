@@ -1,5 +1,11 @@
 const profilePicture = document.getElementById('profile-picture');
 const btnDeletePic = document.getElementById('delete-picture');
+const alert = document.getElementById('alert-profile');
+
+const ALERTS = {
+  SAVED: { msg: 'Guardado!', style: 'saved', duration: 4 },
+  ERROR: { msg: 'Error al guardar: imagen de perfil muy pesada!', style: 'error', duration: 10 },
+}
 
 const DEFAULT_PIC = './img/user.png';
 let pictureUsing = null;
@@ -68,13 +74,25 @@ function saveProfile(e) {
   // si se cambió la imagen, la actualizo en el updatedData
   if (pictureUsing !== userData.picture) updatedData.picture = pictureUsing;
 
-  localStorage.setItem('Logged-User', JSON.stringify(updatedData));
-  window.location = window.location.pathname + '?msg=Perfil actualizado correctamente';
+  try {
+    localStorage.setItem('Logged-User', JSON.stringify(updatedData));
+    window.location = window.location.pathname + '?saved';
+  } catch {
+    showAlert(ALERTS.ERROR);
+    document.body.scrollIntoView();
+  }
+}
+
+// mostrar un mensaje de 'guardado' o 'error'
+function showAlert({msg, style, duration}) {
+  alert.innerText = msg;
+  alert.classList.add(style);
+  setTimeout(() => alert.classList.remove(style), duration * 1000);
 }
 
 
 document.addEventListener("DOMContentLoaded", function() {
-
+  profileSaved && showAlert(ALERTS.SAVED);
   loadUserData();
 
   document.getElementById('pic-picker').addEventListener('change', uploadPicture);
