@@ -1,9 +1,18 @@
 const profilePicture = document.getElementById('profile-picture');
-let updatedPicture = null;
+const btnDeletePic = document.getElementById('delete-picture');
+
+const DEFAULT_PIC = './img/user.png';
+let pictureUsing = null;
 
 function setProfilePic(src) {
   profilePicture.style.backgroundImage = `url('${src}')`;
-  updatedPicture = src;
+  pictureUsing = src;
+  setDeleteAvailability();
+}
+
+function setDeleteAvailability() {
+  const isDefault = pictureUsing === DEFAULT_PIC;
+  isDefault ? btnDeletePic.classList.add('disabled') : btnDeletePic.classList.remove('disabled');
 }
 
 // carga una imagen como string. base64
@@ -57,7 +66,7 @@ function saveProfile(e) {
   });
 
   // si se cambió la imagen, la actualizo en el updatedData
-  if (updatedPicture) updatedData.picture = updatedPicture;
+  if (pictureUsing !== userData.picture) updatedData.picture = pictureUsing;
 
   localStorage.setItem('Logged-User', JSON.stringify(updatedData));
   window.location = window.location.pathname + '?msg=Perfil actualizado correctamente';
@@ -69,6 +78,6 @@ document.addEventListener("DOMContentLoaded", function() {
   loadUserData();
 
   document.getElementById('pic-picker').addEventListener('change', uploadPicture);
-  document.getElementById('delete-picture').addEventListener('click', () => setProfilePic('./img/user.png'));
+  btnDeletePic.addEventListener('click', () => setProfilePic(DEFAULT_PIC));
   document.getElementById('profile').addEventListener('submit', saveProfile);
 });

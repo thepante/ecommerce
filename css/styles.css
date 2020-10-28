@@ -1605,6 +1605,11 @@ a.add-cart {
   cursor: pointer;
 }
 
+.profile-settings .dropdown-item.disabled, .dropdown-item:disabled {
+  color: #a3aab0;
+  pointer-events: none;
+}
+
 .profile-settings hr {
   margin-bottom: 2rem !important;
 }
