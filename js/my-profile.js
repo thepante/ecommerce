@@ -1,4 +1,5 @@
 const profilePicture = document.getElementById('profile-picture');
+const labelDeletePic = document.getElementById('delete-picture');
 const btnDeletePic = document.getElementById('delete-picture');
 const alert = document.getElementById('alert-profile');
 
@@ -7,18 +8,31 @@ const ALERTS = {
   ERROR: { msg: 'Error al guardar: imagen de perfil muy pesada!', style: 'error', duration: 10 },
 }
 
+const LABELS = {
+  DELETE: 'Eliminar imagen de perfil',
+  REVERT: 'Cancelar cambios de imagen',
+}
+
 const DEFAULT_PIC = './img/user.png';
 let pictureUsing = null;
+
 
 function setProfilePic(src) {
   profilePicture.style.backgroundImage = `url('${src}')`;
   pictureUsing = src;
+  labelDeletePic.innerText = pictureUsing === userData.picture ? LABELS.DELETE : LABELS.REVERT;
   setDeleteAvailability();
 }
 
+function deleteProfilePic() {
+  const isNotTheOriginal = pictureUsing !== userData.picture;
+  setProfilePic(isNotTheOriginal ? userData.picture : DEFAULT_PIC);
+}
+
 function setDeleteAvailability() {
-  const isDefault = pictureUsing === DEFAULT_PIC;
-  isDefault ? btnDeletePic.classList.add('disabled') : btnDeletePic.classList.remove('disabled');
+  const isDefault = userData.picture === DEFAULT_PIC;
+  const gotChanged = pictureUsing !== userData.picture;
+  isDefault && !gotChanged ? btnDeletePic.classList.add('disabled') : btnDeletePic.classList.remove('disabled');
 }
 
 // carga una imagen como string. base64
@@ -37,6 +51,7 @@ function uploadPicture() {
 
   // previsualizo la imagen
   file && readAndPreview();
+  this.value = '';
 }
 
 
@@ -96,6 +111,6 @@ document.addEventListener("DOMContentLoaded", function() {
   loadUserData();
 
   document.getElementById('pic-picker').addEventListener('change', uploadPicture);
-  btnDeletePic.addEventListener('click', () => setProfilePic(DEFAULT_PIC));
+  btnDeletePic.addEventListener('click', deleteProfilePic);
   document.getElementById('profile').addEventListener('submit', saveProfile);
 });
