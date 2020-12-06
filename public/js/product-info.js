@@ -1,6 +1,5 @@
 let product = {};
 let commentsArray = [];
-let relatedProducts = [];
 
 // función que hace de carousel - quería probar hacerlo por mi cuenta
 const slideshow = {
@@ -89,13 +88,13 @@ function showProductInfo() {
           </p>
           <dl class="item-property">
             <dd>
-              <p>${product.description}</p>
+              <p>${product.description.replace(/\\n/g, '<br>')}</p>
             </dd>
           </dl>
           <div class="row">
             <dl class="col col-md-12 mb-1 param param-feature">
               <dt>Categoría</dt>
-              <dd>${product.category}</dd>
+              <dd>${product.category.name}</dd>
             </dl>
             <dl class="col mb-0 param param-feature">
               <dt>Vendidos</dt>
@@ -135,6 +134,19 @@ function showProductInfo() {
 
 }
 
+function deleteComment(id, i) {
+  fetch('/api/comment', {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id, product: product._id }),
+  }).then(res => {
+    if (res.ok) {
+      commentsArray.splice(i, 1);
+      showComments();
+    }
+  });
+}
+
 function showComments() {
 
   function getScoreHtml(rated) {
@@ -151,8 +163,8 @@ function showComments() {
   // ordeno los comentarios por su fecha
   // commentsArray.sort((a, b) => a.dateTime.match(/(\d+)/g).join('') - b.dateTime.match(/(\d+)/g).join(''));
 
-  for (let c in commentsArray) {
-    let comment = commentsArray[c];
+  for (let i in commentsArray) {
+    let comment = commentsArray[i];
 
     // cambio el formato de la fecha para que se visualice como dd/mm/aaaa
     let ogDate = comment.dateTime.split(' ')[0];
@@ -171,6 +183,9 @@ function showComments() {
           <p class="dark-grey-text article">${comment.description}</p>
           <div class="card-data comment-date font-small grey-text">
             <span title="${comment.dateTime}">${date}</span>
+            ${userData && userData.email === 'panterua@hotmail.com'
+        ? `<span class="delete-comment" onclick="deleteComment('${comment._id}', ${i})" style="display:none;">eliminar</span>`
+        : ''}
           </div>
         </div>
       </div>
@@ -273,6 +288,7 @@ function showWriteComment() {
         description: textarea.value,
         user: userData.username,
         dateTime: new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
+        productId: product._id,
       }
 
       // si tiene imagen de perfil, se la agrego
@@ -280,8 +296,18 @@ function showWriteComment() {
 
       // si está lo necesario, lo agrego al array
       if (userComment.score && userComment.description) {
-        commentsArray.push(userComment);
-        showComments();
+
+        fetch('/api/comment', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(userComment),
+        }).then(res => res.ok ? res.json() : null)
+          .then(res => {
+            userComment._id = res;
+            commentsArray.push(userComment);
+            showComments();
+          })
+          .catch(err => console.log('response error:', err));
       }
       // si no, muestro advertencias
       else {
@@ -302,13 +328,13 @@ function showRelatedProducts() {
   const relProductsDiv = document.getElementById('related-products');
   let htmlRelProducts = '';
 
-  relatedProducts.forEach(product => {
+  product.related.forEach(product => {
     htmlRelProducts += `
     <div class="card m-2">
       <div class="no-gutters">
         <a href="./product-info.html" class="stretched-link"></a>
         <img class="rel-thumbnail" src="./${product.imgSrc}" />
-        <div class="description">${product.description}</div>
+        <div class="description">${product.briefDesc}</div>
         <div class="info">
           <h5>${product.name}</h5>
           <p class="badge badge-light">${product.currency} ${product.cost}</p>
@@ -343,6 +369,7 @@ document.addEventListener("DOMContentLoaded", function(e){
       product = resultObj.data;
       showProductInfo();
       slideshow.init();
+      showRelatedProducts();
     }
   })
   .then(function(){
@@ -353,14 +380,6 @@ document.addEventListener("DOMContentLoaded", function(e){
         scrollIfRequested();
       }
     })
-  })
-  .then(function(){
-    getJSONData(PRODUCTS_URL).then(function(resultObj){
-      if (resultObj.status === "ok") {
-        product.relatedProducts.forEach(e => relatedProducts.push(resultObj.data[e]));
-        showRelatedProducts();
-      }
-    });
   });
 
   showWriteComment();

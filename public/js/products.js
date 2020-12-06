@@ -32,7 +32,7 @@ String.highlight = String.prototype.highlight = function(query) {
   return result;
 };
 
-function renderText(content) { return (searchQuery) ? content.highlight(searchQuery) : content;}
+const renderText = text => searchQuery ? text.highlight(searchQuery) : text;
 
 function showProductsList(){
   const array = sortedArray || productsArray;
@@ -42,7 +42,7 @@ function showProductsList(){
 
       // si el usuario está filtrando con texto, reviso que el producto coincida con la búsqueda
       if (searchQuery) {
-        const productInformation = product.name + ' ' + product.description;
+        const productInformation = product.name + product.briefDesc;
         const indexOfQueryString = productInformation.toLowerCase().indexOf(searchQuery);
         if (indexOfQueryString == -1) return '';
       }
@@ -52,7 +52,7 @@ function showProductsList(){
           <div class="list-card">
             <div class="row" style="display: inherit;">
               <div class="col-3">
-                <img src="${product.imgSrc}" alt="${product.name}" class="product-img">
+                <img src="${product.images[0]}" alt="${product.name}" class="product-img">
               </div>
               <div class="col info">
                 <div class="d-flex w-100 justify-content-between">
@@ -60,7 +60,7 @@ function showProductsList(){
                   <small>${product.soldCount} vendidos</small>
                 </div>
                 <p><span class="badge badge-secondary">${product.currency} ${product.cost.asPrice()}</span></p>
-                <p class="list-desc">${renderText(product.description)}</p>
+                <p class="list-desc">${renderText(product.briefDesc)}</p>
               </div>
               <a href="product-info.html" class="product-link"></a>
             </div>
@@ -71,7 +71,7 @@ function showProductsList(){
   }).join('');
 
   // Si no hay resultados, muestro un aviso de que no se encontraron productos
-  if (htmlContentToAppend.length < 1) {
+  if (!htmlContentToAppend) {
     htmlContentToAppend = `
       <div class="alert-warning alert-dismissible p-4 fade show col" role="alert" style="position: relative;">
         <strong>Sin resultados</strong>
@@ -141,7 +141,10 @@ function filterProducts(e) {
   clearFilter.scrollIntoView();
 }
 
+// Al cargar el dom
 document.addEventListener("DOMContentLoaded", function(e){
+
+  // Cargar los productos
   getJSONData(PRODUCTS_URL).then(function(resultObj){
     if (resultObj.status === "ok") {
       productsArray = resultObj.data;

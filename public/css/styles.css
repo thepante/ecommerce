@@ -958,6 +958,14 @@ a.add-cart {
   font-size: 0.9rem;
 }
 
+#comments > .row .delete-comment {
+  cursor: pointer;
+}
+
+#comments > .row:hover .delete-comment {
+  display: inline !important;
+}
+
 #write-comment {
   margin: 0 auto;
   padding: 1rem;

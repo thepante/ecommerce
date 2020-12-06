@@ -495,9 +495,10 @@ document.addEventListener("DOMContentLoaded", function(e){
     this.style.color = 'unset';
   });
 
+  // cargar productos en el carrito
   getJSONData(CART_INFO_URL).then(function(resultObj){
     if (resultObj.status === "ok") {
-      articles = resultObj.data.articles;
+      articles = resultObj.data[0].articles;
       showCartProducts();
     }
   });
