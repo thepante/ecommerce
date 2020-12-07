@@ -133,6 +133,11 @@ async function getProducts(req, res) {
 
   try {
     const products = await Product.find({ category: { id: categoryId } });
+    products.forEach(product => {
+      delete product._doc.description;
+      delete product._doc.category;
+      delete product._doc.related;
+    });
     res.send(products);
   } catch (error) {
     res.sendStatus(404);
