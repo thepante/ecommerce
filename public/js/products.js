@@ -48,22 +48,20 @@ function showProductsList(){
       }
 
       return `
-        <div class="col-lg-6">
-          <div class="list-card">
-            <div class="row" style="display: inherit;">
-              <div class="col-3">
-                <img src="${product.images[0]}" alt="${product.name}" class="product-img">
-              </div>
-              <div class="col info">
-                <div class="d-flex w-100 justify-content-between">
-                  <h4 class="mb-2 pl-0">${renderText(product.name)}</h4>
-                  <small>${product.soldCount} vendidos</small>
-                </div>
-                <p><span class="badge badge-secondary">${product.currency} ${product.cost.asPrice()}</span></p>
-                <p class="list-desc">${renderText(product.briefDesc)}</p>
-              </div>
-              <a href="product-info.html" class="product-link"></a>
+        <div class="list-card">
+          <div class="row" style="display: inherit;">
+            <div class="col-3">
+              <img src="${product.images[0]}" alt="${product.name}" class="product-img">
             </div>
+            <div class="col info">
+              <div class="d-flex w-100 justify-content-between">
+                <h4 class="mb-2 pl-0">${renderText(product.name)}</h4>
+                <small>${product.soldCount} vendidos</small>
+              </div>
+              <p><span class="badge badge-secondary">${product.currency} ${product.cost.asPrice()}</span></p>
+              <p>${renderText(product.briefDesc)}</p>
+            </div>
+            <a href="product-info.html" class="product-link"></a>
           </div>
         </div>
       `;
@@ -73,7 +71,7 @@ function showProductsList(){
   // Si no hay resultados, muestro un aviso de que no se encontraron productos
   if (!htmlContentToAppend) {
     htmlContentToAppend = `
-      <div class="alert-warning alert-dismissible p-4 fade show col" role="alert" style="position: relative;">
+      <div class="alert-warning alert-dismissible p-4 fade show" role="alert" style="position: relative;">
         <strong>Sin resultados</strong>
         <br>
         No se econtraron productos que cumplan con ese criterio.
