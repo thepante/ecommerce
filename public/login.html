@@ -18,7 +18,7 @@
       if (userLogged) {
         // si no era por deslogueo: redirigir
         if (!requestedLogout) {
-          window.location = './home.html';
+          window.location = './';
         }
         // de lo contrario, era con el parámetro logout
         else {
@@ -56,7 +56,9 @@
         <div id="alertMsg" class="alert alert-warning login-msg" style="display: none;">
         </div>
         <div id="loginForm" class="form-signin">
-          <img class="mb-4" src="img/login.png" alt="" width="auto" height="auto" style="margin-left: -15px;">
+          <a href="./">
+            <img class="mb-4" src="img/login.png" alt="" width="auto" height="auto" style="margin-left: -15px;">
+          </a>
           <h2 class="text-center p-4">Iniciar sesión</h2>
           <div class="form-label-group">
             <input type="text" id="inputUser" class="form-control" placeholder="Usuario" required>

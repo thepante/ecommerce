@@ -81,7 +81,7 @@ var getJSONDataNS = function(url){
 }
 
 // Muestra la barra de navegación
-// Aplica en todas las páginas excepto en el index (que es el login)
+// Aplica en todas las páginas excepto en el login
 const showNavBar = async () => {
 
   if (document.title.includes('Login')) return;
@@ -100,12 +100,12 @@ const showNavBar = async () => {
       <a class="dropdown-item" href="cart.html">Ver Carrito</a>
         <a class="dropdown-item" href="my-profile.html">Ver mi perfil</a>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="./index.html?logout">Cerrar sesión</a>
+        <a class="dropdown-item" href="./login.html?logout">Cerrar sesión</a>
       </div>
     `
     :
       `
-      <a class="nav-link" href="index.html?from=${window.location.pathname}" id="userMenu" aria-expanded="false">
+      <a class="nav-link" href="login.html?from=${window.location.pathname}" id="userMenu" aria-expanded="false">
         Ingresar <i class="fas fa-sign-in-alt"></i>
       </a>
     `;
@@ -113,7 +113,7 @@ const showNavBar = async () => {
   // Estructura de la barra de navegación
   document.querySelector('body > nav').innerHTML += `
     <div class="container">
-      <a class="navbar-brand" href="home.html">eMERCADO</a>
+      <a class="navbar-brand" href="./">eMERCADO</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navBar" aria-controls="navBar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -131,7 +131,7 @@ const showNavBar = async () => {
   `;
 
   const navLinks = {
-    Inicio: "home.html",
+    Inicio: "/",
     Categorías: "categories.html",
     Productos: "products.html",
     Vender: "sell.html",

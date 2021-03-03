@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <title>eMercado - Todo lo que busques está aquí</title>
   <script>
-      if (!localStorage.getItem("Logged-User")) window.location = './index.html?from=my-profile.html&msg=Debes estar logueado para acceder a los ajustes de perfil';
+      if (!localStorage.getItem("Logged-User")) window.location = './login.html?from=my-profile.html&msg=Debes estar logueado para acceder a los ajustes de perfil';
       const URLparams = new URLSearchParams(window.location.search);
       const params = Object.fromEntries(URLparams);
       const profileSaved = params.saved != null;

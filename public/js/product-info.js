@@ -207,7 +207,7 @@ function showWriteComment() {
   } else {
     writeCommentBox.innerHTML = `
       <div class="alert-light">
-        <a href="index.html?from=product-info.html&focus=write-comment&msg=Inicia sesión y califica el producto!" class="alert-link">Inicia sesión</a> para dejar el tuyo.
+        <a href="login.html?from=product-info.html&focus=write-comment&msg=Inicia sesión y califica el producto!" class="alert-link">Inicia sesión</a> para dejar el tuyo.
       </div>
     `;
   }
