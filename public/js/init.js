@@ -132,16 +132,16 @@ const showNavBar = async () => {
 
   const navLinks = {
     Inicio: "/",
-    Categorías: "categories.html",
-    Productos: "products.html",
-    Vender: "sell.html",
+    Categorías: "/categories.html",
+    Productos: "/products.html",
+    Vender: "/sell.html",
   };
 
   // Agrego los links
   const navList = document.querySelector('#navBar > ul');
 
   for (const [page, link] of Object.entries(navLinks)) {
-    const isThisPage = document.baseURI.includes('/' + link);
+    const isThisPage = document.location.pathname == link;
     const newLink = `
       <li class="nav-item ${(isThisPage) ? 'active' : ''}">
         <a class="nav-link" href="${link}">${page}</a>
