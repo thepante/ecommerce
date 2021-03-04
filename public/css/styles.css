@@ -28,7 +28,7 @@ html {
 
 nav {
   box-shadow: 0 0 8px #0000004a;
-  z-index: 100 !important;
+  z-index: 2000 !important;
 }
 
 nav, nav * {
@@ -353,7 +353,7 @@ main:not(.home)::before {
   float: left;
   width: 100%;
   height: 100%;
-  z-index: 9999;
+  z-index: 1000;
 }
 .category-card a:hover {
   text-decoration: none;
