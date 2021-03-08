@@ -28,7 +28,6 @@ html {
 
 nav {
   box-shadow: 0 0 8px #0000004a;
-  z-index: 2000 !important;
 }
 
 nav, nav * {
