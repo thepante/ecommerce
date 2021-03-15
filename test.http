@@ -1,5 +1,5 @@
-### TEST
-GET http://localhost:3000/api/test?cat=5fc270b37e047b1a44320ba6&price=135000&id=5fc2fe818a40f140ecc025b7
+### Get home data
+GET http://localhost:3000/api/home
 
 ### Get all categories
 GET http://localhost:3000/api/categories
@@ -7,61 +7,21 @@ GET http://localhost:3000/api/categories
 ### Get a single category info
 GET http://localhost:3000/api/category/5fc270b37e047b1a44320ba6
 
-### Get products by category
+### Get products by category id
 GET http://localhost:3000/api/products?cat=5fc270b37e047b1a44320ba6
 
-### Get products by category, between a price range
-GET http://localhost:3000/api/products?cat=1&minprice=13000&maxprice=14000
+### Get products by category name
+GET http://localhost:3000/api/products?catName=autos
 
-### Get single product info
-GET http://localhost:3000/api/info/5fc274ea7e047b1a44320baf
+### Get products by category id, between a price range
+GET http://localhost:3000/api/products?cat=5fc270b37e047b1a44320ba6&minprice=13000&maxprice=14000
+
+### Get products by category name, between a price range
+GET http://localhost:3000/api/products?catName=autos&minprice=13000&maxprice=14000
+
+### Get a single product info
+GET http://localhost:3000/api/product/5fc274ea7e047b1a44320baf
 
 ### Get product comments
 GET http://localhost:3000/api/comments/5fc274ea7e047b1a44320baf
 
-### Publish a new comment
-POST http://localhost:3000/api/comment
-Content-Type: application/json
-
-{
-  "productId": "5fc274ea7e047b1a44320baf",
-  "user": "test_usr",
-  "description": "Ac ut consequat semper viverra",
-  "score": 3,
-  "dateTime": "2020-11-23 15:28:20",
-  "avatar": null
-}
-
-### Remove a comment
-DELETE http://localhost:3000/api/comment
-Content-Type: application/json
-
-{
-  "id": "5fc2aea6a4d7f86868a226cb",
-  "product": "5fc274ea7e047b1a44320baf"
-}
-
-### Publish a new product
-POST http://localhost:3000/api/product
-Content-Type: application/json
-
-{
-  "name": "Demo Product Name",
-  "briefDesc": "Description for listing page",
-  "description": "Full product description detailing its specs. For product view",
-  "currency": "USD",
-  "cost": 14000,
-  "soldCount": 345,
-  "images": []
-}
-
-### Edit a product - TODO
-PATCH http://localhost:3000/api/product
-
-### Remove a product
-DELETE http://localhost:3000/api/product
-Content-Type: application/json
-
-{
-  "id": "5fc26be07e047b1a44320ba4"
-}
