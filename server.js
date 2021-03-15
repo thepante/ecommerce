@@ -32,12 +32,6 @@ const Home = require('./models/home');
 app.use(express.static(__dirname + "/dist"));
 app.use(express.json());
 
-app.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', req.headers.origin);
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  next();
-});
-
 // general
 app.get('/api/home', getHome);
 app.get('/api/categories', getCategories);
