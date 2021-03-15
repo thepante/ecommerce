@@ -113,11 +113,13 @@ export default {
     },
 
     async logout() {
-      console.log("LOG OUT!")
-      await this.$gAuth.signOut();
+      if (this.$store.state.user.oauth) {
+        await this.$gAuth.signOut();
+      }
       localStorage.removeItem('Logged-User');
       this.$store.state.user = null;
       this.loginOut = false;
+      console.log("Logged out")
     },
 
   },
