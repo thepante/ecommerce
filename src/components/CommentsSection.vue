@@ -44,9 +44,7 @@ export default {
     }
   },
   mounted() {
-    const linkComments = `http://localhost:3000/api/comments/${this.productid}`;
-
-    axios.get(linkComments).then(response => {
+    axios.get(`/api/comments/${this.productid}`).then(response => {
       this.comments = response.data;
       this.loading = false;
     });
