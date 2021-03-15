@@ -75,7 +75,6 @@ const router = createRouter({
     return savedPosition || { top: 0 };
   },
   routes,
-
 })
 
 export default router

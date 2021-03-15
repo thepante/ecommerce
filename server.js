@@ -2,6 +2,7 @@ if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 
 const express = require('express');
 const mongoose = require('mongoose');
+const history = require('connect-history-api-fallback')
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -29,17 +30,15 @@ const System = require('./models/system');
 const Cart = require('./models/cart');
 const Home = require('./models/home');
 
-app.use(express.static(__dirname + "/dist"));
+const staticMiddleware = express.static(__dirname + "/dist");
+app.use(staticMiddleware); //-> unredirected requests
+app.use(history());
+app.use(staticMiddleware); //-> redirected requests
 app.use(express.json());
 
-app.use((req, res, next) => {
-  res.append('Access-Control-Allow-Origin', ['*']);
-  res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.append('Access-Control-Allow-Headers', 'Content-Type');
-  res.setHeader(
-    'Content-Security-Policy-Report-Only',
-    "default-src 'self'; font-src 'self' https://fonts.gstatic.com; img-src 'self'; script-src 'self' https://apis.google.com; style-src 'self' https://fonts.googleapis.com; frame-src 'self'"
-  );
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
 
@@ -62,7 +61,6 @@ app.get('/api/product/:productId', getProductInfo);
 app.post('/api/product', publishProduct);
 app.patch('/api/product', editProduct);
 app.delete('/api/product', deleteProduct);
-
 
 async function cleanTempComments() {
   try {
