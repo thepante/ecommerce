@@ -63,7 +63,7 @@ export default {
 
       /* this.comments.push(newComment); */
 
-      fetch('http://localhost:3000/api/comment', {
+      fetch('/api/comment', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newComment),
