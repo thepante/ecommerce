@@ -32,6 +32,17 @@ const Home = require('./models/home');
 app.use(express.static(__dirname + "/dist"));
 app.use(express.json());
 
+app.use((req, res, next) => {
+  res.append('Access-Control-Allow-Origin', ['*']);
+  res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.append('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader(
+    'Content-Security-Policy-Report-Only',
+    "default-src 'self'; font-src 'self' https://fonts.gstatic.com; img-src 'self'; script-src 'self' https://apis.google.com; style-src 'self' https://fonts.googleapis.com; frame-src 'self'"
+  );
+  next();
+});
+
 // general
 app.get('/api/home', getHome);
 app.get('/api/categories', getCategories);
