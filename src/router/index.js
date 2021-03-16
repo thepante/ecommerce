@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home.vue';
+import PageNotFound from '../views/PageNotFound.vue';
 import Categories from '../views/Categories.vue';
 import Category from '../views/Category.vue';
 import Products from '../views/Products.vue';
@@ -66,6 +67,10 @@ const routes = [
     name: 'Logout',
     component: Access,
     meta: { title: 'Cerrar sesión' },
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    component: PageNotFound,
   },
 ]
 
