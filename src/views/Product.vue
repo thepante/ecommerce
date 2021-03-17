@@ -69,11 +69,18 @@ export default {
     const route = useRoute();
     const productID = route.params.id;
 
-    axios.get(`/api/product/${productID}`).then(response => {
-      this.product = response.data;
-      this.loading = false;
-      document.title = `${this.product.name} · ${this.product.currency} ${this.product.cost} - ${this.$store.state.title}`;
-    });
+    axios.get(`/api/product/${productID}`)
+      .then(response => {
+        this.product = response.data;
+        this.loading = false;
+        document.title = `${this.product.name} · ${this.product.currency} ${this.product.cost} - ${this.$store.state.title}`;
+      })
+      .catch(error => {
+        if (error.response.status === 404) {
+          this.$router.push({ name: 'NotFound' });
+        }
+        return console.log("error:", error.response);
+      });
 
   },
 }

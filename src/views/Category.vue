@@ -86,11 +86,18 @@ export default {
     const category = route.params.category;
     this.category = category.capitalized();
 
-    axios.get(`/api/products?catName=${category}`).then(response => {
-      this.array = response.data.products;
-      this.loading = false;
-      document.title = `Categoría: ${this.category} - ${this.$store.state.title}`;
-    });
+    axios.get(`/api/products?catName=${category}`)
+      .then(response => {
+        this.array = response.data.products;
+        this.loading = false;
+        document.title = `Categoría: ${this.category} - ${this.$store.state.title}`;
+      })
+      .catch(error => {
+        if (error.response.status === 404) {
+          this.$router.push({ name: 'NotFound' });
+        }
+        return console.log("error:", error.response);
+      });
   },
 
   computed: {
