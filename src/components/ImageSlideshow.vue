@@ -1,20 +1,20 @@
 <template>
   <div @mouseover="mouseOver" @mouseleave="mouseOver" class="img-big-wrap">
-    <div id="preview-img" :style="`background-image: url(${require(`@/${images[indexVisible]}`)});`" >
-      <div id="controls">
+    <div id="preview-img" :style="`background-image: url(${require(`@/${images[onDisplay]}`)});`" >
+      <div v-if="areMultipleImgs" id="controls">
         <i @click="changeImagePrev" class="fas fa-chevron-left"></i>
         <i @click="changeImageNext" class="fas fa-chevron-right"></i>
       </div>
     </div>
   </div>
-  <div class="img-small-wrap" id="thumbnails">
+  <div v-if="areMultipleImgs" class="img-small-wrap" id="thumbnails">
 
     <div
       v-for="(image, index) in images"
       :key="index"
       @click="changeImageTo(index)"
       class="item-gallery"
-      :class="indexVisible == index ? 'selected' : ''"
+      :class="onDisplay == index ? 'selected' : ''"
       :style="`background-image: url(${require(`@/${image}`)});`"
     />
 
@@ -33,27 +33,33 @@ export default {
 
   data() {
     return {
-      indexVisible: 0,
+      onDisplay: 0,
       mouseOverPreview: false,
     }
   },
 
+  computed: {
+    areMultipleImgs: function() {
+      return this.images.length > 1;
+    },
+  },
+
   methods: {
     changeImageTo(index) {
-      this.indexVisible = index;
+      this.onDisplay = index;
     },
 
     changeImagePrev() {
-      const isThisTheFirst = this.indexVisible !== 0;
+      const isThisTheFirst = this.onDisplay !== 0;
       const lastIndex = this.images.length - 1;
-      const previous = isThisTheFirst ? this.indexVisible - 1 : lastIndex;
+      const previous = isThisTheFirst ? this.onDisplay - 1 : lastIndex;
       this.changeImageTo(previous);
     },
 
     changeImageNext() {
       const lastIndex = this.images.length - 1;
-      const isNotTheLast = this.indexVisible !== lastIndex;
-      const next = isNotTheLast ? this.indexVisible + 1 : 0;
+      const isNotTheLast = this.onDisplay !== lastIndex;
+      const next = isNotTheLast ? this.onDisplay + 1 : 0;
       this.changeImageTo(next);
     },
 
@@ -71,7 +77,7 @@ export default {
   },
 
   mounted() {
-    this.autoLoopImages()
+    this.areMultipleImgs && this.autoLoopImages();
   },
 
 }
