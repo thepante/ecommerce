@@ -1,34 +1,43 @@
 <template>
-  <div @mouseover="mouseOver" @mouseleave="mouseOver" class="img-big-wrap">
-    <div id="preview-img" :style="`background-image: url(${require(`@/${images[onDisplay]}`)});`" >
-      <div v-if="areMultipleImgs" id="controls">
-        <i @click="changeImagePrev" class="fas fa-chevron-left"></i>
-        <i @click="changeImageNext" class="fas fa-chevron-right"></i>
+  <template v-if="images">
+    <div @mouseover="mouseOver" @mouseleave="mouseOver" class="img-big-wrap">
+      <div id="preview-img" :style="`background-image: url(${require(`@/${images[onDisplay]}`)});`" >
+        <div v-if="areMultipleImgs" id="controls">
+          <i @click="changeImagePrev" class="fas fa-chevron-left"></i>
+          <i @click="changeImageNext" class="fas fa-chevron-right"></i>
+        </div>
       </div>
     </div>
-  </div>
-  <div v-if="areMultipleImgs" class="img-small-wrap" id="thumbnails">
+    <div v-if="areMultipleImgs" class="img-small-wrap" id="thumbnails">
 
-    <div
-      v-for="(image, index) in images"
-      :key="index"
-      @click="changeImageTo(index)"
-      class="item-gallery"
-      :class="onDisplay == index ? 'selected' : ''"
-      :style="`background-image: url(${require(`@/${image}`)});`"
-    />
+      <div
+        v-for="(image, index) in images"
+        :key="index"
+        @click="changeImageTo(index)"
+        class="item-gallery"
+        :class="onDisplay == index ? 'selected' : ''"
+        :style="`background-image: url(${require(`@/${image}`)});`"
+      />
 
-  </div>
+    </div>
+  </template>
+
+  <template v-else>
+    <ContentLoader width="100%" height="400" />
+  </template>
 </template>
 
 <script>
+import { ContentLoader } from 'vue-content-loader';
+
 export default {
   name: 'ImageSlideshow',
+  components: { ContentLoader },
   props: {
     images: {
       type: Array,
       required: true,
-    }
+    },
   },
 
   data() {
@@ -40,7 +49,7 @@ export default {
 
   computed: {
     areMultipleImgs: function() {
-      return this.images.length > 1;
+      return this.images && this.images.length > 1;
     },
   },
 

@@ -1,22 +1,15 @@
 <template>
-  <div v-if="!loading" class="container">
+  <div class="container">
     <div id="product-info" class="card">
       <div class="row">
         <aside class="col-md-6 border-right mr-3 mr-md-0 pr-0">
           <article class="gallery-wrap">
-            <ImageSlideshow :images="product.images" />
+            <ImageSlideshow :images="product ? product.images : null" />
           </article>
         </aside>
         <aside class="col-md-6">
           <article class="card-body p-3 p-sm-5 p-md-3 p-lg-5">
-            <ProductInfoSection
-              :name="product.name"
-              :description="product.description"
-              :currency="product.currency"
-              :cost="product.cost"
-              :category="product.category"
-              :soldCount="product.soldCount"
-            />
+            <ProductInfoSection :product="product" />
           </article>
         </aside>
       </div>
@@ -26,16 +19,15 @@
       <h4>Comentarios</h4>
     </div>
 
-    <CommentsSection :productid="product._id" />
+    <CommentsSection :key="productid" :productid="productid" />
 
     <div class="text-center p-4">
       <h5>Productos relacionados</h5>
     </div>
 
-    <RelatedProducts :products="product.related" />
+    <RelatedProducts :key="productid" :products="product ? product.related : null" />
 
   </div>
-  <SpinnerLoading v-if="loading" />
 </template>
 
 <script>
@@ -46,7 +38,6 @@ import ImageSlideshow from '../components/ImageSlideshow.vue';
 import ProductInfoSection from '../components/ProductInfoSection.vue';
 import CommentsSection from '../components/CommentsSection.vue';
 import RelatedProducts from '../components/RelatedProducts.vue';
-import SpinnerLoading from '../components/SpinnerLoading.vue';
 
 export default {
   name: 'ProductInfo',
@@ -55,11 +46,11 @@ export default {
     ProductInfoSection,
     CommentsSection,
     RelatedProducts,
-    SpinnerLoading,
   },
   data() {
     return {
       loading: true,
+      productid: null,
       product: null,
       comments: null,
     }
@@ -68,6 +59,7 @@ export default {
   mounted() {
     const route = useRoute();
     const productID = route.params.id;
+    this.productid = productID;
 
     axios.get(`/api/product/${productID}`)
       .then(response => {
@@ -81,8 +73,8 @@ export default {
         }
         return console.log("error:", error.response);
       });
-
   },
+
 }
 </script>
 

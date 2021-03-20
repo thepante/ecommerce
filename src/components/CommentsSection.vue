@@ -1,22 +1,37 @@
 <template>
-  <div v-if="!loading" class="comments-section p-3 p-sm-5">
-    <div v-if="comments.length" id="comments">
-      <CommentCard
-        v-for="(comment, index) in comments"
+  <div class="comments-section p-3 p-sm-5">
+    <template v-if="!loading">
+      <div v-if="comments.length" id="comments">
+        <CommentCard
+          v-for="(comment, index) in comments"
+          :key="index"
+          :username="comment.user"
+          :content="comment.description"
+          :score="comment.score"
+          :dateTime="comment.dateTime"
+          :avatar="comment.avatar"
+          :id="comment._id"
+        />
+      </div>
+
+      <div v-else class="alert-warning alert-dismissible p-4 fade show col" role="alert">
+        <strong>No hay comentarios</strong>
+      </div>
+    </template>
+
+    <template v-else>
+      <ContentLoader
+        v-for="index in 2"
         :key="index"
-        :username="comment.user"
-        :content="comment.description"
-        :score="comment.score"
-        :dateTime="comment.dateTime"
-        :avatar="comment.avatar"
-        :id="comment._id"
-      />
-    </div>
-
-    <div v-else class="alert-warning alert-dismissible p-4 fade show col" role="alert">
-      <strong>No hay comentarios</strong>
-    </div>
-
+        width="620" height="170"
+      >
+        <circle cx="30" cy="30" r="30" />
+        <rect x="77" y="6" rx="2" ry="2" width="115" height="18" />
+        <rect x="77" y="38" rx="2" ry="2" width="80" height="10" />
+        <rect x="77" y="76" rx="0" ry="0" width="420" height="15" />
+        <rect x="77" y="100" rx="0" ry="0" width="380" height="15" />
+      </ContentLoader>
+    </template>
     <hr>
     <WriteCommentBox @new-comment="publishComment" />
   </div>
@@ -25,12 +40,13 @@
 <script>
 import axios from 'axios';
 
+import { ContentLoader } from 'vue-content-loader';
 import CommentCard from '../components/CommentCard.vue';
 import WriteCommentBox from '../components/WriteCommentBox.vue';
 
 export default {
   name: 'CommentsSection',
-  components: { CommentCard, WriteCommentBox },
+  components: { CommentCard, WriteCommentBox, ContentLoader },
   props: {
     productid: {
       type: String,
@@ -44,10 +60,12 @@ export default {
     }
   },
   mounted() {
-    axios.get(`/api/comments/${this.productid}`).then(response => {
-      this.comments = response.data;
-      this.loading = false;
-    });
+    if (this.productid) {
+      axios.get(`/api/comments/${this.productid}`).then(response => {
+        this.comments = response.data;
+        this.loading = false;
+      });
+    }
   },
   methods: {
 
