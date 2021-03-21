@@ -1,7 +1,7 @@
 <template>
-  <main v-if="!loading" role="main" class="pb-5">
+  <main role="main" class="pb-5">
 
-    <PageHeader :title="category">
+    <PageHeader :title="category || 'Cargando...'">
       <InlineFilter label="Mostrando precios desde:" />
     </PageHeader>
 
@@ -13,23 +13,40 @@
 
       <div id="listing" class="row">
 
-        <ProductCard
-          v-for="(product, index) in products"
-          :key="index"
-          :name="processContent(product.name)"
-          :description="processContent(product.briefDesc)"
-          :currency="product.currency"
-          :cost="product.cost"
-          :soldCount="product.soldCount"
-          :image="product.images[0]"
-          :link="`/product/${product._id}`"
-        />
+        <template v-if="!loading">
+          <ProductCard
+            v-for="(product, index) in products"
+            :key="index"
+            :name="processContent(product.name)"
+            :description="processContent(product.briefDesc)"
+            :currency="product.currency"
+            :cost="product.cost"
+            :soldCount="product.soldCount"
+            :image="product.images[0]"
+            :link="`/product/${product._id}`"
+          />
 
-        <NoResultsCard
-          v-if="noProducts"
-          message="No se econtraron productos que cumplan con ese criterio."
-          @closed="clearFilters"
-        />
+          <NoResultsCard
+            v-if="noProducts"
+            message="No se econtraron productos que cumplan con ese criterio."
+            @closed="clearFilters"
+          />
+        </template>
+
+        <template v-else>
+          <ContentLoader
+            v-for="index in 6"
+            :key="index"
+            width="1032"
+            height="182"
+          >
+            <rect x="0" y="2" rx="2" ry="2" width="235" height="154" />
+            <rect x="263" y="10" rx="2" ry="2" width="168" height="23" />
+            <rect x="263" y="45" rx="0" ry="0" width="88" height="20" />
+            <rect x="263" y="80" rx="0" ry="0" width="495" height="18" />
+            <rect x="935" y="12" rx="0" ry="0" width="80" height="12" />
+          </ContentLoader>
+        </template>
 
       </div>
     </div>
@@ -42,6 +59,7 @@ import axios from 'axios';
 import { computed } from 'vue';
 import { useStore } from 'vuex';
 import { useRoute } from 'vue-router';
+import { ContentLoader } from 'vue-content-loader';
 
 import PageHeader from '../components/PageHeader.vue';
 import InlineFilter from '../components/InlineFilter.vue';
@@ -53,7 +71,6 @@ import NoResultsCard from '../components/NoResultsCard.vue';
 // define if products matches with text query
 const productMatchesSearch = (content, query) => ~content.toLowerCase().indexOf(query.toLowerCase());
 
-
 export default {
   name: 'Products',
   components: {
@@ -62,7 +79,8 @@ export default {
     PageHeader,
     InlineFilter,
     SortButtons,
-    TextFilter
+    TextFilter,
+    ContentLoader,
   },
   setup() {
     const store = useStore();

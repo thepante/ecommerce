@@ -5,7 +5,7 @@
       <InlineFilter label="Filtrar por cantidad de productos:" />
     </PageHeader>
 
-    <div v-if="!loading && array && array.length" class="container content">
+    <div class="container content">
       <div id="options" class="row">
         <TextFilter />
         <SortButtons type="categories" @selection="sortProducts" />
@@ -13,26 +13,41 @@
 
       <div id="listing" class="row">
 
-        <ProductCard
-          v-for="(category, index) in categories"
-          :key="index"
-          :name="processContent(category.name)"
-          :description="processContent(category.description)"
-          :soldCount="category.productCount"
-          :image="category.imgSrc"
-          :link="`/category/${category.name.toLowerCase()}`"
-        />
+        <template v-if="!loading">
+          <ProductCard
+            v-for="(category, index) in categories"
+            :key="index"
+            :name="processContent(category.name)"
+            :description="processContent(category.description)"
+            :soldCount="category.productCount"
+            :image="category.imgSrc"
+            :link="`/category/${category.name.toLowerCase()}`"
+          />
 
-        <NoResultsCard
-          v-if="noCategories"
-          message="No se econtraron categorías que cumplan con ese criterio."
-          @closed="clearFilters"
-        />
+          <NoResultsCard
+            v-if="noCategories"
+            message="No se econtraron categorías que cumplan con ese criterio."
+            @closed="clearFilters"
+          />
+        </template>
+
+        <template v-else>
+          <ContentLoader
+            v-for="index in 6"
+            :key="index"
+            width="1032"
+            height="182"
+          >
+            <rect x="0" y="2" rx="2" ry="2" width="235" height="154" />
+            <rect x="263" y="10" rx="2" ry="2" width="168" height="23" />
+            <rect x="263" y="50" rx="0" ry="0" width="495" height="18" />
+            <rect x="214" y="81" rx="0" ry="0" width="1" height="0" />
+            <rect x="935" y="12" rx="0" ry="0" width="80" height="12" />
+          </ContentLoader>
+        </template>
 
       </div>
     </div>
-
-    <SpinnerLoading v-if="loading" />
   </main>
 </template>
 
@@ -41,6 +56,7 @@ import axios from 'axios';
 
 import { computed } from 'vue';
 import { useStore } from 'vuex';
+import { ContentLoader } from 'vue-content-loader';
 
 import PageHeader from '../components/PageHeader.vue';
 import InlineFilter from '../components/InlineFilter.vue';
@@ -48,7 +64,6 @@ import TextFilter from '../components/TextFilter.vue';
 import SortButtons from '../components/SortButtons.vue';
 import ProductCard from '../components/ProductCard.vue';
 import NoResultsCard from '../components/NoResultsCard.vue';
-import SpinnerLoading from '../components/SpinnerLoading.vue';
 
 // define if products matches with text query
 const productMatchesSearch = (content, query) => ~content.toLowerCase().indexOf(query.toLowerCase());
@@ -62,7 +77,7 @@ export default {
     InlineFilter,
     SortButtons,
     TextFilter,
-    SpinnerLoading
+    ContentLoader,
   },
   setup() {
     const store = useStore();
