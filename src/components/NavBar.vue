@@ -1,5 +1,5 @@
 <template>
-  <nav class="site-header navbar navbar-expand-lg navbar-light bg-light sticky-top transparent">
+  <nav :key="$route.path" class="site-header navbar navbar-expand-lg navbar-light bg-light sticky-top transparent">
     <div class="container">
       <router-link to="/" class="navbar-brand">
         eMERCADO
