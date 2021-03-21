@@ -41,7 +41,6 @@
             <rect x="0" y="2" rx="2" ry="2" width="235" height="154" />
             <rect x="263" y="10" rx="2" ry="2" width="168" height="23" />
             <rect x="263" y="50" rx="0" ry="0" width="495" height="18" />
-            <rect x="214" y="81" rx="0" ry="0" width="1" height="0" />
             <rect x="935" y="12" rx="0" ry="0" width="80" height="12" />
           </ContentLoader>
         </template>
