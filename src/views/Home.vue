@@ -1,7 +1,7 @@
 <template>
   <div>
     <HomeHeader />
-    <MainCategories v-if="categories" :categories="categories" />
+    <MainCategories :categories="categories" />
   </div>
 </template>
 
