@@ -1,7 +1,7 @@
 <template>
   <template v-if="images">
     <div @mouseover="mouseOver" @mouseleave="mouseOver" class="img-big-wrap">
-      <div id="preview-img" :style="`background-image: url(${require(`@/${images[onDisplay]}`)});`" >
+      <div id="preview-img" :style="`background-image: url(${require(`@/img/product/${id}/${images[onDisplay]}`)});`" >
         <div v-if="areMultipleImgs" id="controls">
           <i @click="changeImagePrev" class="fas fa-chevron-left"></i>
           <i @click="changeImageNext" class="fas fa-chevron-right"></i>
@@ -16,7 +16,7 @@
         @click="changeImageTo(index)"
         class="item-gallery"
         :class="onDisplay == index ? 'selected' : ''"
-        :style="`background-image: url(${require(`@/${image}`)});`"
+        :style="`background-image: url(${require(`@/img/product/${id}/${image}`)});`"
       />
 
     </div>
@@ -34,6 +34,10 @@ export default {
   name: 'ImageSlideshow',
   components: { ContentLoader },
   props: {
+    id: {
+      type: String,
+      required: true,
+    },
     images: {
       type: Array,
       required: true,
@@ -87,6 +91,7 @@ export default {
 
   mounted() {
     this.areMultipleImgs && this.autoLoopImages();
+    if (this.images) console.log(this.images, this.images[0])
   },
 
 }

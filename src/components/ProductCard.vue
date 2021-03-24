@@ -3,7 +3,7 @@
     <div class="card">
       <div class="row" style="display: inherit;">
         <div class="col-3">
-          <img :src="require(`@/${image}`)" :alt="name" class="product-img">
+          <img :src="require(`@/${image}`)" :alt="name">
         </div>
         <div class="col info">
           <div class="d-flex w-100 justify-content-between">
@@ -71,9 +71,9 @@ export default {
   box-shadow: 0 4px 10px -1px rgba(154,160,185,.1);
   transition: all .2s ease-in-out;
 
-  .product-img {
+  img {
     max-width: 100%;
-    height: auto;
+    height: 100%;
   }
 
   .info {

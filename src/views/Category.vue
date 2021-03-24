@@ -22,7 +22,7 @@
             :currency="product.currency"
             :cost="product.cost"
             :soldCount="product.soldCount"
-            :image="product.images[0]"
+            :image="`img/product/${product._id}/${product.images[0]}`"
             :link="`/product/${product._id}`"
           />
 
