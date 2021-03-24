@@ -4,7 +4,7 @@
       <div class="row">
         <aside class="col-md-6 border-right mr-3 mr-md-0 pr-0">
           <article class="gallery-wrap">
-            <ImageSlideshow :images="product ? product.images : null" :id="productid" />
+            <ImageSlideshow :images="product ? product.images : null" />
           </article>
         </aside>
         <aside class="col-md-6">

@@ -8,8 +8,8 @@
         </div>
       </div>
     </div>
-    <div v-if="areMultipleImgs" class="img-small-wrap" id="thumbnails">
 
+    <div v-if="areMultipleImgs" class="img-small-wrap" id="thumbnails">
       <div
         v-for="(image, index) in images"
         :key="index"
@@ -18,7 +18,6 @@
         :class="onDisplay == index ? 'selected' : ''"
         :style="`background-image: url(${require(`@/img/product/${id}/${image}`)});`"
       />
-
     </div>
   </template>
 
@@ -28,24 +27,21 @@
 </template>
 
 <script>
+import { useRoute } from 'vue-router';
 import { ContentLoader } from 'vue-content-loader';
 
 export default {
   name: 'ImageSlideshow',
   components: { ContentLoader },
   props: {
-    id: {
-      type: String,
-      required: true,
-    },
     images: {
       type: Array,
-      required: true,
     },
   },
 
   data() {
     return {
+      id: null,
       onDisplay: 0,
       mouseOverPreview: false,
     }
@@ -82,7 +78,9 @@ export default {
 
     async autoLoopImages() {
       await setTimeout(() => {
-        !this.mouseOverPreview && this.changeImageNext();
+        if (!this.mouseOverPreview) {
+          this.changeImageNext();
+        }
         this.autoLoopImages();
       }, 5000);
     },
@@ -90,8 +88,11 @@ export default {
   },
 
   mounted() {
-    this.areMultipleImgs && this.autoLoopImages();
-    if (this.images) console.log(this.images, this.images[0])
+    const route = useRoute();
+    const productID = route.params.id;
+    this.id = productID;
+
+    this.autoLoopImages();
   },
 
 }
