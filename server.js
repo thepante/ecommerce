@@ -180,8 +180,8 @@ async function getProducts(req, res) {
 
 async function getProductInfo(req, res) {
   try {
-    const product = await Product.findById(req.params.productId);
-    const category = await Category.findById(product.category.id);
+    const product = await Product.findOne({ _id: req.params.productId });
+    const category = await Category.findOne({ _id: product.category.id });
     const related = await getRelatedProducts(product);
     product.category.name = category.name;
     product.related = related;
