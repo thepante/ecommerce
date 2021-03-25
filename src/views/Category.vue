@@ -23,7 +23,7 @@
             :cost="product.cost"
             :soldCount="product.soldCount"
             :image="`img/product/${product._id}/${product.images[0]}`"
-            :link="`/product/${product._id}`"
+            :link="`/product/${product._id + product.name.asPath()}`"
           />
 
           <NoResultsCard
@@ -82,15 +82,13 @@ export default {
     TextFilter,
     ContentLoader,
   },
+
   setup() {
     const store = useStore();
     const filter = computed(() => store.state.filter);
-
-    /* // ensure to work with default values at page load */
-    /* store.dispatch('resetRangeFilter'); */
-    /* store.state.filter.query = ''; */
     return { store, filter };
   },
+
   data() {
     return {
       loading: true,

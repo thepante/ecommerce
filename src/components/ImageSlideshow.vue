@@ -89,7 +89,7 @@ export default {
 
   mounted() {
     const route = useRoute();
-    const productID = route.params.id;
+    const productID = route.params.id.substr(0, 8);
     this.id = productID;
 
     this.autoLoopImages();

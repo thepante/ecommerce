@@ -58,7 +58,7 @@ export default {
 
   mounted() {
     const route = useRoute();
-    const productID = route.params.id;
+    let productID = route.params.id.substr(0, 8);
     this.productid = productID;
 
     axios.get(`/api/product/${productID}`)

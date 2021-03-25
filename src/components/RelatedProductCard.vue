@@ -1,7 +1,7 @@
 <template>
   <div class="card m-2">
     <div class="no-gutters">
-      <router-link :to="`./${id}`" class="stretched-link" />
+      <router-link :to="`./${id + name.asPath()}`" class="stretched-link" />
       <img class="rel-thumbnail" :src="require(`@/img/product/${id}/${img}`)" />
       <div class="description">{{ description }}</div>
       <div class="info">

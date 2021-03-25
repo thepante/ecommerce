@@ -21,6 +21,10 @@ String.capitalized = String.prototype.capitalized = function(){
   return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
 }
 
+String.asPath = String.prototype.asPath = function(){
+  return '-' + this.replace(/\W+/g, '-').toLowerCase();
+}
+
 export default {
   name: 'App',
   components: { NavBar, Footer },
