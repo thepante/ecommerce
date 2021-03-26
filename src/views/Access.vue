@@ -25,17 +25,19 @@
           <!--
           <p class="mt-5 mb-3 text-muted">testeando</p>
           -->
-          <button class="g-signin" @click="onSignIn">Ingresar con Google</button>
+          <button @click="oauthSignIn" :disabled="!Vue3GoogleOauth.isInit">
+            Ingresar con Google
+          </button>
         </div>
 
       </div>
-
 
     </div>
   </main>
 </template>
 
 <script>
+import { inject } from "vue";
 import { useRoute } from 'vue-router';
 
 export default {
@@ -53,6 +55,11 @@ export default {
     next(vm => {
       vm.from = from;
     })
+  },
+
+  setup() {
+    const Vue3GoogleOauth = inject('Vue3GoogleOauth');
+    return { Vue3GoogleOauth };
   },
 
   mounted() {
@@ -84,7 +91,7 @@ export default {
 
     },
 
-    async onSignIn() {
+    async oauthSignIn() {
       try {
         const user = await this.$gAuth.signIn();
         if (!user) return null;
@@ -145,7 +152,7 @@ export default {
     white-space: nowrap;
     cursor: pointer;
     background: #007bff;
-    border: 1px solid transparent;
+    border: 1px solid #007bff;
     color: #fff;
     -webkit-appearance: none;
     text-align: center;
@@ -170,6 +177,7 @@ export default {
 
     &:disabled {
       background: #fff;
+      border-color: #ddd;
       color: #ddd;
       cursor: not-allowed;
     }
