@@ -73,7 +73,7 @@ export default {
 
   img {
     max-width: 100%;
-    height: 100%;
+    height: auto;
   }
 
   .info {
