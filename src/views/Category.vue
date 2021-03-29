@@ -122,7 +122,7 @@ export default {
       const array = (this.sortedArray || this.array).filter(product => {
         return (
           product.cost >= this.filter.range.min && product.cost <= this.filter.range.max
-          && !(query && !productMatchesSearch(product.name + product.description, query))
+          && !(query && !productMatchesSearch(product.name + product.briefDesc, query))
         )
       });
       return array || [];
