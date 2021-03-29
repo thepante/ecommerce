@@ -20,8 +20,8 @@ GET http://localhost:3000/api/products?cat=5fc270b37e047b1a44320ba6&minprice=130
 GET http://localhost:3000/api/products?catName=autos&minprice=13000&maxprice=14000
 
 ### Get a single product info
-GET http://localhost:3000/api/product/5fc274ea7e047b1a44320baf
+GET http://localhost:3000/api/product/nlx7JuC9
 
 ### Get product comments
-GET http://localhost:3000/api/comments/5fc274ea7e047b1a44320baf
+GET http://localhost:3000/api/comments/nlx7JuC9
 
