@@ -121,33 +121,6 @@ export default {
 
   methods: {
 
-    /* fetchData() { */
-    /*   this.loading = true; */
-    /*   return fetch('https://japdevdep.github.io/ecommerce-api/category/all.json', { */
-    /*     method: 'GET', */
-    /*   }) */
-    /*   .then(res => { */
-    /*     if (!res.ok) { */
-    /*       const error = new Error(res.statusText); */
-    /*       error.json = error.json(); */
-    /*       throw error; */
-    /*     } */
-
-    /*     return res.json(); */
-    /*   }) */
-    /*   .then(json => this.data = json) */
-    /*   .catch(err => { */
-    /*     this.error = err; */
-
-    /*     if (err.json) { */
-    /*       return err.json.then(json => { */
-    /*         this.error.message = json.message; */
-    /*       }); */
-    /*     } */
-    /*   }) */
-    /*   .then(() => this.loading = false); */
-    /* }, */
-
     resetSort() {
       this.sortedArray = null;
     },
