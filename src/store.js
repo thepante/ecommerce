@@ -6,12 +6,6 @@ const store = createStore({
       title: 'eMercado',
       subtitle: 'Todo lo que busques está aquí',
       count: 0,
-      filter: {
-        range: {
-          min: 0,
-          max: Infinity,
-        },
-      },
       SHIPPING_METHODS: {
         standard: { cost: 5, days: [12, 15] },
         express: { cost: 7, days: [5, 8] },
@@ -38,28 +32,8 @@ const store = createStore({
       state.user = null;
     },
 
-    setRangeFilter(state, values) {
-      state.filter.range.min = values.min;
-      state.filter.range.max = values.max;
-    },
-
   },
 
-  actions: {
-
-    updateRangeFilter({ commit }, { min, max }) {
-      commit('setRangeFilter', {
-        min: min || 0,
-        max: max || Infinity,
-      });
-    },
-
-    resetRangeFilter({ commit }) {
-      commit('setRangeFilter', { min: 0, max: Infinity });
-    },
-
-
-  },
 });
 
 export default store;

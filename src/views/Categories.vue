@@ -2,7 +2,7 @@
   <main role="main" class="pb-5">
 
     <PageHeader title="Productos por categoría">
-      <InlineFilter label="Filtrar por cantidad de productos:" />
+      <InlineFilter v-model="filter" label="Filtrar por cantidad de productos:" />
     </PageHeader>
 
     <div class="container content">
@@ -53,8 +53,6 @@
 <script>
 import axios from 'axios';
 
-import { computed } from 'vue';
-import { useStore } from 'vuex';
 import { ContentLoader } from 'vue-content-loader';
 
 import PageHeader from '../components/PageHeader.vue';
@@ -78,15 +76,6 @@ export default {
     TextFilter,
     ContentLoader,
   },
-  setup() {
-    const store = useStore();
-    const filter = computed(() => store.state.filter);
-
-    // ensure to work with default values at page load
-    store.dispatch('resetRangeFilter');
-
-    return { store, filter };
-  },
   data() {
     return {
       loading: true,
@@ -94,6 +83,10 @@ export default {
       sortedArray: null,
       error: null,
       query: '',
+      filter: {
+        min: 0,
+        max: Infinity,
+      },
     }
   },
   computed: {
@@ -101,7 +94,7 @@ export default {
       const query = this.query.trim();
       const array = (this.sortedArray || this.array).filter(category => {
         return (
-          category.productCount >= this.filter.range.min && category.productCount <= this.filter.range.max
+          category.productCount >= this.filter.min && category.productCount <= this.filter.max
           && !(query && !productMatchesSearch(category.name + category.description, query))
         )
       });

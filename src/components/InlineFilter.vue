@@ -1,72 +1,75 @@
 <template>
   <span>{{ label }}</span>
   <span>
-    <input v-on:keypress.enter="filter" id="rangeMin" type="number" min="0" placeholder="min." oninput="validity.valid || (value='');">
+    <input
+      v-on:keypress.enter="filter"
+      id="rangeMin"
+      type="number"
+      min="0"
+      placeholder="min."
+      oninput="validity.valid || (value='');"
+    >
     hasta
-    <input v-on:keypress.enter="filter" id="rangeMax" type="number" min="0" placeholder="máx." oninput="validity.valid || (value='');">
+    <input
+      v-on:keypress.enter="filter"
+      id="rangeMax"
+      type="number"
+      min="0"
+      placeholder="máx."
+      oninput="validity.valid || (value='');"
+    >
     -
     <button @click="filter" class="filter">filtrar</button>
-    <button v-if="range.min || range.max != Infinity" @click="clear"><i class="fas fa-times-circle"></i></button>
+    <button v-if="modelValue.min || modelValue.max != Infinity" @click="clear"> <i class="fas fa-times-circle"></i> </button>
   </span>
 </template>
 
 <script>
-import { computed } from 'vue';
-import { useStore } from 'vuex';
-
 export default {
   name: 'InlineFilter',
   props: {
+    modelValue: Object,
     label: {
       type: String,
-    },
+    }
   },
-  created() {
-    this.$store.subscribe(mutation => {
-      if (mutation.type === 'setRangeFilter'
-        && !mutation.payload.min
-        && mutation.payload.max == Infinity
-        && this.inputMin
-        && this.inputMax) {
-        this.inputMin.value = null;
-        this.inputMax.value = null;
-      }
-    });
-  },
-  setup() {
-    const store = useStore();
-    const range = computed(() => store.state.filter.range);
-    return { store, range };
-  },
+  emits: ['update:modelValue'],
   computed: {
-    inputMin: () => document.getElementById('rangeMin'),
-    inputMax: () => document.getElementById('rangeMax'),
+    min: () => document.getElementById('rangeMin'),
+    max: () => document.getElementById('rangeMax'),
   },
   methods: {
     filter() {
-      const min = Number(this.inputMin.value);
-      const max = Number(this.inputMax.value);
+      const inputs = [this.min, this.max];
+      const min = Number(this.min.value);
+      const max = Number(this.max.value);
 
       if (!min && !max) {
-        [this.inputMin, this.inputMax].forEach(input => input.style.borderBottomColor = '#dd7e7e');
+        inputs.forEach(input => input.style.borderBottomColor = '#dd7e7e');
         return;
       } else {
-        [this.inputMin, this.inputMax].forEach(input => input.style.borderBottomColor = 'silver');
+        inputs.forEach(input => input.style.borderBottomColor = 'silver');
       }
 
       if (min && max && !(min < max)) {
-        [this.inputMin, this.inputMax].forEach(input => input.value = null);
+        inputs.forEach(input => input.value = null);
         return this.resetPriceRange();
       }
 
-      this.store.dispatch('updateRangeFilter', { min, max });
+      this.$emit('update:modelValue', {
+        min: min || 0,
+        max: max || Infinity,
+      });
     },
 
     clear() {
-      this.inputMin.value = null;
-      this.inputMax.value = null;
+      this.min.value = null;
+      this.max.value = null;
 
-      this.store.dispatch('resetRangeFilter');
+      this.$emit('update:modelValue', {
+        min: 0,
+        max: Infinity,
+      });
     },
   },
 }

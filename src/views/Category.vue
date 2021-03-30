@@ -2,7 +2,7 @@
   <main role="main" class="pb-5">
 
     <PageHeader :title="category || 'Cargando...'">
-      <InlineFilter label="Mostrando precios desde:" />
+      <InlineFilter v-model="filter" label="Mostrando precios desde:" />
     </PageHeader>
 
     <div class="container content">
@@ -56,8 +56,6 @@
 <script>
 import axios from 'axios';
 
-import { computed } from 'vue';
-import { useStore } from 'vuex';
 import { useRoute } from 'vue-router';
 import { ContentLoader } from 'vue-content-loader';
 
@@ -83,18 +81,16 @@ export default {
     ContentLoader,
   },
 
-  setup() {
-    const store = useStore();
-    const filter = computed(() => store.state.filter);
-    return { store, filter };
-  },
-
   data() {
     return {
       loading: true,
       array: null,
       sortedArray: null,
       query: '',
+      filter: {
+        min: 0,
+        max: Infinity,
+      },
     }
   },
 
@@ -122,7 +118,7 @@ export default {
       const query = this.query.trim();
       const array = (this.sortedArray || this.array).filter(product => {
         return (
-          product.cost >= this.filter.range.min && product.cost <= this.filter.range.max
+          product.cost >= this.filter.min && product.cost <= this.filter.max
           && !(query && !productMatchesSearch(product.name + product.briefDesc, query))
         )
       });
