@@ -124,7 +124,10 @@ export default {
 
     clearFilters() {
       this.clearSearch();
-      this.store.dispatch('resetRangeFilter');
+      this.filter = {
+        min: 0,
+        max: Infinity,
+      };
     },
 
     sortProducts(criteria) {
