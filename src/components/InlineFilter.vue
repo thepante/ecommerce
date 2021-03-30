@@ -6,6 +6,7 @@
       id="rangeMin"
       type="number"
       min="0"
+      :value="modelValue.min || ''"
       placeholder="min."
       oninput="validity.valid || (value='');"
     >
@@ -15,6 +16,7 @@
       id="rangeMax"
       type="number"
       min="0"
+      :value="modelValue.max"
       placeholder="máx."
       oninput="validity.valid || (value='');"
     >
