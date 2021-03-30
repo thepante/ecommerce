@@ -7,7 +7,7 @@
 
     <div class="container content">
       <div id="options" class="row">
-        <TextFilter />
+        <TextFilter v-model="query" />
         <SortButtons type="categories" @selection="sortProducts" />
       </div>
 
@@ -84,7 +84,6 @@ export default {
 
     // ensure to work with default values at page load
     store.dispatch('resetRangeFilter');
-    store.state.filter.query = '';
 
     return { store, filter };
   },
@@ -94,11 +93,12 @@ export default {
       array: null,
       sortedArray: null,
       error: null,
+      query: '',
     }
   },
   computed: {
     categories() {
-      const query = this.filter.query.trim();
+      const query = this.query.trim();
       const array = (this.sortedArray || this.array).filter(category => {
         return (
           category.productCount >= this.filter.range.min && category.productCount <= this.filter.range.max
@@ -126,7 +126,7 @@ export default {
     },
 
     clearSearch() {
-      this.filter.query = '';
+      this.query = '';
     },
 
     clearFilters() {
@@ -146,8 +146,8 @@ export default {
 
     // if needed, highlights query that matches in product name/description
     processContent(content) {
-      if (this.filter.query) {
-        const query = this.filter.query.trim();
+      if (this.query) {
+        const query = this.query.trim();
         let result = '';
         let scan = true;
         let from = 0;

@@ -7,7 +7,6 @@ const store = createStore({
       subtitle: 'Todo lo que busques está aquí',
       count: 0,
       filter: {
-        query: '',
         range: {
           min: 0,
           max: Infinity,

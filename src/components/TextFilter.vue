@@ -1,22 +1,37 @@
 <template>
   <div class="col-md-4">
-    <input v-model="$store.state.filter.query" class="form-control form-control-sm ml-3" type="text" placeholder="Buscar..." aria-label="Buscar...">
-    <i v-if="$store.state.filter.query" @click="clear" class="fas fa-times-circle" aria-hidden="true"></i>
+    <input
+      type="text"
+      @input="onChanged"
+      :value="modelValue"
+      :placeholder="placeholder"
+      :aria-label="placeholder"
+      class="form-control form-control-sm ml-3"
+    >
+    <i v-if="modelValue" @click="clear" class="fas fa-times-circle" aria-hidden="true"></i>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'TextFilter',
   props: {
-    text: {
+    modelValue: String,
+    placeholder: {
       type: String,
-    }
-  },
-  methods: {
-    clear() {
-      this.$store.state.filter.query = '';
+      default: 'Buscar...',
     },
+  },
+  emits: ['update:modelValue'],
+  setup(props, { emit }) {
+    function onChanged(e) {
+      emit('update:modelValue', e.currentTarget.value);
+    }
+
+    function clear() {
+      emit('update:modelValue', '');
+    }
+
+    return { onChanged, clear };
   },
 }
 </script>
