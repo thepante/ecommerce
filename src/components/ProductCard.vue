@@ -8,7 +8,7 @@
         <div class="col info">
           <div class="d-flex w-100 justify-content-between">
             <h4 class="mb-2 pl-0" v-html="name"></h4>
-            <small>{{ soldCount }} vendidos</small>
+            <small>{{ soldCount }} {{ cost ? 'vendidos' : 'productos' }}</small>
           </div>
           <p v-if="cost"><span class="badge badge-secondary">{{ currency }} {{ cost.asPrice() }}</span></p>
           <p class="list-desc" v-html="description"></p>
