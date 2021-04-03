@@ -1,27 +1,36 @@
 ### Get home data
+# @name GetHome
 GET http://localhost:3000/api/home
 
 ### Get all categories
+# @name GetCategories
 GET http://localhost:3000/api/categories
 
 ### Get a single category info
+# @name GetCategory
 GET http://localhost:3000/api/category/5fc270b37e047b1a44320ba6
 
 ### Get products by category id
+# @name GetProducts
 GET http://localhost:3000/api/products?cat=5fc270b37e047b1a44320ba6
 
 ### Get products by category name
+# @name GetProducts
 GET http://localhost:3000/api/products?catName=autos
 
 ### Get products by category id, between a price range
+# @name GetPorducts
 GET http://localhost:3000/api/products?cat=5fc270b37e047b1a44320ba6&minprice=13000&maxprice=14000
 
 ### Get products by category name, between a price range
+# @name GetPorducts
 GET http://localhost:3000/api/products?catName=autos&minprice=13000&maxprice=14000
 
-### Get a single product info
+###
+# @name GetProduct
 GET http://localhost:3000/api/product/nlx7JuC9
 
 ### Get product comments
+# @name GetComments
 GET http://localhost:3000/api/comments/nlx7JuC9
 
