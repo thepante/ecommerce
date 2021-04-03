@@ -1,7 +1,7 @@
 <template>
   <main role="main" class="pb-5">
 
-    <PageHeader :title="category || 'Cargando...'">
+    <PageHeader :title="category">
       <InlineFilter v-model="filter" label="Mostrando precios desde:" />
     </PageHeader>
 
@@ -94,12 +94,14 @@ export default {
     }
   },
 
-  mounted() {
+  setup() {
     const route = useRoute();
-    const category = route.params.category;
-    this.category = category.capitalized();
+    const category = route.params.category.capitalized();
+    return { category };
+  },
 
-    axios.get(`/api/products?catName=${category}`)
+  mounted() {
+    axios.get(`/api/products?catName=${this.category}`)
       .then(response => {
         this.array = response.data.products;
         this.loading = false;
