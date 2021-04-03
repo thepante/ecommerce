@@ -19,14 +19,14 @@ GET http://localhost:3000/api/products?cat=5fc270b37e047b1a44320ba6
 GET http://localhost:3000/api/products?catName=autos
 
 ### Get products by category id, between a price range
-# @name GetPorducts
+# @name GetProducts
 GET http://localhost:3000/api/products?cat=5fc270b37e047b1a44320ba6&minprice=13000&maxprice=14000
 
 ### Get products by category name, between a price range
-# @name GetPorducts
+# @name GetProducts
 GET http://localhost:3000/api/products?catName=autos&minprice=13000&maxprice=14000
 
-###
+### Get a product info
 # @name GetProduct
 GET http://localhost:3000/api/product/nlx7JuC9
 
