@@ -28,26 +28,16 @@
             </thead>
             <tbody id="cart-articles">
 
-              <tr v-for="(product, index) in articles" :key="index" id="item${i}">
-                <td><img :src="require(`@/${product.src}`)" /></td>
-                <td>{{ product.name }}</td>
-                <td class="price unitCost">{{ product.currency }} {{ product.unitCost.asPrice() }}</td>
-                <td>
-                  <button @click="changeAmount(index, -1)">
-                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
-                    </svg>
-                  </button>
-                  <input type="number" min="1" class="productCount" v-model="articles[index].count" onchange="calcSubtotal('item${i}')" />
-                  <button @click="changeAmount(index, 1)">
-                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                    </svg>
-                  </button>
-                </td>
-                <td class="price"> {{ product.currency }} <span subtotal>{{ (product.unitCost * product.count).asPrice() }}</span></td>
-                <td><span @click="removeItem(index)" :title="`Eliminar '${product.name}' del carrito`"><i class="fas fa-times"></i></span></td>
-              </tr>
+              <CartProduct
+                v-for="(product, index) in articles"
+                :key="index"
+                id="item${i}"
+                :name="product.name"
+                :currency="product.currency"
+                :unitCost="product.unitCost"
+                :image="product.src"
+                v-model="product.count"
+              />
 
             </tbody>
           </table>
@@ -233,6 +223,7 @@ import { computed } from 'vue';
 import { useStore } from 'vuex';
 
 import PageHeader from '../components/PageHeader.vue';
+import CartProduct from '../components/CartProduct.vue';
 import PaymentModal from '../components/PaymentModal.vue';
 import SpinnerLoading from '../components/SpinnerLoading.vue';
 
@@ -243,6 +234,7 @@ export default {
     PageHeader,
     PaymentModal,
     SpinnerLoading,
+    CartProduct,
   },
   data() {
     return {
@@ -518,116 +510,9 @@ export default {
   vertical-align: middle;
 }
 
-#cart-list thead th,
-#cart-list tbody input,
-#cart-list tbody td:last-child,
-#cart-list tbody td:nth-child(3),
-#cart-list tbody td:nth-child(4),
-#cart-list tbody td:nth-child(5) {
-  text-align: center;
-}
-
 #cart-list thead th {
   color: #727272;
-}
-
-#cart-list tfoot th:first-child {
-  text-align: right;
-}
-
-#cart-list tfoot th:last-child {
   text-align: center;
-}
-
-#cart-list tfoot td,
-#cart-list tbody td:nth-child(2),
-#cart-list tbody td:nth-child(5) {
-  font-weight: 700;
-}
-
-#cart-list td:last-of-type {
-  position: relative;
-}
-#cart-list td:last-of-type span {
-  line-height: 4rem;
-  font-size: 1rem;
-  cursor: pointer;
-  opacity: .5;
-  transition: all .3s ease-in-out;
-  z-index: 999;
-}
-
-#cart-list tr:hover td:last-of-type span {
-  opacity: 1;
-}
-
-#cart-list tr td:last-of-type span i {
-  width: 24px;
-  height: 24px;
-}
-
-#cart-list img {
-  height: 3rem;
-  width: 3.75rem;
-}
-
-#cart-list input {
-  width: 2rem;
-}
-
-#cart-list input,
-#cart-list input::-webkit-inner-spin-button,
-#cart-list input::-webkit-outer-spin-button {
-  background: #f3f3f3;
-  border-radius: .2rem;
-  appearance: none !important;
-  -webkit-appearance: none !important;
-  -moz-appearance: textfield !important;
-  outline: none;
-  border: none;
-  margin: 0;
-}
-
-#cart-list button {
-  background: transparent;
-  appearance: none;
-  border: none;
-  padding: .2rem !important;
-  color: #525252;
-}
-
-#cart-list i.fa-times {
-  transition: all .2s ease-in-out;
-}
-
-#cart-list i.fa-times:hover {
-  color: #a83a3a !important;
-}
-
-#cart-list tbody tr {
-  transition: all .2s ease-in-out;
-}
-
-#cart-list tr td {
-  transition: all .2s ease-in-out;
-}
-
-#cart-list tr td img {
-  mix-blend-mode: multiply;
-}
-
-#cart-list tbody:hover tr {
-  opacity: 0.7;
-}
-
-#cart-list tbody tr:hover {
-  opacity: 1;
-  background: #fafafa8a;
-  box-shadow: 0 4px 10px -1px rgba(154,160,185,.1);
-}
-
-#cart-list tbody tr:hover + tr td {
-  border-top-color: transparent !important;
 }
 
 #checkout-section {
