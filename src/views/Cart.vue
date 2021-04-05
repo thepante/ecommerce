@@ -51,60 +51,6 @@
               <!-- dirección -->
               <div class="col">
                 <CartAddressEdit />
-                <!--
-                <div class="card-body">
-                  <h6 class="mb-2 mb-0">Dirección de envío:</h6>
-
-                  <div v-if="isEditingShippingInfo || !user.address" id="address-edit" class="needs-validation">
-                    <div id="cancel-edit-address" v-if="user.address" @click="() => isEditingShippingInfo = false" title="Cancelar cambios"><i class="fas fa-times-circle"></i></div>
-                    <label for="country">País:</label>
-                    <select class="form-control" id="address-country" required>
-                      <option>Uruguay</option>
-                      <option>Argentina</option>
-                      <option>Brasil</option>
-                      <option>Chile</option>
-                      <option>Paraguay</option>
-                    </select>
-                    <br>
-                    <div class="row">
-                      <div class="col-8 form-label-group">
-                        <input type="text" id="address-street" :value="user.address ? user.address.street : ''" placeholder="Calle" class="form-control" required>
-                        <label for="address-st">Calle</label>
-                      </div>
-                      <div class="col form-label-group">
-                        <input type="text" id="address-number" :value="user.address ? user.address.number : ''" placeholder="Puerta" class="form-control" required>
-                        <label for="address-number">Puerta</label>
-                      </div>
-                    </div>
-                    <br>
-                    <div class="form-label-group">
-                      <input type="text" id="address-corner" :value="user.address ? user.address.corner : ''" placeholder="Esquina" class="form-control" required>
-                      <label for="address-corner">Esquina</label>
-                    </div>
-                    <button @click="saveAddress" id="saveShippingBtn" type="button" class="btn btn-primary btn-block mt-4 checkout" >
-                      Establecer datos de envío <i class="fas fa-check"></i>
-                    </button>
-                  </div>
-
-                  <div v-else>
-
-                    <div id="edit-address" @click="() => isEditingShippingInfo = true" title="Editar dirección">
-                      <i class="fas fa-edit"></i>
-                    </div>
-
-                    <div id="shipping-info">
-                      {{user.address.country}}: <br>
-                      {{user.address.street}} {{user.address.number}}, {{user.address.corner}}
-                    </div>
-
-                  </div>
-
-                  <div id="shipping-info" style="display: none;">
-                  </div>
-
-                </div>
-                -->
-
               </div>
 
               <!-- tipo de envío -->
@@ -263,7 +209,6 @@ export default {
       inputCouponCode: null,
       paymentMethod: null,
       shippingInfo: null,
-      isEditingShippingInfo: false,
     }
   },
 
