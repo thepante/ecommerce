@@ -50,6 +50,8 @@
             <div class="row">
               <!-- dirección -->
               <div class="col">
+                <CartAddressEdit />
+                <!--
                 <div class="card-body">
                   <h6 class="mb-2 mb-0">Dirección de envío:</h6>
 
@@ -101,6 +103,8 @@
                   </div>
 
                 </div>
+                -->
+
               </div>
 
               <!-- tipo de envío -->
@@ -224,6 +228,7 @@ import { useStore } from 'vuex';
 
 import PageHeader from '../components/PageHeader.vue';
 import CartProduct from '../components/CartProduct.vue';
+import CartAddressEdit from '../components/CartAddressEdit.vue';
 import PaymentModal from '../components/PaymentModal.vue';
 import SpinnerLoading from '../components/SpinnerLoading.vue';
 
@@ -235,6 +240,7 @@ export default {
     PaymentModal,
     SpinnerLoading,
     CartProduct,
+    CartAddressEdit,
   },
   data() {
     return {
@@ -316,15 +322,6 @@ export default {
       return {
         card: document.getElementById('checkout-card'),
         transfer: document.getElementById('checkout-transfer'),
-      }
-    },
-
-    ADDRESS_FORM() {
-      return {
-        country: document.getElementById('address-country'),
-        street: document.getElementById('address-street'),
-        number: document.getElementById('address-number'),
-        corner: document.getElementById('address-corner'),
       }
     },
 
@@ -430,22 +427,6 @@ export default {
 
     paymentCompleted() {
       this.articles = [];
-    },
-
-    isAddressFilled() {
-      return Object.values(this.ADDRESS_FORM).every(input => input.value.trim() !== '');
-    },
-
-    saveAddress() {
-      if (this.isAddressFilled()) {
-        const addressInfo = {};
-        for (const [key, input] of Object.entries(this.ADDRESS_FORM)) addressInfo[key] = input.value;
-
-        this.$store.state.user.address = addressInfo;
-        this.$store.commit('saveUser');
-      } else {
-        document.getElementById('address-edit').classList.add('was-validated');
-      }
     },
 
     applyCoupon() {
@@ -607,34 +588,6 @@ export default {
   margin-left: .5rem;
 }
 
-#shipping-info {
-  font-family: 'Roboto', sans-serif;
-  font-size: .8rem;
-  font-weight: 700;
-  color: #686868;
-}
-
-#edit-address,
-#cancel-edit-address {
-  position: relative;
-  float: right;
-  top: .2rem;
-  cursor: pointer;
-  color: #535353;
-  font-size: .8rem;
-  opacity: 0.6;
-  transition: all .2s ease-in-out;
-}
-
-#edit-address:hover,
-#cancel-edit-address:hover {
-  opacity: 1;
-}
-
-#address-country option {
-  font-family: 'Roboto', sans-serif;
-}
-
 .empty-cart {
   text-align: center;
 }
@@ -642,12 +595,6 @@ export default {
 .empty-cart a {
   text-decoration: none;
   color: #998469;
-}
-
-/* Floating labels fix: cart -> datos de envío */
-.form-label-group.col label,
-.form-label-group.col-8 label {
-  padding-left: 1.7rem;
 }
 
 .filters .btn {
