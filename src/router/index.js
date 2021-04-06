@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
+
 import Home from '../views/Home.vue';
 import PageNotFound from '../views/PageNotFound.vue';
 import Categories from '../views/Categories.vue';
 import Category from '../views/Category.vue';
-import Products from '../views/Products.vue';
 import Product from '../views/Product.vue';
 import Profile from '../views/Profile.vue';
 import Sell from '../views/Sell.vue';
@@ -20,12 +20,6 @@ const routes = [
     path: '/categories',
     name: 'Categorías',
     component: Categories,
-    meta: { title: 'Productos' },
-  },
-  {
-    path: '/products',
-    name: 'Products',
-    component: Products,
     meta: { title: 'Productos' },
   },
   {

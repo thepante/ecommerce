@@ -172,11 +172,11 @@ import axios from 'axios';
 import { computed } from 'vue';
 import { useStore } from 'vuex';
 
-import PageHeader from '../components/PageHeader.vue';
-import CartProduct from '../components/CartProduct.vue';
-import CartAddressEdit from '../components/CartAddressEdit.vue';
-import PaymentModal from '../components/PaymentModal.vue';
-import SpinnerLoading from '../components/SpinnerLoading.vue';
+import PageHeader from '../components/General/PageHeader.vue';
+import CartProduct from '../components/Cart/CartProduct.vue';
+import CartAddressEdit from '../components/Cart/CartAddressEdit.vue';
+import PaymentModal from '../components/Cart/PaymentModal.vue';
+import SpinnerLoading from '../components/General/SpinnerLoading.vue';
 
 export default {
   name: 'Cart',

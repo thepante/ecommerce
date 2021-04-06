@@ -35,7 +35,7 @@
 
 <script>
 import { ContentLoader } from 'vue-content-loader';
-import RelatedProductCard from '../components/RelatedProductCard.vue';
+import RelatedProductCard from './RelatedProductCard.vue';
 
 export default {
   name: 'RelatedProducts',
@@ -43,7 +43,6 @@ export default {
   props: {
     products: {
       type: Array,
-      required: true,
     },
   },
 }

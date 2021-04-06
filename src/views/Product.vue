@@ -34,10 +34,10 @@
 import axios from 'axios';
 import { useRoute } from 'vue-router';
 
-import ImageSlideshow from '../components/ImageSlideshow.vue';
-import ProductInfoSection from '../components/ProductInfoSection.vue';
-import CommentsSection from '../components/CommentsSection.vue';
-import RelatedProducts from '../components/RelatedProducts.vue';
+import ImageSlideshow from '../components/ProductView/ImageSlideshow.vue';
+import ProductInfoSection from '../components/ProductView/ProductInfoSection.vue';
+import CommentsSection from '../components/ProductView/CommentsSection.vue';
+import RelatedProducts from '../components/ProductView/RelatedProducts.vue';
 
 export default {
   name: 'ProductInfo',

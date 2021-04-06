@@ -40,7 +40,6 @@ export default {
     },
     avatar: {
       type: String,
-      required: true,
     },
     id: {
       type: String,
@@ -108,8 +107,6 @@ export default {
 .dark-grey-text {
   font-size: 0.9rem;
 }
-
-
 
 </style>
 

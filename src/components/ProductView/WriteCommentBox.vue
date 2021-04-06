@@ -2,10 +2,7 @@
   <div id="write-comment">
 
     <div v-if="!user" class="alert-light">
-      <!--
-      <router-link to="/login" class="alert-link">Inicia sesión</router-link> para dejar el tuyo.
-      -->
-      <router-link :to="{ name: 'Login', params: { fromPath: 'product/5fc274ea7e047b1a44320baf' } }" class="alert-link">Inicia sesión</router-link> para dejar el tuyo.
+      <router-link :to="{ name: 'Login', params: { msg: 'Inicia sesión para calificar este producto' } }" class="alert-link">Inicia sesión</router-link> para dejar el tuyo.
     </div>
 
     <div v-if="user">

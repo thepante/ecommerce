@@ -41,8 +41,8 @@
 import axios from 'axios';
 
 import { ContentLoader } from 'vue-content-loader';
-import CommentCard from '../components/CommentCard.vue';
-import WriteCommentBox from '../components/WriteCommentBox.vue';
+import CommentCard from './CommentCard.vue';
+import WriteCommentBox from './WriteCommentBox.vue';
 
 export default {
   name: 'CommentsSection',
@@ -50,7 +50,6 @@ export default {
   props: {
     productid: {
       type: String,
-      required: true,
     },
   },
   data() {
@@ -78,8 +77,6 @@ export default {
         productId: this.productid,
         dateTime: new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
       }
-
-      /* this.comments.push(newComment); */
 
       fetch('/api/comment', {
         method: 'POST',

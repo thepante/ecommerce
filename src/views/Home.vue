@@ -8,8 +8,8 @@
 <script>
 import axios from 'axios';
 
-import HomeHeader from '../components/HomeHeader.vue';
-import MainCategories from '../components/MainCategories.vue';
+import HomeHeader from '../components/Home/HomeHeader.vue';
+import MainCategories from '../components/Home/MainCategories.vue';
 
 export default {
   name: 'Home',

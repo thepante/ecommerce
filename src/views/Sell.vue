@@ -173,7 +173,7 @@
 </template>
 
 <script>
-import PageHeader from '../components/PageHeader.vue';
+import PageHeader from '../components/General/PageHeader.vue';
 
 export default {
   name: 'Sell',

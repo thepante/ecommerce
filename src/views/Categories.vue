@@ -55,12 +55,12 @@ import axios from 'axios';
 
 import { ContentLoader } from 'vue-content-loader';
 
-import PageHeader from '../components/PageHeader.vue';
-import InlineFilter from '../components/InlineFilter.vue';
-import TextFilter from '../components/TextFilter.vue';
-import SortButtons from '../components/SortButtons.vue';
-import ProductCard from '../components/ProductCard.vue';
-import NoResultsCard from '../components/NoResultsCard.vue';
+import PageHeader from '../components/General/PageHeader.vue';
+import InlineFilter from '../components/ListingView/InlineFilter.vue';
+import TextFilter from '../components/ListingView/TextFilter.vue';
+import SortButtons from '../components/ListingView/SortButtons.vue';
+import ProductCard from '../components/ListingView/ProductCard.vue';
+import NoResultsCard from '../components/ListingView/NoResultsCard.vue';
 
 // define if products matches with text query
 const productMatchesSearch = (content, query) => ~content.toLowerCase().indexOf(query.toLowerCase());

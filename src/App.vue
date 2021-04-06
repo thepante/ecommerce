@@ -7,8 +7,8 @@
 <script>
 import { useStore } from 'vuex';
 
-import NavBar from './components/NavBar.vue';
-import Footer from './components/Footer.vue';
+import NavBar from './components/General/NavBar.vue';
+import Footer from './components/General/Footer.vue';
 
 Number.asPrice = Number.prototype.asPrice = function(){
   let num = this;
