@@ -37,6 +37,7 @@
                 :unitCost="product.unitCost"
                 :image="product.src"
                 v-model="product.count"
+                @deleted="removeItem(index)"
               />
 
             </tbody>

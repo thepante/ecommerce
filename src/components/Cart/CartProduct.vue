@@ -25,7 +25,7 @@
       </button>
     </td>
     <td class="price"> {{ currency }} <span subtotal>{{ subtotal }}</span></td>
-    <td><span @click="removeItem(index)" :title="`Eliminar '${name}' del carrito`"><i class="fas fa-times"></i></span></td>
+    <td><span @click="deleteItem" :title="`Eliminar '${name}' del carrito`"><i class="fas fa-times"></i></span></td>
   </tr>
 </template>
 
@@ -73,6 +73,10 @@ export default {
       if (newValue > 0) {
         this.$emit('update:modelValue', newValue);
       }
+    },
+
+    deleteItem() {
+      this.$emit('deleted');
     },
   },
 }
