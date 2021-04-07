@@ -73,7 +73,13 @@ i {
   float: left;
   margin-left: -1.125rem;
   cursor: pointer;
+  opacity: 0.7;
+  transition: opacity .2s ease-in-out;
   z-index: 999;
+
+  &:hover {
+    opacity: 1;
+  }
 }
 
 </style>
