@@ -1,7 +1,7 @@
 <template>
   <template v-if="images">
     <div @mouseover="mouseOver" @mouseleave="mouseOver" class="img-big-wrap">
-      <div id="preview-img" :style="`background-image: url(${require(`@/img/product/${id}/${images[onDisplay]}`)});`" >
+      <div id="preview-img" :style="`background-image: url(${images[onDisplay]});`" >
         <div v-if="areMultipleImgs" id="controls">
           <i @click="changeImagePrev" class="fas fa-chevron-left"></i>
           <i @click="changeImageNext" class="fas fa-chevron-right"></i>
@@ -16,7 +16,7 @@
         @click="changeImageTo(index)"
         class="item-gallery"
         :class="onDisplay == index ? 'selected' : ''"
-        :style="`background-image: url(${require(`@/img/product/${id}/${image}`)});`"
+        :style="`background-image: url(${image});`"
       />
     </div>
   </template>

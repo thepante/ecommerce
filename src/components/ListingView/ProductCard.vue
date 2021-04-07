@@ -3,7 +3,7 @@
     <div class="card">
       <div class="row" style="display: inherit;">
         <div class="col-3">
-          <img :src="require(`@/${image}`)" :alt="name">
+          <img :src="cost ? image : require(`@/${image}`)" :alt="name">
         </div>
         <div class="col info">
           <div class="d-flex w-100 justify-content-between">
