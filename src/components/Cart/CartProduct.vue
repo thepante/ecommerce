@@ -1,6 +1,6 @@
 <template>
   <tr>
-    <td><img :src="require(`@/${image}`)" /></td>
+    <td><img :src="image.match('https://') ? image : require(`@/${image}`)" /></td>
     <td>{{ name }}</td>
     <td class="price unitCost">{{ currency }} {{ unitCost.asPrice() }}</td>
     <td>

@@ -35,7 +35,7 @@
                 :name="product.name"
                 :currency="product.currency"
                 :unitCost="product.unitCost"
-                :image="product.src"
+                :image="product.img"
                 v-model="product.count"
                 @deleted="removeItem(index)"
               />
