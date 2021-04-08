@@ -7,7 +7,7 @@ const commentSchema = new Schema({
   user: String,
   description: String,
   score: Number,
-  dateTime: String,
+  timestamp: Number,
   avatar: String,
   temp: Boolean,
 });

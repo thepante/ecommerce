@@ -206,6 +206,7 @@ async function publishComment(req, res) {
   try {
     req.body.temp = true;
     const comment = new Comment(req.body);
+    comment.timestamp = new Date().getTime();
     await comment.save();
     res.send(comment.toObject()._id);
   } catch (error) {

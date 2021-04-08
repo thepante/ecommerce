@@ -34,8 +34,8 @@ export default {
       type: Number,
       required: true,
     },
-    dateTime: {
-      type: String,
+    timestamp: {
+      type: Number,
       required: true,
     },
     avatar: {
@@ -46,11 +46,15 @@ export default {
       required: true,
     },
   },
+
   computed: {
 
     date() {
-      const date = this.dateTime;
-      return date.slice(8, 10) +'/'+ date.slice(5, 7) +'/'+ date.slice(0, 4)
+      return new Intl.DateTimeFormat([]).format(this.timestamp);
+    },
+
+    dateTime() {
+      return new Intl.DateTimeFormat([], { dateStyle: 'full', timeStyle: 'short' }).format(this.timestamp);
     },
 
   },

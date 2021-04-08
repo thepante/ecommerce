@@ -8,7 +8,7 @@
           :username="comment.user"
           :content="comment.description"
           :score="comment.score"
-          :dateTime="comment.dateTime"
+          :timestamp="comment.timestamp"
           :avatar="comment.avatar"
           :id="comment._id"
         />
@@ -75,7 +75,6 @@ export default {
         avatar,
         description: content,
         productId: this.productid,
-        dateTime: new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
       }
 
       fetch('/api/comment', {
