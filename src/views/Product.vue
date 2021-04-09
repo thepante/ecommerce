@@ -4,7 +4,7 @@
       <div class="row">
         <aside class="col-md-6 border-right mr-3 mr-md-0 pr-0">
           <article class="gallery-wrap">
-            <ImageSlideshow :images="product ? product.images : null" />
+            <ImageSlideshow :images="product?.images" />
           </article>
         </aside>
         <aside class="col-md-6">
@@ -25,7 +25,7 @@
       <h5>Productos relacionados</h5>
     </div>
 
-    <RelatedProducts :key="productid" :products="product ? product.related : null" />
+    <RelatedProducts :key="productid" :products="product?.related" />
 
   </div>
 </template>

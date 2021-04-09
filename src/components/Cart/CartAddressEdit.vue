@@ -15,17 +15,17 @@
       <br>
       <div class="row">
         <div class="col-8 form-label-group">
-          <input type="text" ref="street" :value="user.address ? user.address.street : ''" placeholder="Calle" class="form-control" required>
+          <input type="text" ref="street" :value="user.address?.street" placeholder="Calle" class="form-control" required>
           <label for="address-st">Calle</label>
         </div>
         <div class="col form-label-group">
-          <input type="text" ref="number" :value="user.address ? user.address.number : ''" placeholder="Puerta" class="form-control" required>
+          <input type="text" ref="number" :value="user.address?.number" placeholder="Puerta" class="form-control" required>
           <label for="address-number">Puerta</label>
         </div>
       </div>
       <br>
       <div class="form-label-group">
-        <input type="text" ref="corner" :value="user.address ? user.address.corner : ''" placeholder="Esquina" class="form-control" required>
+        <input type="text" ref="corner" :value="user.address?.corner" placeholder="Esquina" class="form-control" required>
         <label for="address-corner">Esquina</label>
       </div>
       <button @click="saveAddress" id="saveShippingBtn" type="button" class="btn btn-primary btn-block mt-4 checkout" >
