@@ -31,7 +31,6 @@
               <CartProduct
                 v-for="(product, index) in articles"
                 :key="index"
-                id="item${i}"
                 :name="product.name"
                 :currency="product.currency"
                 :unitCost="product.unitCost"
