@@ -84,9 +84,8 @@ export default {
       if (validForm) {
         localStorage.setItem('Logged-User', JSON.stringify({ username: this.username }));
         this.$store.commit('initStore');
-        console.info(this.from.continue)
         this.$router.push({
-          path: this.query.continue,
+          path: this.query.continue || this.from.path,
         });
         this.loginOut = false;
       }
