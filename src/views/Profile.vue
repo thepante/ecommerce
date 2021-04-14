@@ -114,24 +114,10 @@ export default {
     return { store, user };
   },
   mounted() {
-    if (this.user) {
-      this.userPicIsDefault() && (this.hasDefaultPic = true);
-      this.labelDeletePic = this.LABELS.DELETE;
-    } else {
-      this.loginRedir();
-    }
+    this.userPicIsDefault() && (this.hasDefaultPic = true);
+    this.labelDeletePic = this.LABELS.DELETE;
   },
   methods: {
-
-    loginRedir() {
-      this.$router.push({
-        name: 'Login',
-        params: {
-          msg: 'Debes estar logueado para acceder a los ajustes de perfil',
-          from: 'Profile',
-        }
-      });
-    },
 
     pictureDisplayed() {
       return this.profilePicture.style.backgroundImage.slice(4, -1).replace(/["']/g, "");

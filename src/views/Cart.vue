@@ -222,8 +222,6 @@ export default {
 
 
   mounted() {
-    if (!this.$store.state.user) this.loginRedir();
-
     const savedCurrencyPreference = localStorage.getItem('currency');
     this.SELECTED.CURRENCY = savedCurrencyPreference ? JSON.parse(savedCurrencyPreference).selected : this.CURRENCY_DOLLAR;
 
@@ -394,16 +392,6 @@ export default {
         this.couponInput.style.color = '#dd8585';
         this.discountedAmount = null;
       }
-    },
-
-    loginRedir() {
-      this.$router.push({
-        name: 'Login',
-        params: {
-          msg: 'Debes estar logueado para acceder a tu carrito de compras',
-          from: 'Cart',
-        }
-      });
     },
 
   },
