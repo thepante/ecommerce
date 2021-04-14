@@ -65,6 +65,7 @@ export default {
   mounted() {
     const route = useRoute();
     this.params = route.params;
+    this.query  = route.query;
 
     if (this.$store.state.user && !this.params.logout) this.$router.push({ name: 'Home' });
 
@@ -83,8 +84,9 @@ export default {
       if (validForm) {
         localStorage.setItem('Logged-User', JSON.stringify({ username: this.username }));
         this.$store.commit('initStore');
+        console.info(this.from.continue)
         this.$router.push({
-          path: this.from.path,
+          path: this.query.continue,
         });
         this.loginOut = false;
       }

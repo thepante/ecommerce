@@ -36,7 +36,11 @@ const routes = [
     path: '/profile',
     name: 'Profile',
     component: Profile,
-    meta: { title: 'Mi Perfil' },
+    meta: {
+      title: 'Mi Perfil',
+      redirName: 'los ajustes de perfil',
+      authRequired: true,
+    },
   },
   {
     path: '/sell',
@@ -48,7 +52,11 @@ const routes = [
     path: '/cart',
     name: 'Cart',
     component: Cart,
-    meta: { title: 'Mi Carrito' },
+    meta: {
+      title: 'Mi Carrito',
+      redirName: 'tu carrito de compras',
+      authRequired: true,
+    },
   },
   {
     path: '/login',
@@ -60,7 +68,10 @@ const routes = [
     path: '/logout',
     name: 'Logout',
     component: Access,
-    meta: { title: 'Cerrar sesión' },
+    meta: {
+      title: 'Cerrar sesión',
+      authRequired: true,
+    },
   },
   {
     path: '/:pathMatch(.*)*',
@@ -75,6 +86,35 @@ const router = createRouter({
     return savedPosition || { top: 0 };
   },
   routes,
-})
+});
 
-export default router
+
+
+router.beforeEach((to, from, next) => {
+
+  // Logged user can't go to login page again
+  if (to.name === 'login' && localStorage.getItem('Logged-User')) {
+    router.push({ name: 'Home' });
+
+  // If route requires authentication
+  } else if (to.meta.authRequired) {
+    if (!localStorage.getItem('Logged-User')) {
+      router.push({
+        name: 'Login',
+        params: {
+          msg: `Debes estar logueado para acceder a ${to.meta.redirName}`,
+        },
+        query: {
+          continue: to.name.toLowerCase(),
+        }
+      });
+    }
+  }
+
+  return next();
+
+});
+
+
+export default router;
+
